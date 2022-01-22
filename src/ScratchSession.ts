@@ -1,4 +1,4 @@
-// manages authentication
+// manages authentication, and is the main handler of every other function
 /**
  * Logs into Scratch
  */

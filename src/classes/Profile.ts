@@ -65,7 +65,7 @@ class Profile {
   }
 
   /**
-   * 
+   * Gets comments on the user's profile
    * @param page The page to look at.
    * @returns {Array} An array of comments. There is id, username, content, and apiID keys.
    * apiID is used to input into deleteComment

@@ -12,11 +12,6 @@ class Profile {
     this.auth = session;
   }
 
-  async init() {
-
-
-  }
-
   async getStatus() {
     const dom = new JSDOM(await this.getUserHTML());
     return dom.window.document.querySelector(".group").innerHTML.trim();

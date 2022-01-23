@@ -53,6 +53,49 @@ class Profile {
     }
     return this.scratchUserHTML;
   }
+
+
+  async getComments(page: number = 1) {
+    const commentFetch = await fetch(
+      `https://scratch.mit.edu/site-api/comments/user/${this.user}/?page=${page}`
+    );
+    if (!commentFetch.ok) {
+      if (page == 1) {
+        throw new Error("! Error in fetching comments");
+      } else {
+        return [];
+      }
+    }
+    const commentHTML = await commentFetch.text();
+    const dom = new JSDOM(commentHTML);
+    const items = dom.window.document.getElementsByClassName("top-level-reply");
+  
+    let comments = [];
+    for (let elID in items) {
+      const element = items[elID];
+      if (typeof element == "function") break;
+      const commentID = element.getElementsByClassName("comment")[0].id;
+      const commentPoster = element
+        .getElementsByClassName("comment")[0]
+        .getElementsByTagName("a")[0]
+        .getAttribute("data-comment-user");
+      const commentContent = element
+        .getElementsByClassName("comment")[0]
+        .getElementsByClassName("info")[0]
+        .getElementsByClassName("content")[0]
+        .innerHTML.trim();
+      comments.push({
+        id: commentID,
+        username: commentPoster,
+        content: commentContent,
+        apiID: commentID.substring(9),
+      });
+    }
+    if (comments.length == 0) {
+      throw new Error("No comments found.");
+    }
+    return comments;
+  }
 }
 
 export default Profile;

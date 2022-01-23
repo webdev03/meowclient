@@ -50,34 +50,9 @@ class ScratchSession {
       this.token +
       ";";
   }
-  async deleteComment(id) {
-    const delFetch = await fetch(
-      `https://scratch.mit.edu/site-api/comments/user/${this.username}/del/`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          id: id.toString(),
-        }),
-        headers: {
-          "x-csrftoken": this.csrfToken,
-          "X-Token": this.token,
-          "x-requested-with": "XMLHttpRequest",
-          Cookie: this.cookieSet,
-
-          referer: `https://scratch.mit.edu/users/${this.username}`,
-          "User-Agent": Consts.UserAgent,
-        },
-      }
-    );
-    if (!delFetch.ok) {
-      console.log(delFetch.status, await delFetch.text());
-      throw new Error("Error deleting comment.");
-    }
-    return delFetch.status;
-  }
 
   getProfile(username: string): Profile {
-    return new Profile(username);
+    return new Profile(username=username, this);
   }
 }
 

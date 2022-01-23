@@ -1,4 +1,7 @@
 // manages authentication, and is the main handler of every other function
+import Profile from "./classes/Profile";
+import fetch from "cross-fetch";
+
 /**
  * Logs into Scratch
  */
@@ -70,6 +73,10 @@ class ScratchSession {
       throw new Error("Error deleting comment.");
     }
     return delFetch.status;
+  }
+
+  getProfile(username: string): Profile {
+    return new Profile(username);
   }
 }
 

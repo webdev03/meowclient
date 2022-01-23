@@ -11,6 +11,12 @@ class ScratchSession {
   csrfToken: string;
   token: string;
   cookieSet: string;
+
+  /**
+   * Sets up the ScratchSession to use authenticated functions
+   * @param user The username of the user you want to log in to
+   * @param pass The password of the user you want to log in to
+   */
   async init(user: string, pass: string) {
     this.username = user;
     // a lot of this code is taken from

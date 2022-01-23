@@ -12,11 +12,21 @@ class Profile {
     this.auth = session;
   }
 
+  /**
+   * Gets the status of the user
+   * Can either be Scratcher, New Scratcher, or Scratch Team.
+   * @returns {string} The status of the user.
+   */
   async getStatus() {
     const dom = new JSDOM(await this.getUserHTML());
     return dom.window.document.querySelector(".group").innerHTML.trim();
   }
   
+  /**
+   * Deletes a comment
+   * @param id The comment ID, for example 12345, *not* comment-12345
+   * @returns {number} The status code of the request.
+   */
   async deleteComment(id: { toString: () => string; }) {
     const delFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/del/`,
@@ -54,7 +64,12 @@ class Profile {
     return this.scratchUserHTML;
   }
 
-
+  /**
+   * 
+   * @param page The page to look at.
+   * @returns {Array} An array of comments. There is id, username, content, and apiID keys.
+   * apiID is used to input into deleteComment
+   */
   async getComments(page: number = 1) {
     const commentFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/?page=${page}`

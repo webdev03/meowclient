@@ -8,7 +8,6 @@ import fetch from "cross-fetch";
  */
 class ScratchSession {
   username: string;
-  private _headersLogin: Headers;
   csrfToken: string;
   token: string;
   cookieSet: string;
@@ -35,7 +34,6 @@ class ScratchSession {
     if (!loginReq.ok) {
       throw new Error("Login failed.");
     }
-    this._headersLogin = loginReq.headers;
 
     // Awesome regexes by ScratchClient - https://github.com/CubeyTheCube/scratchclient/blob/main/scratchclient/ScratchSession.py
     this.csrfToken = /scratchcsrftoken=(.*?);/gm.exec(

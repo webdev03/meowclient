@@ -1,5 +1,6 @@
 // manages authentication, and is the main handler of every other function
 import Profile from "./classes/Profile";
+import Consts from "./Consts";
 import fetch from "cross-fetch";
 
 /**
@@ -21,7 +22,7 @@ class ScratchSession {
       "x-requested-with": "XMLHttpRequest",
       Cookie: "scratchcsrftoken=a;scratchlanguage=en;",
       referer: "https://scratch.mit.edu",
-      "user-agent": "Mozilla/5.0 ScratchSpamProtection",
+      "User-Agent": Consts.UserAgent,
     };
     const loginReq = await fetch("https://scratch.mit.edu/login/", {
       method: "POST",
@@ -64,7 +65,7 @@ class ScratchSession {
           Cookie: this.cookieSet,
 
           referer: `https://scratch.mit.edu/users/${this.username}`,
-          "user-agent": "Mozilla/5.0 ScratchSpamProtection",
+          "User-Agent": Consts.UserAgent,
         },
       }
     );

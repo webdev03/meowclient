@@ -1,15 +1,15 @@
 import fetch from "cross-fetch";
-import Consts from "../Consts";
+import { Session, UserAgent } from "../Consts";
 import { JSDOM } from "jsdom";
 
 class Profile {
   user: string;
   status: string;
   private scratchUserHTML: any;
-  auth: any;
+  session: Session;
   constructor(username: string, session: any) {
     this.user = username;
-    this.auth = session;
+    this.session = session;
   }
 
   /**
@@ -27,7 +27,7 @@ class Profile {
    * @param id The comment ID, for example 12345, *not* comment-12345
    * @returns {number} The status code of the request.
    */
-  async deleteComment(id: { toString: () => string; }) {
+  async deleteComment(id: string | number) {
     const delFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/del/`,
       {
@@ -36,13 +36,13 @@ class Profile {
           id: id.toString(),
         }),
         headers: {
-          "x-csrftoken": this.auth.csrfToken,
-          "X-Token": this.auth.token,
+          "x-csrftoken": this.session.csrfToken,
+          "X-Token": this.session.token,
           "x-requested-with": "XMLHttpRequest",
-          Cookie: this.auth.cookieSet,
+          Cookie: this.session.cookieSet,
 
           referer: `https://scratch.mit.edu/users/${this.user}`,
-          "User-Agent": Consts.UserAgent,
+          "User-Agent": UserAgent,
         },
       }
     );

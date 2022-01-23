@@ -4,3 +4,4 @@
 .Trashes
 dist/
 node_modules/
+localtest/

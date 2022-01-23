@@ -73,4 +73,4 @@ class ScratchSession {
   }
 }
 
-export { ScratchSession };
+export default ScratchSession;

@@ -61,7 +61,7 @@ class ScratchSession {
    * @returns {Profile} The profile of the user.
    */
   getProfile(username: string): Profile {
-    return new Profile(username, this);
+    return new Profile({ username: username, session: this });
   }
 }
 

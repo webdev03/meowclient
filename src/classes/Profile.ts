@@ -7,7 +7,7 @@ class Profile {
   status: string;
   private scratchUserHTML: any;
   session: Session;
-  constructor(username: string, session: any) {
+  constructor({ username, session }: { username: string, session: Session }) {
     this.user = username;
     this.session = session;
   }

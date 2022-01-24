@@ -7,6 +7,7 @@ class Profile {
   status: string;
   private scratchUserHTML: any;
   session: Session;
+  scratchUserAPI: any;
   constructor({ username, session }: { username: string, session: Session }) {
     this.user = username;
     this.session = session;
@@ -62,6 +63,22 @@ class Profile {
       this.scratchUserHTML = await scratchUserFetch.text();
     }
     return this.scratchUserHTML;
+  }
+
+  /**
+   * Gets the API response of the user in the Profile
+   * @returns The API response of the user
+   */
+  async getUserAPI() {
+    if (typeof this.scratchUserAPI === "undefined") {
+      console.log("wow")
+      const scratchUserFetch = await fetch(`https://api.scratch.mit.edu/users/${this.user}`);
+      if (!scratchUserFetch.ok) {
+        throw new Error("Cannot find user.")
+      };
+      this.scratchUserAPI = await scratchUserFetch.json();
+    }
+    return this.scratchUserAPI;
   }
 
   /**

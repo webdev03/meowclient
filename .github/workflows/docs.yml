@@ -1,5 +1,5 @@
-name: Format with Prettier
-on: [push, pull_request]
+name: Generate documentation
+on: [push]
 jobs:
   check:
     runs-on: ubuntu-latest

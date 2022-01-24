@@ -55,8 +55,13 @@ class ScratchSession {
       ";";
   }
 
+  /**
+   * Gets a profile
+   * @param username The username of the profile you want to get
+   * @returns {Profile} The profile of the user.
+   */
   getProfile(username: string): Profile {
-    return new Profile(username=username, this);
+    return new Profile(username, this);
   }
 }
 

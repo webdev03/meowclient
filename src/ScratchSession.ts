@@ -1,5 +1,7 @@
 // manages authentication, and is the main handler of every other function
 import Profile from "./classes/Profile";
+import Project from "./classes/Project";
+
 import { UserAgent } from "./Consts";
 import fetch from "cross-fetch";
 
@@ -58,10 +60,19 @@ class ScratchSession {
   /**
    * Gets a profile
    * @param username The username of the profile you want to get
-   * @returns {Profile} The profile of the user.
+   * @returns {Profile} The profile of the user
    */
   getProfile(username: string): Profile {
     return new Profile({ username: username, session: this });
+  }
+
+  /**
+   * Gets a project
+   * @param id The project ID
+   * @returns {Project} The project
+   */
+   getProject(id: number): Project {
+    return new Project({ id: id, session: this });
   }
 }
 

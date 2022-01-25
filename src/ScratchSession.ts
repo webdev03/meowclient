@@ -2,7 +2,7 @@
 import Profile from "./classes/Profile";
 import Project from "./classes/Project";
 
-import { UserAgent } from "./Consts";
+import { SessionJSON, UserAgent } from "./Consts";
 import fetch from "cross-fetch";
 
 /**
@@ -13,7 +13,7 @@ class ScratchSession {
   csrfToken: string;
   token: string;
   cookieSet: string;
-  sessionJSON: any;
+  sessionJSON: SessionJSON;
 
   /**
    * Sets up the ScratchSession to use authenticated functions

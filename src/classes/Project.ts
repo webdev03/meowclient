@@ -126,6 +126,58 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in setting title. ${await setFetch.text()}`)
     }
+    this.scratchProjectAPI = undefined; // this is to reset it
+  }
+  /**
+   * Sets the instructions of the project (requires ownership of the project)
+   * @param value The value you want to set the instructions to
+   */
+  async setInstructions(value: string) {
+    const setFetch = await fetch(`https://api.scratch.mit.edu/projects/${this.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        instructions: value
+      }),
+      headers: {
+        "x-csrftoken": this.session.csrfToken,
+        "X-Token": this.session.sessionJSON.user.token,
+        "x-requested-with": "XMLHttpRequest",
+        referer: `https://scratch.mit.edu/projects/${this.id}/`,
+        "User-Agent": UserAgent,
+        accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    if (!setFetch.ok) {
+      throw new Error(`Error in setting instructions. ${await setFetch.text()}`)
+    }
+    this.scratchProjectAPI = undefined; // this is to reset it
+  }
+
+  /**
+   * Sets the Notes and Credits of the project (requires ownership of the project)
+   * @param value The value you want to set the Notes and Credits to
+   */
+  async setNotesAndCredits(value: string) {
+    const setFetch = await fetch(`https://api.scratch.mit.edu/projects/${this.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        description: value
+      }),
+      headers: {
+        "x-csrftoken": this.session.csrfToken,
+        "X-Token": this.session.sessionJSON.user.token,
+        "x-requested-with": "XMLHttpRequest",
+        referer: `https://scratch.mit.edu/projects/${this.id}/`,
+        "User-Agent": UserAgent,
+        accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    if (!setFetch.ok) {
+      throw new Error(`Error in setting Notes and Credits. ${await setFetch.text()}`)
+    }
+    this.scratchProjectAPI = undefined; // this is to reset it
   }
 }
 

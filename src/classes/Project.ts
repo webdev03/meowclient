@@ -69,7 +69,11 @@ class Project {
    */
   async getAPIData(): Promise<ProjectAPIResponse> {
     if (typeof this.scratchProjectAPI === "undefined") {
-      const apiFetch = await fetch(`https://api.scratch.mit.edu/projects/${this.id}`);
+      const apiFetch = await fetch(`https://api.scratch.mit.edu/projects/${this.id}`, {
+        headers: {
+          'User-Agent': UserAgent
+        }
+      });
       if (!apiFetch.ok) {
         throw new Error("Cannot find project.")
       };
@@ -86,7 +90,11 @@ class Project {
    */
   async getComments(offset = 0, limit = 20) {
     const apiData = await this.getAPIData()
-    const commentFetch = await fetch(`https://api.scratch.mit.edu/users/${apiData.author.username}/projects/${this.id}/comments?offset=${offset}&limit=${limit}`)
+    const commentFetch = await fetch(`https://api.scratch.mit.edu/users/${apiData.author.username}/projects/${this.id}/comments?offset=${offset}&limit=${limit}`, {
+      headers: {
+        'User-Agent': UserAgent
+      }
+    })
     if (!commentFetch.ok) {
       throw new Error(
         `Comments returned status ${commentFetch.status} - ${commentFetch.statusText}`

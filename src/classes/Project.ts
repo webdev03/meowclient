@@ -124,7 +124,7 @@ class Project {
       }
     })
     if (!setFetch.ok) {
-      throw new Error(`Error in setting title. ${await setFetch.text()}`)
+      throw new Error(`Error in setting title. ${setFetch.status}`)
     }
     this.scratchProjectAPI = undefined; // this is to reset it
   }
@@ -149,7 +149,7 @@ class Project {
       }
     })
     if (!setFetch.ok) {
-      throw new Error(`Error in setting instructions. ${await setFetch.text()}`)
+      throw new Error(`Error in setting instructions. ${setFetch.status}`)
     }
     this.scratchProjectAPI = undefined; // this is to reset it
   }
@@ -175,7 +175,7 @@ class Project {
       }
     })
     if (!setFetch.ok) {
-      throw new Error(`Error in setting Notes and Credits. ${await setFetch.text()}`)
+      throw new Error(`Error in setting Notes and Credits. ${setFetch.status}`)
     }
     this.scratchProjectAPI = undefined; // this is to reset it
   }
@@ -198,7 +198,7 @@ class Project {
       }
     })
     if (!setFetch.ok) {
-      throw new Error(`Error in unsharing. ${await setFetch.text()}`)
+      throw new Error(`Error in unsharing. ${setFetch.status}`)
     }
   }
 

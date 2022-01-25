@@ -13,6 +13,7 @@ class ScratchSession {
   csrfToken: string;
   token: string;
   cookieSet: string;
+  sessionJSON: any;
 
   /**
    * Sets up the ScratchSession to use authenticated functions
@@ -55,6 +56,21 @@ class ScratchSession {
       ";scratchlanguage=en;scratchsessionsid=" +
       this.token +
       ";";
+    const sessionFetch = await fetch("https://scratch.mit.edu/session", {
+      method: "GET",
+      headers: {
+        'Cookie': this.cookieSet,
+        'User-Agent': UserAgent,
+        'Referer': "https://scratch.mit.edu/",
+        'Host': "scratch.mit.edu",
+        'Cache-Control': 'max-age=0, no-cache',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Pragma': "no-cache",
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br'
+      }
+    })
+    this.sessionJSON = await sessionFetch.json();
   }
 
   /**
@@ -71,7 +87,7 @@ class ScratchSession {
    * @param id The project ID
    * @returns {Project} The project
    */
-   getProject(id: number): Project {
+  getProject(id: number): Project {
     return new Project({ id: id, session: this });
   }
 }

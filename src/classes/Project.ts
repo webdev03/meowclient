@@ -102,6 +102,31 @@ class Project {
     }
     return await commentFetch.json();
   }
+
+  /**
+   * Sets the title of the project (requires ownership of the project)
+   * @param value The value you want to set the title to
+   */
+  async setTitle(value: string) {
+    const setFetch = await fetch(`https://api.scratch.mit.edu/projects/${this.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title: value
+      }),
+      headers: {
+        "x-csrftoken": this.session.csrfToken,
+        "X-Token": this.session.sessionJSON.user.token,
+        "x-requested-with": "XMLHttpRequest",
+        referer: `https://scratch.mit.edu/projects/${this.id}/`,
+        "User-Agent": UserAgent,
+        accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    if (!setFetch.ok) {
+      throw new Error(`Error in setting title. ${await setFetch.text()}`)
+    }
+  }
 }
 
 export default Project;

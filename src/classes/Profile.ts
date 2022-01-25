@@ -71,7 +71,6 @@ class Profile {
    */
   async getUserAPI() {
     if (typeof this.scratchUserAPI === "undefined") {
-      console.log("wow")
       const scratchUserFetch = await fetch(`https://api.scratch.mit.edu/users/${this.user}`);
       if (!scratchUserFetch.ok) {
         throw new Error("Cannot find user.")

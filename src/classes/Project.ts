@@ -69,7 +69,6 @@ class Project {
    */
   async getAPIData(): Promise<ProjectAPIResponse> {
     if (typeof this.scratchProjectAPI === "undefined") {
-      console.log("wow")
       const apiFetch = await fetch(`https://api.scratch.mit.edu/projects/${this.id}`);
       if (!apiFetch.ok) {
         throw new Error("Cannot find project.")

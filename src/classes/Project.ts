@@ -179,6 +179,56 @@ class Project {
     }
     this.scratchProjectAPI = undefined; // this is to reset it
   }
+
+  async unshare() {
+    const setFetch = await fetch(`https://scratch.mit.edu/site-api/projects/all/${this.id}/`, {
+      method: "PUT",
+      body: JSON.stringify({
+        isPublished: false
+      }),
+      headers: {
+        "x-csrftoken": this.session.csrfToken,
+        "X-Token": this.session.token,
+        "x-requested-with": "XMLHttpRequest",
+        Cookie: this.session.cookieSet,
+        referer: `https://scratch.mit.edu/projects/${this.id}/`,
+        "User-Agent": UserAgent,
+        accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    if (!setFetch.ok) {
+      throw new Error(`Error in unsharing. ${await setFetch.text()}`)
+    }
+  }
+
+  async share() {
+    const setFetch = await fetch(`https://api.scratch.mit.edu/proxy/projects/${this.id}/share/`, {
+      method: "PUT",
+      headers: {
+        "X-CSRFToken": this.session.csrfToken,
+        "X-Token": this.session.sessionJSON.user.token,
+        "x-requested-with": "XMLHttpRequest",
+        Cookie: this.session.cookieSet,
+        referer: `https://scratch.mit.edu/projects/${this.id}/`,
+        "User-Agent": UserAgent,
+        accept: "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": "0",
+        'Referer': "https://scratch.mit.edu/",
+        Origin: "https://scratch.mit.edu",
+        'Host': "api.scratch.mit.edu",
+        'Cache-Control': 'max-age=0, no-cache',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Pragma': "no-cache",
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br'
+      }
+    })
+    if (!setFetch.ok) {
+      throw new Error(`Error in sharing. ${setFetch.status}`)
+    }
+  }
 }
 
 export default Project;

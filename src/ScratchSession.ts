@@ -1,6 +1,8 @@
 // manages authentication, and is the main handler of every other function
 import Profile from "./classes/Profile";
-import { UserAgent } from "./Consts";
+import Project from "./classes/Project";
+
+import { SessionJSON, UserAgent } from "./Consts";
 import fetch from "cross-fetch";
 
 /**
@@ -11,6 +13,7 @@ class ScratchSession {
   csrfToken: string;
   token: string;
   cookieSet: string;
+  sessionJSON: SessionJSON;
 
   /**
    * Sets up the ScratchSession to use authenticated functions
@@ -53,15 +56,39 @@ class ScratchSession {
       ";scratchlanguage=en;scratchsessionsid=" +
       this.token +
       ";";
+    const sessionFetch = await fetch("https://scratch.mit.edu/session", {
+      method: "GET",
+      headers: {
+        'Cookie': this.cookieSet,
+        'User-Agent': UserAgent,
+        'Referer': "https://scratch.mit.edu/",
+        'Host': "scratch.mit.edu",
+        'Cache-Control': 'max-age=0, no-cache',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Pragma': "no-cache",
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br'
+      }
+    })
+    this.sessionJSON = await sessionFetch.json();
   }
 
   /**
    * Gets a profile
    * @param username The username of the profile you want to get
-   * @returns {Profile} The profile of the user.
+   * @returns {Profile} The profile of the user
    */
   getProfile(username: string): Profile {
     return new Profile({ username: username, session: this });
+  }
+
+  /**
+   * Gets a project
+   * @param id The project ID
+   * @returns {Project} The project
+   */
+  getProject(id: number): Project {
+    return new Project({ id: id, session: this });
   }
 }
 

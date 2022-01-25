@@ -7,7 +7,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --minify --dts",
-    "build:watch": "tsup src/index.ts --format cjs,esm --minify --dts --watch"
+    "build:watch": "tsup src/index.ts --format cjs,esm --minify --dts --watch",
+    "prepublish": "tsup src/index.ts --format cjs,esm --minify --dts"
   },
   "author": "",
   "license": "MIT",

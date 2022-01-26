@@ -24,6 +24,21 @@ interface UserAPIResponse {
   }
 }
 
+interface ProfileCommentReply {
+  id: string,
+  username: string,
+  content: string,
+  apiID: string
+}
+
+interface ProfileComment {
+  id: string,
+  username: string,
+  content: string,
+  apiID: string,
+  replies: Array<ProfileCommentReply>
+}
+
 class Profile {
   user: string;
   status: string;
@@ -122,8 +137,7 @@ class Profile {
     const commentHTML = await commentFetch.text();
     const dom = new JSDOM(commentHTML);
     const items = dom.window.document.getElementsByClassName("top-level-reply");
-
-    let comments = [];
+    let comments: Array<ProfileComment> = [];
     for (let elID in items) {
       const element = items[elID];
       if (typeof element == "function") break;
@@ -137,11 +151,41 @@ class Profile {
         .getElementsByClassName("info")[0]
         .getElementsByClassName("content")[0]
         .innerHTML.trim();
+
+      // get replies
+      let replies: Array<ProfileCommentReply> = [];
+      let replyList = element.getElementsByClassName("replies")[0].getElementsByClassName("reply");
+      for (let replyID in replyList) {
+        const reply = replyList[replyID];
+        if (reply.nodeName === "A") continue;
+        if (typeof reply === "function") continue;
+        if (typeof reply === "number") continue;
+        const commentID = reply.getElementsByClassName("comment")[0].id;
+        const commentPoster = reply
+          .getElementsByClassName("comment")[0]
+          .getElementsByTagName("a")[0]
+          .getAttribute("data-comment-user");
+
+        // regex here developed at https://scratch.mit.edu/discuss/post/5983094/
+        const commentContent = reply
+          .getElementsByClassName("comment")[0]
+          .getElementsByClassName("info")[0]
+          .getElementsByClassName("content")[0]
+          .textContent.trim().replace(/\n+/gm, "").replace(/\s+/gm, " ");
+        replies.push({
+          id: commentID,
+          username: commentPoster,
+          content: commentContent,
+          apiID: commentID.substring(9),
+        })
+      }
+
       comments.push({
         id: commentID,
         username: commentPoster,
         content: commentContent,
         apiID: commentID.substring(9),
+        replies: replies
       });
     }
     if (comments.length == 0) {

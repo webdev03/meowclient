@@ -165,11 +165,13 @@ class Profile {
           .getElementsByClassName("comment")[0]
           .getElementsByTagName("a")[0]
           .getAttribute("data-comment-user");
+
+        // regex here developed at https://scratch.mit.edu/discuss/post/5983094/
         const commentContent = reply
           .getElementsByClassName("comment")[0]
           .getElementsByClassName("info")[0]
           .getElementsByClassName("content")[0]
-          .innerHTML.trim();
+          .textContent.trim().replace(/\n+/gm, "").replace(/\s+/gm, " ");
         replies.push({
           id: commentID,
           username: commentPoster,

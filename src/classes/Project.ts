@@ -58,7 +58,7 @@ class Project {
   creator: string;
   id: number;
   session: Session;
-  scratchProjectAPI: any;
+  scratchProjectAPI: ProjectAPIResponse;
   constructor({ id, session }: { id: number, session: Session }) {
     this.id = id;
     this.session = session;

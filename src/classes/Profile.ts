@@ -2,12 +2,34 @@ import fetch from "cross-fetch";
 import { Session, UserAgent } from "../Consts";
 import { JSDOM } from "jsdom";
 
+interface UserAPIResponse {
+  id: number,
+  username: string,
+  scratchteam: boolean,
+  history: {
+    joined: string
+  },
+  profile: {
+    id: number,
+    images: {
+      '90x90': string,
+      '60x60': string,
+      '55x55': string,
+      '50x50': string,
+      '32x32': string
+    },
+    status: string,
+    bio: string,
+    country: string
+  }
+}
+
 class Profile {
   user: string;
   status: string;
-  private scratchUserHTML: any;
+  private scratchUserHTML: string;
   session: Session;
-  scratchUserAPI: any;
+  scratchUserAPI: UserAPIResponse;
   constructor({ username, session }: { username: string, session: Session }) {
     this.user = username;
     this.session = session;
@@ -22,7 +44,7 @@ class Profile {
     const dom = new JSDOM(await this.getUserHTML());
     return dom.window.document.querySelector(".group").innerHTML.trim();
   }
-  
+
   /**
    * Deletes a comment
    * @param id The comment ID, for example 12345, *not* comment-12345
@@ -100,7 +122,7 @@ class Profile {
     const commentHTML = await commentFetch.text();
     const dom = new JSDOM(commentHTML);
     const items = dom.window.document.getElementsByClassName("top-level-reply");
-  
+
     let comments = [];
     for (let elID in items) {
       const element = items[elID];

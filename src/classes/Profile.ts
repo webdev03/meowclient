@@ -24,6 +24,21 @@ interface UserAPIResponse {
   }
 }
 
+interface ProfileCommentReply {
+  id: string,
+  username: string,
+  content: string,
+  apiID: string
+}
+
+interface ProfileComment {
+  id: string,
+  username: string,
+  content: string,
+  apiID: string,
+  replies: Array<ProfileCommentReply>
+}
+
 class Profile {
   user: string;
   status: string;
@@ -122,7 +137,7 @@ class Profile {
     const commentHTML = await commentFetch.text();
     const dom = new JSDOM(commentHTML);
     const items = dom.window.document.getElementsByClassName("top-level-reply");
-    let comments = [];
+    let comments: Array<ProfileComment> = [];
     for (let elID in items) {
       const element = items[elID];
       if (typeof element == "function") break;
@@ -138,7 +153,7 @@ class Profile {
         .innerHTML.trim();
 
       // get replies
-      let replies = [];
+      let replies: Array<ProfileCommentReply> = [];
       let replyList = element.getElementsByClassName("replies")[0].getElementsByClassName("reply");
       for (let replyID in replyList) {
         const reply = replyList[replyID];

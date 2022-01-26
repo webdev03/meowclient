@@ -122,7 +122,6 @@ class Profile {
     const commentHTML = await commentFetch.text();
     const dom = new JSDOM(commentHTML);
     const items = dom.window.document.getElementsByClassName("top-level-reply");
-
     let comments = [];
     for (let elID in items) {
       const element = items[elID];
@@ -137,11 +136,39 @@ class Profile {
         .getElementsByClassName("info")[0]
         .getElementsByClassName("content")[0]
         .innerHTML.trim();
+
+      // get replies
+      let replies = [];
+      let replyList = element.getElementsByClassName("replies")[0].getElementsByClassName("reply");
+      for (let replyID in replyList) {
+        const reply = replyList[replyID];
+        if (reply.nodeName === "A") continue;
+        if (typeof reply === "function") continue;
+        if (typeof reply === "number") continue;
+        const commentID = reply.getElementsByClassName("comment")[0].id;
+        const commentPoster = reply
+          .getElementsByClassName("comment")[0]
+          .getElementsByTagName("a")[0]
+          .getAttribute("data-comment-user");
+        const commentContent = reply
+          .getElementsByClassName("comment")[0]
+          .getElementsByClassName("info")[0]
+          .getElementsByClassName("content")[0]
+          .innerHTML.trim();
+        replies.push({
+          id: commentID,
+          username: commentPoster,
+          content: commentContent,
+          apiID: commentID.substring(9),
+        })
+      }
+
       comments.push({
         id: commentID,
         username: commentPoster,
         content: commentContent,
         apiID: commentID.substring(9),
+        replies: replies
       });
     }
     if (comments.length == 0) {

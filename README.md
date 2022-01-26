@@ -27,8 +27,6 @@ console.log("My status is " + await me.getStatus());
 CJS **and** ESM support powered by tsup package!
 This is made with _typescript_ so you will also get .d.ts definition file and I will try my best to make good documentation! Some JSDoc comments are there too.
 
-work in progress, not on npm yet.
-
 ## Why not _insert library name here_?
 esm support, typescript, comments parsing
 

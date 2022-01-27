@@ -1,0 +1,6 @@
+site_name: meowclient
+site_url: https://webdev03.github.io/meowclient/
+theme: readthedocs
+docs_dir: pages
+repo_url: https://github.com/webdev03/meowclient/
+edit_uri: https://github.com/webdev03/meowclient/edit/main/docs/pages

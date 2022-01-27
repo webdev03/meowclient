@@ -1,5 +1,6 @@
 import fetch from "cross-fetch";
 import { Session, UserAgent } from "../Consts";
+import CloudConnection from "./CloudConnection";
 
 interface ProjectAPIResponse {
   id: number,
@@ -228,6 +229,14 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in sharing. ${setFetch.status}`)
     }
+  }
+  createCloudConnection() {
+    const con = new CloudConnection({ id: this.id, session: this.session });
+    return con;
+  }
+  createCustomCloudConnection(server?: string) {
+    const con = new CloudConnection({ id: this.id, session: this.session, server: server });
+    return con;
   }
 }
 

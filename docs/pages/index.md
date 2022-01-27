@@ -10,7 +10,7 @@ npm install meowclient
 This installs the latest version of meowclient in your `package.json`.
 
 ## Usage
-The library supports both CJS and ESM. In this documentation there is only ESM used. Here's how to import [ScratchSession](/classes/ScratchSession) into meowclient through CJS.
+The library supports both CJS and ESM. In this documentation there is only ESM used. Here's how to import the ScratchSession into meowclient through CJS.
 
 ```js
 const { ScratchSession } = require("meowclient");

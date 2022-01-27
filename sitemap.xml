@@ -6,7 +6,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://webdev03.github.io/meowclient/classes/ScratchSession/</loc>
+         <loc>https://webdev03.github.io/meowclient/ScratchSession/</loc>
+         <lastmod>2022-01-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://webdev03.github.io/meowclient/classes/Profile/</loc>
          <lastmod>2022-01-27</lastmod>
          <changefreq>daily</changefreq>
     </url>

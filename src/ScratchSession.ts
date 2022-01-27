@@ -90,6 +90,32 @@ class ScratchSession {
   getProject(id: number): Project {
     return new Project({ id: id, session: this });
   }
+
+  /**
+   * Logs out of Scratch
+   */
+  async logout() {
+    if (!this.csrfToken || !this.token) return; 
+    const logoutFetch = await fetch("https://scratch.mit.edu/accounts/logout/", {
+      method: "POST",
+      body: `csrfmiddlewaretoken=${this.csrfToken}`,
+      headers: {
+        Cookie: this.cookieSet,
+        "User-Agent": UserAgent,
+        accept: "application/json",
+        'Referer': "https://scratch.mit.edu/",
+        Origin: "https://scratch.mit.edu",
+        'Host': "scratch.mit.edu",
+        "Content-Type": "application/x-www-form-urlencoded",
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br'
+      }
+    })
+    if (!logoutFetch.ok) {
+      throw new Error(`Error in logging out. ${logoutFetch.status}`);
+    }
+  }
 }
 
 export default ScratchSession;

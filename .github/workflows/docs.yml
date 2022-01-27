@@ -25,4 +25,4 @@ jobs:
           git checkout "${GITHUB_REF:11}"
           git pull
       - name: Deploy
-        run: mkdocs gh-pages
+        run: mkdocs gh-deploy

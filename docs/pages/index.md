@@ -27,3 +27,5 @@ import { ScratchSession } from "meowclient";
   console.log("My status is " + await me.getStatus());
 })()
 ```
+
+Documentation is **work in progress** and not all things have been added yet.

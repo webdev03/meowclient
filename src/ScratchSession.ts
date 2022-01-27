@@ -107,7 +107,6 @@ class ScratchSession {
         Origin: "https://scratch.mit.edu",
         'Host': "scratch.mit.edu",
         "Content-Type": "application/x-www-form-urlencoded",
-        'X-Requested-With': 'XMLHttpRequest',
         'Accept': '*/*',
         'Accept-Encoding': 'gzip, deflate, br'
       }

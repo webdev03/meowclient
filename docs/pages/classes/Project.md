@@ -1,5 +1,5 @@
 # Project
-For scratch projects
+Used for Scratch projects. Accessible through `ScratchSession.getProject`.
 ## Methods
 ### getAPIData
 Gets the API data of the project.

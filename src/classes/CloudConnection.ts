@@ -11,20 +11,18 @@ class CloudConnection {
   connection: WebSocket;
   variables: object = {};
   disconnected: boolean = false;
-  authenticate: boolean = true;
-  constructor({ id, session, server = "wss://clouddata.scratch.mit.edu", authenticate = true }: { id: number, session: Session, server?: string, authenticate?: boolean }) {
+  constructor({ id, session, server = "wss://clouddata.scratch.mit.edu" }: { id: number, session: Session, server?: string }) {
     this.id = id;
     this.session = session;
     this.server = server;
-    this.authenticate = authenticate || true;
 
-    this.connect(this.authenticate)
+    this.connect()
   }
 
-  private connect(authenticate) {
+  private connect() {
     this.connection = new WebSocket(this.server, {
       headers: {
-        Cookie: authenticate ? this.session.cookieSet : '',
+        Cookie: this.session.cookieSet,
         Origin: 'https://scratch.mit.edu'
       }
     });
@@ -48,7 +46,7 @@ class CloudConnection {
       throw err;
     });
     this.connection.on('close', () => {
-      if (!this.disconnected) this.connect(this.authenticate);
+      if (!this.disconnected) this.connect();
     })
   }
 
@@ -58,7 +56,7 @@ class CloudConnection {
   private send(data) {
     this.connection.send(`${JSON.stringify(data)}\n`)
   }
-
+  
   /**
    * Sets a cloud variable
    * @param variable The variable name to set

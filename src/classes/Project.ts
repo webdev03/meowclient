@@ -1,5 +1,6 @@
 import fetch from "cross-fetch";
 import { Session, UserAgent } from "../Consts";
+import CloudConnection from "./CloudConnection";
 
 interface ProjectAPIResponse {
   id: number,
@@ -228,6 +229,15 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in sharing. ${setFetch.status}`)
     }
+  }
+
+  /**
+   * Creates a cloud connection with the project
+   * @returns {CloudConnection} The cloud connection for the project
+   * TurboWarp support may be added in the future
+   */
+  createCloudConnection(): CloudConnection {
+    return new CloudConnection({ id: this.id, session: this.session });
   }
 }
 

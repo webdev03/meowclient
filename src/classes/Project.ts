@@ -230,8 +230,8 @@ class Project {
       throw new Error(`Error in sharing. ${setFetch.status}`)
     }
   }
-  createCloudConnection() {
-    const con = new CloudConnection({ id: this.id, session: this.session });
+  createCloudConnection(server = "wss://clouddata.scratch.mit.edu", authenticate = true) {
+    const con = new CloudConnection({ id: this.id, session: this.session, authenticate: authenticate, server: server });
     return con;
   }
 }

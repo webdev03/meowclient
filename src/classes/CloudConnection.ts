@@ -10,6 +10,7 @@ class CloudConnection {
   server: string;
   connection: WebSocket;
   variables: object = {};
+  disconnected: boolean = false;
   constructor({ id, session, server = "wss://clouddata.scratch.mit.edu" }: { id: number, session: Session, server?: string }) {
     this.id = id;
     this.session = session;
@@ -33,7 +34,7 @@ class CloudConnection {
           this.variables[obj.name] = obj.value;
         }
       }
-    })
+    });
     this.connection.on('open', () => {
       this.send({
         method: 'handshake',
@@ -44,6 +45,9 @@ class CloudConnection {
     this.connection.on('error', (err) => {
       throw err;
     });
+    this.connection.on('close', () => {
+      if (!this.disconnected) this.connect();
+    })
   }
 
   /**
@@ -77,6 +81,14 @@ class CloudConnection {
   getVariable(variable: string): string {
     const varname = variable.startsWith("☁ ") ? variable.substring(2) : variable;
     return this.variables[`☁ ${varname}`];
+  }
+
+  /**
+   * Closes the cloud connection
+   */
+  close() {
+    this.disconnected = true;
+    this.connection.close();
   }
 }
 

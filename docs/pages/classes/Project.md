@@ -1,11 +1,8 @@
 # Project
 The class to get and set a user's Scratch profile data. Accessible through `ScratchSession.getProject`.
-## Functions
+## Methods
 ### getAPIData
-Gets the comments on the user's profile.
-#### Parameters
-- `offset` (`number`) The offset of comments to return
-- `limit` (`number`) The limit of comments to return
+Gets the API data of the project.
 #### Returns
 ```ts
 id: number,
@@ -61,12 +58,12 @@ remix: {
 ```
 
 ### getComments
-Gets the comments on the user's profile.
+Gets the comments on the project.
 #### Parameters
 - `offset` (`number`) The offset of comments to return
 - `limit` (`number`) The limit of comments to return
 #### Returns
-This fetches and returns the data from the profile comments - for example from [https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&limit=20](https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&limit=20). Type definitions will be added soon.
+This fetches and returns the data from the project comments - for example from [https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&limit=20](https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&limit=20). Type definitions will be added soon.
 
 ### setTitle
 Sets the project title (requires you to own the project).

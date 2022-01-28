@@ -234,10 +234,6 @@ class Project {
     const con = new CloudConnection({ id: this.id, session: this.session });
     return con;
   }
-  createCustomCloudConnection(server?: string) {
-    const con = new CloudConnection({ id: this.id, session: this.session, server: server });
-    return con;
-  }
 }
 
 export default Project;

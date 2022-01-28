@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://webdev03.github.io/meowclient/classes/Profile/">
+  <link rel="canonical" href="https://webdev03.github.io/meowclient/classes/Project/">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Profile - meowclient</title>
+  <title>Project - meowclient</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Profile";
-    var mkdocs_page_input_path = "classes/Profile.md";
-    var mkdocs_page_url = "/meowclient/classes/Profile/";
+    var mkdocs_page_name = "Project";
+    var mkdocs_page_input_path = "classes/Project.md";
+    var mkdocs_page_url = "/meowclient/classes/Project/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js" defer></script>
@@ -56,11 +56,13 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Classes</span></p>
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Profile</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Profile/">Profile</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Project</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    <li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#getstatus">getStatus</a>
+    <li class="toctree-l3"><a class="reference internal" href="#getapidata">getAPIData</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#returns">Returns</a>
     </li>
@@ -74,13 +76,29 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#deletecomment">deleteComment</a>
+    <li class="toctree-l3"><a class="reference internal" href="#settitle">setTitle</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#parameters_1">Parameters</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#getuserapi">getUserAPI</a>
+    <li class="toctree-l3"><a class="reference internal" href="#setinstructions">setInstructions</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#parameters_2">Parameters</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setnotesandcredits">setNotesAndCredits</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#parameters_3">Parameters</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#unshare">unshare</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#share">share</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#createcloudconnection">createCloudConnection</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#returns_2">Returns</a>
     </li>
@@ -89,8 +107,6 @@
         </ul>
     </li>
     </ul>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../Project/">Project</a>
                     </li>
                 </ul>
       </div>
@@ -118,10 +134,10 @@
         
       
     
-    <li>Profile</li>
+    <li>Project</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/webdev03/meowclient/edit/main/docs/pages/classes/Profile.md"
+        <a href="https://github.com/webdev03/meowclient/edit/main/docs/pages/classes/Project.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -133,73 +149,98 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="profile">Profile</h1>
-<p>The class to get and set a user's Scratch profile data. Accessible through <code>ScratchSession.getProfile</code>.</p>
-<h2 id="functions">Functions</h2>
-<h3 id="getstatus">getStatus</h3>
-<p>Gets the current status of the user.</p>
+                <h1 id="project">Project</h1>
+<p>The class to get and set a user's Scratch profile data. Accessible through <code>ScratchSession.getProject</code>.</p>
+<h2 id="methods">Methods</h2>
+<h3 id="getapidata">getAPIData</h3>
+<p>Gets the API data of the project.</p>
 <h4 id="returns">Returns</h4>
-<p>Returns either <code>Scratcher</code>, <code>New Scratcher</code>, or <code>Scratch Team</code>.</p>
-<h3 id="getcomments">getComments</h3>
-<p>Gets the comments on the user's profile.</p>
-<h4 id="parameters">Parameters</h4>
-<ul>
-<li><code>page</code> (<code>number</code>) The page of comments to view</li>
-</ul>
-<h4 id="returns_1">Returns</h4>
-<p>This returns an Array of <code>ProfileComment</code>s.</p>
-<pre><code class="language-ts">[
-  {
-    id: string,
-    username: string,
-    content: string,
-    apiID: string,
-    replies: [
-      {
-        id: string,
-        username: string,
-        content: string,
-        apiID: string
-      },
-      {
-        id: string,
-        username: string,
-        content: string,
-        apiID: string
-      }
-    ]
-  }
-]
-</code></pre>
-<h3 id="deletecomment">deleteComment</h3>
-<p>Deletes a comment from a profile page.</p>
-<h4 id="parameters_1">Parameters</h4>
-<ul>
-<li><code>id</code> (<code>string</code> or <code>number</code>) The ID of the comment to delete. Must be <code>12345</code>, <strong>not</strong> <code>comment-12345</code>.</li>
-</ul>
-<h3 id="getuserapi">getUserAPI</h3>
-<p>Gets the response from <code>https://api.scratch.mit.edu/users/:user</code>.</p>
-<h4 id="returns_2">Returns</h4>
 <pre><code class="language-ts">id: number,
-username: string,
-scratchteam: boolean,
-history: {
-  joined: string
-},
-profile: {
+title: string,
+description: string,
+instructions: string,
+visibility: string,
+public: boolean,
+comments_allowed: boolean,
+is_published: boolean,
+author: {
   id: number,
-  images: {
-    '90x90': string,
-    '60x60': string,
-    '55x55': string,
-    '50x50': string,
-    '32x32': string
+  username: string,
+  scratchteam: boolean,
+  history: {
+    joined: string
   },
-  status: string,
-  bio: string,
-  country: string
+  profile: {
+    id: null | number, // unsure about this one
+    images: {
+      '90x90': string,
+      '60x60': string,
+      '55x55': string,
+      '50x50': string,
+      '32x32': string
+    }
+  }
+}
+image: string,
+images: {
+  '282x218': string,
+  '216x163': string,
+  '200x200': string,
+  '144x108': string,
+  '135x102': string,
+  '100x80': string
+},
+history: {
+  created: string,
+  modified: string,
+  shared: string
+},
+stats: {
+  views: number,
+  loves: number,
+  favorites: number,
+  remixes: number
+},
+remix: {
+  parent: null | number,
+  root: null | number
 }
 </code></pre>
+<h3 id="getcomments">getComments</h3>
+<p>Gets the comments on the project.</p>
+<h4 id="parameters">Parameters</h4>
+<ul>
+<li><code>offset</code> (<code>number</code>) The offset of comments to return</li>
+<li><code>limit</code> (<code>number</code>) The limit of comments to return</li>
+</ul>
+<h4 id="returns_1">Returns</h4>
+<p>This fetches and returns the data from the project comments - for example from <a href="https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&amp;limit=20">https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&amp;limit=20</a>. Type definitions will be added soon.</p>
+<h3 id="settitle">setTitle</h3>
+<p>Sets the project title (requires you to own the project).</p>
+<h4 id="parameters_1">Parameters</h4>
+<ul>
+<li><code>value</code> (<code>string</code>) The value to set the title to</li>
+</ul>
+<h3 id="setinstructions">setInstructions</h3>
+<p>Sets the project instructions (requires you to own the project).</p>
+<h4 id="parameters_2">Parameters</h4>
+<ul>
+<li><code>value</code> (<code>string</code>) The value to set the instructions to</li>
+</ul>
+<h3 id="setnotesandcredits">setNotesAndCredits</h3>
+<p>Sets the project Notes and Credits (requires you to own the project).</p>
+<h4 id="parameters_3">Parameters</h4>
+<ul>
+<li><code>value</code> (<code>string</code>) The value to set the Notes and Credits to</li>
+</ul>
+<h3 id="unshare">unshare</h3>
+<p>Unshares the project (requires you to own the project).</p>
+<h3 id="share">share</h3>
+<p>Shares the project (requires you to own the project).</p>
+<h3 id="createcloudconnection">createCloudConnection</h3>
+<p>Creates a cloud connection</p>
+<h4 id="returns_2">Returns</h4>
+<p>This returns a CloudConnection class.</p>
               
             </div>
           </div>
@@ -207,10 +248,8 @@ profile: {
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Project/" class="btn btn-neutral float-right" title="Project">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href="../../ScratchSession/" class="btn btn-neutral" title="ScratchSession"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Profile/" class="btn btn-neutral" title="Profile"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -240,10 +279,8 @@ profile: {
         </span>
     
     
-      <span><a href="../../ScratchSession/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Profile/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-    
-      <span><a href="../Project/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

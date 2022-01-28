@@ -230,9 +230,14 @@ class Project {
       throw new Error(`Error in sharing. ${setFetch.status}`)
     }
   }
-  createCloudConnection() {
-    const con = new CloudConnection({ id: this.id, session: this.session });
-    return con;
+
+  /**
+   * Creates a cloud connection with the project
+   * @returns {CloudConnection} The cloud connection for the project
+   * TurboWarp support may be added in the future
+   */
+  createCloudConnection(): CloudConnection {
+    return new CloudConnection({ id: this.id, session: this.session });
   }
 }
 

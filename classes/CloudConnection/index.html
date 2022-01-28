@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://webdev03.github.io/meowclient/classes/Profile/">
+  <link rel="canonical" href="https://webdev03.github.io/meowclient/classes/CloudConnection/">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Profile - meowclient</title>
+  <title>CloudConnection - meowclient</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Profile";
-    var mkdocs_page_input_path = "classes/Profile.md";
-    var mkdocs_page_url = "/meowclient/classes/Profile/";
+    var mkdocs_page_name = "CloudConnection";
+    var mkdocs_page_input_path = "classes/CloudConnection.md";
+    var mkdocs_page_url = "/meowclient/classes/CloudConnection/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js" defer></script>
@@ -56,41 +56,39 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Classes</span></p>
                 <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../CloudConnection/">CloudConnection</a>
-                    </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Profile</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">CloudConnection</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a>
+    <li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#getstatus">getStatus</a>
+    <li class="toctree-l3"><a class="reference internal" href="#setvariable">setVariable</a>
         <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#parameters">Parameters</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getvariable">getVariable</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#parameters_1">Parameters</a>
+    </li>
     <li class="toctree-l4"><a class="reference internal" href="#returns">Returns</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#getcomments">getComments</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#parameters">Parameters</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#returns_1">Returns</a>
+    <li class="toctree-l3"><a class="reference internal" href="#close">close</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#deletecomment">deleteComment</a>
+    <li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#parameters_1">Parameters</a>
+    <li class="toctree-l3"><a class="reference internal" href="#variables">variables</a>
     </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#getuserapi">getUserAPI</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#returns_2">Returns</a>
-    </li>
-        </ul>
+    <li class="toctree-l3"><a class="reference internal" href="#connection">connection</a>
     </li>
         </ul>
     </li>
     </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Profile/">Profile</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../Project/">Project</a>
                     </li>
@@ -120,10 +118,10 @@
         
       
     
-    <li>Profile</li>
+    <li>CloudConnection</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/webdev03/meowclient/edit/main/docs/pages/classes/Profile.md"
+        <a href="https://github.com/webdev03/meowclient/edit/main/docs/pages/classes/CloudConnection.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -135,73 +133,31 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="profile">Profile</h1>
-<p>The class to get and set a user's Scratch profile data. Accessible through <code>ScratchSession.getProfile</code>.</p>
-<h2 id="functions">Functions</h2>
-<h3 id="getstatus">getStatus</h3>
-<p>Gets the current status of the user.</p>
-<h4 id="returns">Returns</h4>
-<p>Returns either <code>Scratcher</code>, <code>New Scratcher</code>, or <code>Scratch Team</code>.</p>
-<h3 id="getcomments">getComments</h3>
-<p>Gets the comments on the user's profile.</p>
+                <h1 id="cloudconnection">CloudConnection</h1>
+<p>The class to use cloud variables. Accessible through <code>Project.createCloudConnection</code>.</p>
+<h2 id="methods">Methods</h2>
+<h3 id="setvariable">setVariable</h3>
+<p>Sets a cloud variable</p>
 <h4 id="parameters">Parameters</h4>
 <ul>
-<li><code>page</code> (<code>number</code>) The page of comments to view</li>
+<li><code>variable</code> (<code>string</code>) The variable name</li>
+<li><code>value</code> (<code>string</code> | <code>number</code>) The value to set the variable to</li>
 </ul>
-<h4 id="returns_1">Returns</h4>
-<p>This returns an Array of <code>ProfileComment</code>s.</p>
-<pre><code class="language-ts">[
-  {
-    id: string,
-    username: string,
-    content: string,
-    apiID: string,
-    replies: [
-      {
-        id: string,
-        username: string,
-        content: string,
-        apiID: string
-      },
-      {
-        id: string,
-        username: string,
-        content: string,
-        apiID: string
-      }
-    ]
-  }
-]
-</code></pre>
-<h3 id="deletecomment">deleteComment</h3>
-<p>Deletes a comment from a profile page.</p>
+<h3 id="getvariable">getVariable</h3>
+<p>Gets a cloud variable</p>
 <h4 id="parameters_1">Parameters</h4>
 <ul>
-<li><code>id</code> (<code>string</code> or <code>number</code>) The ID of the comment to delete. Must be <code>12345</code>, <strong>not</strong> <code>comment-12345</code>.</li>
+<li><code>variable</code> (<code>string</code>) The variable name</li>
 </ul>
-<h3 id="getuserapi">getUserAPI</h3>
-<p>Gets the response from <code>https://api.scratch.mit.edu/users/:user</code>.</p>
-<h4 id="returns_2">Returns</h4>
-<pre><code class="language-ts">id: number,
-username: string,
-scratchteam: boolean,
-history: {
-  joined: string
-},
-profile: {
-  id: number,
-  images: {
-    '90x90': string,
-    '60x60': string,
-    '55x55': string,
-    '50x50': string,
-    '32x32': string
-  },
-  status: string,
-  bio: string,
-  country: string
-}
-</code></pre>
+<h4 id="returns">Returns</h4>
+<p>This returns a <code>string</code> containing the value of the variable.</p>
+<h3 id="close">close</h3>
+<p>Closes the cloud connection.</p>
+<h2 id="properties">Properties</h2>
+<h3 id="variables">variables</h3>
+<p>Returns an object with the cloud variable data.</p>
+<h3 id="connection">connection</h3>
+<p>Returns a websocket connection. This uses the <a href="https://github.com/websockets/ws">ws</a> library.</p>
               
             </div>
           </div>
@@ -209,10 +165,10 @@ profile: {
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Project/" class="btn btn-neutral float-right" title="Project">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Profile/" class="btn btn-neutral float-right" title="Profile">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../CloudConnection/" class="btn btn-neutral" title="CloudConnection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../ScratchSession/" class="btn btn-neutral" title="ScratchSession"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -242,10 +198,10 @@ profile: {
         </span>
     
     
-      <span><a href="../CloudConnection/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../../ScratchSession/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../Project/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Profile/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

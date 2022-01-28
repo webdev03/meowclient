@@ -56,6 +56,7 @@ class CloudConnection {
   private send(data) {
     this.connection.send(`${JSON.stringify(data)}\n`)
   }
+  
   /**
    * Sets a cloud variable
    * @param variable The variable name to set

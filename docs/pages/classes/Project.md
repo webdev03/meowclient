@@ -1,5 +1,5 @@
 # Project
-The class to get and set a user's Scratch profile data. Accessible through `ScratchSession.getProject`.
+For scratch projects
 ## Methods
 ### getAPIData
 Gets the API data of the project.

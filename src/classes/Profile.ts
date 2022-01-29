@@ -55,7 +55,7 @@ class Profile {
    * Can either be Scratcher, New Scratcher, or Scratch Team.
    * @returns {string} The status of the user.
    */
-  async getStatus() {
+  async getStatus(): Promise<"Scratcher" | "New Scratcher" | "Scratch Team"> {
     const dom = new JSDOM(await this.getUserHTML());
     return dom.window.document.querySelector(".group").innerHTML.trim();
   }

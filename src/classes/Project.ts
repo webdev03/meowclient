@@ -181,6 +181,9 @@ class Project {
     this.scratchProjectAPI = undefined; // this is to reset it
   }
 
+  /**
+   * Unshares the project (requires ownership of the project)
+   */
   async unshare() {
     const setFetch = await fetch(`https://scratch.mit.edu/site-api/projects/all/${this.id}/`, {
       method: "PUT",
@@ -203,6 +206,9 @@ class Project {
     }
   }
 
+  /**
+   * Shares the project (requires ownership of the project)
+   */
   async share() {
     const setFetch = await fetch(`https://api.scratch.mit.edu/proxy/projects/${this.id}/share/`, {
       method: "PUT",

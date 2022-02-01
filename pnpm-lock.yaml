@@ -4,6 +4,7 @@ specifiers:
   '@types/node': ^17.0.10
   cross-fetch: ^3.1.5
   jsdom: ^19.0.0
+  neotest: ^0.1.1
   tsup: ^5.11.11
   typescript: ^4.5.5
   ws: ^8.4.2
@@ -11,6 +12,7 @@ specifiers:
 dependencies:
   cross-fetch: 3.1.5
   jsdom: 19.0.0
+  neotest: 0.1.1
   ws: 8.4.2
 
 devDependencies:
@@ -762,6 +764,11 @@ packages:
       object-assign: 4.1.1
       thenify-all: 1.6.0
     dev: true
+
+  /neotest/0.1.1:
+    resolution: {integrity: sha512-/QGPAGLHF6hog67XRN4PmvNQstXidfJe6xDzPHjDdK3V5AvCpPtXItzNQ1MP92YQtVFhinY6GkbM2AWRrfJnfg==}
+    engines: {node: '>14'}
+    dev: false
 
   /node-fetch/2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}

@@ -12,11 +12,11 @@ specifiers:
 dependencies:
   cross-fetch: 3.1.5
   jsdom: 19.0.0
-  neotest: 0.2.0
   ws: 8.4.2
 
 devDependencies:
   '@types/node': 17.0.10
+  neotest: 0.2.0
   tsup: 5.11.11_typescript@4.5.5
   typescript: 4.5.5
 
@@ -768,7 +768,7 @@ packages:
   /neotest/0.2.0:
     resolution: {integrity: sha512-Np6/O9KXiKtW/pLeKvjRPiJvQyKbH/lET9CSu5ybEgD+ubAN4wTR3RMC5v07XkEvDDb6cGEEhF3Yc2Z0iijHAg==}
     engines: {node: '>14'}
-    dev: false
+    dev: true
 
   /node-fetch/2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}

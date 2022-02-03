@@ -12,7 +12,7 @@
     "build": "tsup src/index.ts --format cjs,esm --minify --dts",
     "build:watch": "tsup src/index.ts --format cjs,esm --minify --dts --watch",
     "prepublish": "tsup src/index.ts --format cjs,esm --minify --dts",
-    "test": "tsup src/index.ts --format cjs,esm && for f in tests/*.spec.js; do node $f; done"
+    "test": "set -e && tsup src/index.ts --format cjs,esm && for f in tests/*.spec.js; do node $f; done"
   },
   "author": "",
   "license": "MIT",

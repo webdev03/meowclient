@@ -1,9 +1,5 @@
 name: Test
 on:
-  push:
-    paths:
-      - "src/**"
-      - "tests/**"
   pull_request:
     paths:
       - "src/**"

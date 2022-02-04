@@ -2,7 +2,7 @@
 import Profile from "./classes/Profile";
 import Project from "./classes/Project";
 
-import {SessionJSON, UserAgent} from "./Consts";
+import { SessionJSON, UserAgent } from "./Consts";
 import fetch from "cross-fetch";
 
 /**
@@ -79,7 +79,7 @@ class ScratchSession {
    * @returns {Profile} The profile of the user
    */
   getProfile(username: string): Profile {
-    return new Profile({username: username, session: this});
+    return new Profile({ username: username, session: this });
   }
 
   /**
@@ -88,7 +88,7 @@ class ScratchSession {
    * @returns {Project} The project
    */
   getProject(id: number): Project {
-    return new Project({id: id, session: this});
+    return new Project({ id: id, session: this });
   }
 
   /**

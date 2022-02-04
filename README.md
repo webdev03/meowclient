@@ -5,7 +5,7 @@ a very cool library!
 ## Example (async)
 
 ```js
-import {ScratchSession} from "meowclient";
+import { ScratchSession } from "meowclient";
 const session = new ScratchSession();
 await session.init("user", "pass");
 const me = session.getProfile(session.username);
@@ -18,7 +18,7 @@ you might be able to use this without even logging in by not running .init on th
 the cjs way (if you still use it)
 
 ```js
-const {ScratchSession} = require("meowclient");
+const { ScratchSession } = require("meowclient");
 const session = new ScratchSession();
 await session.init("user", "pass");
 const me = session.getProfile(session.username);

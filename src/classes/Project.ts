@@ -1,5 +1,5 @@
 import fetch from "cross-fetch";
-import {Session, UserAgent} from "../Consts";
+import { Session, UserAgent } from "../Consts";
 import CloudConnection from "./CloudConnection";
 
 interface ProjectAPIResponse {
@@ -75,7 +75,7 @@ class Project {
   id: number;
   session: Session;
   scratchProjectAPI: ProjectAPIResponse;
-  constructor({id, session}: {id: number; session: Session}) {
+  constructor({ id, session }: { id: number; session: Session }) {
     this.id = id;
     this.session = session;
   }
@@ -279,7 +279,7 @@ class Project {
    * TurboWarp support may be added in the future
    */
   createCloudConnection(): CloudConnection {
-    return new CloudConnection({id: this.id, session: this.session});
+    return new CloudConnection({ id: this.id, session: this.session });
   }
 }
 

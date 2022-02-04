@@ -5,6 +5,7 @@ specifiers:
   cross-fetch: ^3.1.5
   jsdom: ^19.0.0
   neotest: ^0.3.0
+  prettier: ^2.5.1
   tsup: ^5.11.13
   typescript: ^4.5.5
   ws: ^8.4.2
@@ -17,6 +18,7 @@ dependencies:
 devDependencies:
   '@types/node': 17.0.14
   neotest: 0.3.0
+  prettier: 2.5.1
   tsup: 5.11.13_typescript@4.5.5
   typescript: 4.5.5
 
@@ -900,6 +902,12 @@ packages:
     resolution: {integrity: sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=}
     engines: {node: '>= 0.8.0'}
     dev: false
+
+  /prettier/2.5.1:
+    resolution: {integrity: sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
 
   /psl/1.8.0:
     resolution: {integrity: sha512-RIdOzyoavK+hA18OGGWDqUTsCLhtA7IcZ/6NCs4fFJaHBDab+pDDmDIByWFRQJq2Cd7r1OoQxBGKOaztq+hjIQ==}

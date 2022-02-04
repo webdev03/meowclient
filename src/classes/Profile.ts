@@ -1,42 +1,42 @@
 import fetch from "cross-fetch";
-import { Session, UserAgent } from "../Consts";
-import { JSDOM } from "jsdom";
+import {Session, UserAgent} from "../Consts";
+import {JSDOM} from "jsdom";
 
 interface UserAPIResponse {
-  id: number,
-  username: string,
-  scratchteam: boolean,
+  id: number;
+  username: string;
+  scratchteam: boolean;
   history: {
-    joined: string
-  },
+    joined: string;
+  };
   profile: {
-    id: number,
+    id: number;
     images: {
-      '90x90': string,
-      '60x60': string,
-      '55x55': string,
-      '50x50': string,
-      '32x32': string
-    },
-    status: string,
-    bio: string,
-    country: string
-  }
+      "90x90": string;
+      "60x60": string;
+      "55x55": string;
+      "50x50": string;
+      "32x32": string;
+    };
+    status: string;
+    bio: string;
+    country: string;
+  };
 }
 
 interface ProfileCommentReply {
-  id: string,
-  username: string,
-  content: string,
-  apiID: string
+  id: string;
+  username: string;
+  content: string;
+  apiID: string;
 }
 
 interface ProfileComment {
-  id: string,
-  username: string,
-  content: string,
-  apiID: string,
-  replies: ProfileCommentReply[]
+  id: string;
+  username: string;
+  content: string;
+  apiID: string;
+  replies: ProfileCommentReply[];
 }
 
 class Profile {
@@ -45,7 +45,7 @@ class Profile {
   private scratchUserHTML: string;
   session: Session;
   scratchUserAPI: UserAPIResponse;
-  constructor({ username, session }: { username: string, session: Session }) {
+  constructor({username, session}: {username: string; session: Session}) {
     this.user = username;
     this.session = session;
   }
@@ -71,7 +71,7 @@ class Profile {
       {
         method: "POST",
         body: JSON.stringify({
-          id: id.toString(),
+          id: id.toString()
         }),
         headers: {
           "x-csrftoken": this.session.csrfToken,
@@ -80,8 +80,8 @@ class Profile {
           Cookie: this.session.cookieSet,
 
           referer: `https://scratch.mit.edu/users/${this.user}`,
-          "User-Agent": UserAgent,
-        },
+          "User-Agent": UserAgent
+        }
       }
     );
     if (!delFetch.ok) {
@@ -93,10 +93,12 @@ class Profile {
 
   private async getUserHTML() {
     if (!(typeof this.scratchUserHTML === "string")) {
-      const scratchUserFetch = await fetch(`https://scratch.mit.edu/users/${this.user}`);
+      const scratchUserFetch = await fetch(
+        `https://scratch.mit.edu/users/${this.user}`
+      );
       if (!scratchUserFetch.ok) {
-        throw new Error("Cannot find user.")
-      };
+        throw new Error("Cannot find user.");
+      }
       this.scratchUserHTML = await scratchUserFetch.text();
     }
     return this.scratchUserHTML;
@@ -108,10 +110,12 @@ class Profile {
    */
   async getUserAPI() {
     if (typeof this.scratchUserAPI === "undefined") {
-      const scratchUserFetch = await fetch(`https://api.scratch.mit.edu/users/${this.user}`);
+      const scratchUserFetch = await fetch(
+        `https://api.scratch.mit.edu/users/${this.user}`
+      );
       if (!scratchUserFetch.ok) {
-        throw new Error("Cannot find user.")
-      };
+        throw new Error("Cannot find user.");
+      }
       this.scratchUserAPI = await scratchUserFetch.json();
     }
     return this.scratchUserAPI;
@@ -154,7 +158,9 @@ class Profile {
 
       // get replies
       let replies: ProfileCommentReply[] = [];
-      let replyList = element.getElementsByClassName("replies")[0].getElementsByClassName("reply");
+      let replyList = element
+        .getElementsByClassName("replies")[0]
+        .getElementsByClassName("reply");
       for (let replyID in replyList) {
         const reply = replyList[replyID];
         if (reply.nodeName === "A") continue;
@@ -171,13 +177,15 @@ class Profile {
           .getElementsByClassName("comment")[0]
           .getElementsByClassName("info")[0]
           .getElementsByClassName("content")[0]
-          .textContent.trim().replace(/\n+/gm, "").replace(/\s+/gm, " ");
+          .textContent.trim()
+          .replace(/\n+/gm, "")
+          .replace(/\s+/gm, " ");
         replies.push({
           id: commentID,
           username: commentPoster,
           content: commentContent,
-          apiID: commentID.substring(9),
-        })
+          apiID: commentID.substring(9)
+        });
       }
 
       comments.push({

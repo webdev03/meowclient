@@ -19,13 +19,12 @@ jobs:
         # setup nodejs
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.x' # Version range or exact version of a Node.js version to use, using SemVer's version range syntax
+          node-version: "16.x" # Version range or exact version of a Node.js version to use, using SemVer's version range syntax
       # setup pnpm
       - uses: pnpm/action-setup@v2.0.1
         with:
-          version: '6.29.x'
+          version: "6.29.x"
           run_install: true
       # this gives an exit code
       - name: Test
         run: pnpm run test
-          

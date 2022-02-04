@@ -1,5 +1,5 @@
-import { Tester } from "neotest";
-import { ScratchSession } from "../dist/index.js";
+import {Tester} from "neotest";
+import {ScratchSession} from "../dist/index.js";
 
 const r = new Tester();
 const session = new ScratchSession();

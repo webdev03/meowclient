@@ -56,7 +56,6 @@ interface ProjectAPIResponse {
 }
 
 class Project {
-  creator: string;
   id: number;
   session: Session;
   scratchProjectAPI: ProjectAPIResponse;

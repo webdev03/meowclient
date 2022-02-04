@@ -24,7 +24,3 @@ r.test("make sure project comments are object", () => {
 r.test("make sure project comments are iterable", () => {
   r.expectTypeOf(comments.forEach, "function");
 });
-
-r.test("make sure project creator is a string", () => {
-  r.expectTypeOf(project.creator, "string");
-});

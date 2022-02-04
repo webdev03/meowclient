@@ -55,6 +55,22 @@ interface ProjectAPIResponse {
   }
 }
 
+interface ProjectComment {
+  id: number,
+  parent_id: null | number,
+  commentee_id: null | number,
+  content: string,
+  datetime_created: string,
+  datetime_modified: string,
+  visibility: "visible" | "hidden",
+  author: {
+    id: number,
+    username: string,
+    scratchteam: boolean,
+    image: string
+  }
+}
+
 class Project {
   id: number;
   session: Session;
@@ -88,7 +104,7 @@ class Project {
    * @param limit The limit of comments to return
    * @returns The API response
    */
-  async getComments(offset = 0, limit = 20) {
+  async getComments(offset = 0, limit = 20): Promise<ProjectComment[]> {
     const apiData = await this.getAPIData()
     const commentFetch = await fetch(`https://api.scratch.mit.edu/users/${apiData.author.username}/projects/${this.id}/comments?offset=${offset}&limit=${limit}`, {
       headers: {

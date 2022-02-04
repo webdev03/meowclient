@@ -36,7 +36,7 @@ interface ProfileComment {
   username: string,
   content: string,
   apiID: string,
-  replies: Array<ProfileCommentReply>
+  replies: ProfileCommentReply[]
 }
 
 class Profile {
@@ -123,7 +123,7 @@ class Profile {
    * @returns {Array} An array of comments.
    * apiID is used to input into deleteComment
    */
-  async getComments(page: number = 1): Promise<Array<ProfileComment>> {
+  async getComments(page: number = 1): Promise<ProfileCommentReply[]> {
     const commentFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/?page=${page}`
     );
@@ -137,7 +137,7 @@ class Profile {
     const commentHTML = await commentFetch.text();
     const dom = new JSDOM(commentHTML);
     const items = dom.window.document.getElementsByClassName("top-level-reply");
-    let comments: Array<ProfileComment> = [];
+    let comments: ProfileComment[] = [];
     for (let elID in items) {
       const element = items[elID];
       if (typeof element == "function") break;
@@ -153,7 +153,7 @@ class Profile {
         .innerHTML.trim();
 
       // get replies
-      let replies: Array<ProfileCommentReply> = [];
+      let replies: ProfileCommentReply[] = [];
       let replyList = element.getElementsByClassName("replies")[0].getElementsByClassName("reply");
       for (let replyID in replyList) {
         const reply = replyList[replyID];

@@ -1,2 +1,2 @@
 import ScratchSession from "./ScratchSession";
-export {ScratchSession};
+export { ScratchSession };

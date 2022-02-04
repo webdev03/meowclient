@@ -1,6 +1,6 @@
 import fetch from "cross-fetch";
-import {Session, UserAgent} from "../Consts";
-import {JSDOM} from "jsdom";
+import { Session, UserAgent } from "../Consts";
+import { JSDOM } from "jsdom";
 
 interface UserAPIResponse {
   id: number;
@@ -45,7 +45,7 @@ class Profile {
   private scratchUserHTML: string;
   session: Session;
   scratchUserAPI: UserAPIResponse;
-  constructor({username, session}: {username: string; session: Session}) {
+  constructor({ username, session }: { username: string; session: Session }) {
     this.user = username;
     this.session = session;
   }

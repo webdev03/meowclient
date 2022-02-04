@@ -40,4 +40,4 @@ interface Session {
 
 const UserAgent = "Mozilla/5.0";
 
-export {Session, UserAgent, SessionJSON};
+export { Session, UserAgent, SessionJSON };

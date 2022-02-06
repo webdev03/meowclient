@@ -109,6 +109,26 @@ class Studio {
     }
     return inviteFetch.status;
   }
+
+  /**
+   * Removes a curator from the studio.
+   * @param username The username of the user to remove
+   * @returns {number} The status of the request
+   */
+  async removeCurator(username: string): Promise<number> {
+    const removeFetch = await fetch(`https://scratch.mit.edu/site-api/users/curators-in/${this.id}/remove/?usernames=${username}`, {
+      method: "PUT",
+      headers: {
+        "User-Agent": UserAgent,
+        "X-CSRFToken": this.session.csrfToken,
+        Cookie: this.session.cookieSet
+      }
+    });
+    if (!removeFetch.ok) {
+      throw new Error(`Could not remove curator - ${removeFetch.statusText}`);
+    }
+    return removeFetch.status;
+  }
 }
 
 export default Studio;

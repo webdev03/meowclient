@@ -52,6 +52,11 @@ class Studio {
   async setTitle(value: string): Promise<number> {
     const setFetch = await fetch(`https://scratch.mit.edu/site-api/galleries/all/${this.id}/`, {
       method: "PUT",
+      headers: {
+        "User-Agent": UserAgent,
+        "X-CSRFToken": this.session.csrfToken,
+        Cookie: this.session.cookieSet
+      },
       body: JSON.stringify({
         title: value
       })
@@ -70,6 +75,11 @@ class Studio {
   async setDescription(value: string): Promise<number> {
     const setFetch = await fetch(`https://scratch.mit.edu/site-api/galleries/all/${this.id}/`, {
       method: "PUT",
+      headers: {
+        "User-Agent": UserAgent,
+        "X-CSRFToken": this.session.csrfToken,
+        Cookie: this.session.cookieSet
+      },
       body: JSON.stringify({
         description: value
       })
@@ -78,6 +88,21 @@ class Studio {
       throw new Error(`Could not set description - ${setFetch.statusText}`);
     }
     return setFetch.status;
+  }
+
+  async inviteCurator(username: string) {
+    const inviteFetch = await fetch(`https://scratch.mit.edu/site-api/users/curators-in/${this.id}/invite_curator/?usernames=${username}`, {
+      method: "PUT",
+      headers: {
+        "User-Agent": UserAgent,
+        "X-CSRFToken": this.session.csrfToken,
+        Cookie: this.session.cookieSet
+      }
+    });
+    if (!inviteFetch.ok) {
+      throw new Error(`Could not invite curator - ${inviteFetch.statusText}`);
+    }
+    return inviteFetch.status;
   }
 }
 

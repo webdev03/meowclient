@@ -90,7 +90,12 @@ class Studio {
     return setFetch.status;
   }
 
-  async inviteCurator(username: string) {
+  /**
+   * Invites a curator to the studio.
+   * @param username The username of the user to add
+   * @returns {number} The status of the request
+   */
+  async inviteCurator(username: string): Promise<number> {
     const inviteFetch = await fetch(`https://scratch.mit.edu/site-api/users/curators-in/${this.id}/invite_curator/?usernames=${username}`, {
       method: "PUT",
       headers: {

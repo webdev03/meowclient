@@ -186,6 +186,7 @@ class Studio {
     }
     return await getFetch.json();
   }
+  
   /**
    * Gets the managers in a studio.
    * @param limit The limit of managers to return

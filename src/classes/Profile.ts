@@ -203,4 +203,4 @@ class Profile {
   }
 }
 
-export default Profile;
+export { Profile as default, UserAPIResponse };

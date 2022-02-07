@@ -1,5 +1,6 @@
 import fetch from "cross-fetch";
 import { Session, UserAgent } from "../Consts";
+import { UserAPIResponse } from "./Profile";
 
 interface StudioAPIResponse {
   id: number;
@@ -166,6 +167,41 @@ class Studio {
       throw new Error(`Could not remove project - ${removeFetch.statusText}`);
     }
     return removeFetch.status;
+  }
+
+  /**
+   * Gets the curators in a studio.
+   * @param limit The limit of curators to return
+   * @param offset The offset of the curators to return
+   * @returns An array of curators
+   */
+  async getCurators(limit: number = 24, offset: number = 0): Promise<UserAPIResponse[]> {
+    const getFetch = await fetch(`https://api.scratch.mit.edu/studios/${this.id}/curators/?limit=${limit}&offset=${offset}`, {
+      headers: {
+        "User-Agent": UserAgent
+      }
+    });
+    if(!getFetch.ok) {
+      throw new Error(`Could not get curators - ${getFetch.statusText}`);
+    }
+    return await getFetch.json();
+  }
+  /**
+   * Gets the managers in a studio.
+   * @param limit The limit of managers to return
+   * @param offset The offset of the managers to return
+   * @returns An array of managers
+   */
+  async getManagers(limit: number = 24, offset: number = 0): Promise<UserAPIResponse[]> {
+    const getFetch = await fetch(`https://api.scratch.mit.edu/studios/${this.id}/managers/?limit=${limit}&offset=${offset}`, {
+      headers: {
+        "User-Agent": UserAgent
+      }
+    });
+    if(!getFetch.ok) {
+      throw new Error(`Could not get managers - ${getFetch.statusText}`);
+    }
+    return await getFetch.json();
   }
 }
 

@@ -1,0 +1,11 @@
+language = "nodejs"
+onBoot="npm ci;npm run build"
+run = "npm run build:watch&node"
+[packager]
+language = "nodejs"
+
+  [packager.features]
+  # Enables the package search sidebar
+  packageSearch = false
+  # Enabled package guessing
+  guessImports = false

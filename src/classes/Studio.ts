@@ -129,6 +129,44 @@ class Studio {
     }
     return removeFetch.status;
   }
+
+  /**
+   * Adds a project to the studio.
+   * @param project The project ID to add to the studio
+   * @returns {number} The status of the request
+   */
+  async addProject(project: number): Promise<number> {
+    const addFetch = await fetch(`https://api.scratch.mit.edu/studios/${this.id}/project/${project}`, {
+      method: "POST",
+      headers: {
+        "User-Agent": UserAgent,
+        "X-Token": this.session.sessionJSON.user.token
+      }
+    });
+    if (!addFetch.ok) {
+      throw new Error(`Could not add project - ${addFetch.statusText}`);
+    }
+    return addFetch.status;
+  }
+
+  /**
+   * Removes a project from the studio.
+   * @param project The project ID to remove from the studio
+   * @returns {number} The status of the request
+   */
+   async removeProject(project: number): Promise<number> {
+    const removeFetch = await fetch(`https://api.scratch.mit.edu/studios/${this.id}/project/${project}`, {
+      method: "DELETE",
+      headers: {
+        "User-Agent": UserAgent,
+        "X-Token": this.session.sessionJSON.user.token
+      }
+    });
+    if (!removeFetch.ok) {
+      throw new Error(`Could not remove project - ${removeFetch.statusText}`);
+    }
+    return removeFetch.status;
+  }
 }
 
 export default Studio;

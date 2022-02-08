@@ -2,6 +2,22 @@ import fetch from "cross-fetch";
 import { Session, UserAgent } from "../Consts";
 import { UserAPIResponse } from "./Profile";
 
+interface OldProjectResponse {
+  id: number;
+  title: string;
+  image: string;
+  creator_id: number;
+  username: string;
+  avatar: {
+    '90x90': string;
+    '60x60': string;
+    '55x55': string;
+    '50x50': string;
+    '32x32': string;
+  },
+  actor_id: number;
+}
+
 interface StudioAPIResponse {
   id: number;
   title: string;
@@ -234,6 +250,27 @@ class Studio {
     );
     if (!getFetch.ok) {
       throw new Error(`Could not get managers - ${getFetch.statusText}`);
+    }
+    return await getFetch.json();
+  }
+
+  /**
+   * Gets the projects in a studio.
+   * @param limit The limit of projects to return
+   * @param offset The offset of the projects to return
+   * @returns An array of users
+   */
+  async getProjects(
+    limit: number = 24,
+    offset: number = 0
+  ): Promise<OldProjectResponse[]> {
+    const getFetch = await fetch(`https://api.scratch.mit.edu/studios/${this.id}/projects/?limit=${limit}&offset=${offset}`, {
+      headers: {
+        "User-Agent": UserAgent
+      }
+    });
+    if (!getFetch.ok) {
+      throw new Error(`Could not get projects - ${getFetch.statusText}`);
     }
     return await getFetch.json();
   }

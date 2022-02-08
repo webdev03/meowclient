@@ -1,9 +1,15 @@
 # Project
+
 Used for Scratch projects. Accessible through `ScratchSession.getProject`.
+
 ## Methods
+
 ### getAPIData
+
 Gets the API data of the project.
+
 #### Returns
+
 ```ts
 id: number,
 title: string,
@@ -58,35 +64,54 @@ remix: {
 ```
 
 ### getComments
+
 Gets the comments on the project.
+
 #### Parameters
+
 - `offset` (`number`) The offset of comments to return
 - `limit` (`number`) The limit of comments to return
+
 #### Returns
+
 This fetches and returns the data from the project comments - for example from [https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&limit=20](https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&limit=20). Type definitions will be added soon.
 
 ### setTitle
+
 Sets the project title (requires you to own the project).
+
 #### Parameters
+
 - `value` (`string`) The value to set the title to
 
 ### setInstructions
+
 Sets the project instructions (requires you to own the project).
+
 #### Parameters
+
 - `value` (`string`) The value to set the instructions to
 
 ### setNotesAndCredits
+
 Sets the project Notes and Credits (requires you to own the project).
+
 #### Parameters
+
 - `value` (`string`) The value to set the Notes and Credits to
 
 ### unshare
+
 Unshares the project (requires you to own the project).
 
 ### share
+
 Shares the project (requires you to own the project).
 
 ### createCloudConnection
+
 Creates a cloud connection
+
 #### Returns
+
 This returns a CloudConnection class.

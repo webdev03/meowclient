@@ -4,6 +4,6 @@
 .Trashes
 dist/
 node_modules/
-docs/
+docs/site
 package-lock.json
 pnpm-lock.yaml

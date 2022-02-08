@@ -92,7 +92,7 @@ Gets the curators of the studio.
 - `limit` (`number`) The maximum number of curators to return.
 - `offset` (`number`) The offset of the curators to return.
 
-### Returns
+#### Returns
 
 A `Promise` that resolves to an array of `User` objects (which are curators).
 
@@ -108,3 +108,34 @@ Gets the managers of the studio.
 ### Returns
 
 A `Promise` that resolves to an array of `User` objects (which are managers).
+
+### getProjects
+
+Gets the projects in the studio.
+
+#### Parameters
+
+- `limit` (`number`) The maximum number of projects to return.
+- `offset` (`number`) The offset of the projects to return.
+
+#### Returns
+
+A `Promise` that resolves to an array containing:
+
+```ts
+interface OldProjectResponse {
+  id: number;
+  title: string;
+  image: string;
+  creator_id: number;
+  username: string;
+  avatar: {
+    "90x90": string;
+    "60x60": string;
+    "55x55": string;
+    "50x50": string;
+    "32x32": string;
+  };
+  actor_id: number;
+}
+```

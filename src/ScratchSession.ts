@@ -94,6 +94,7 @@ class ScratchSession {
 
   /**
    * Gets a studio
+   * @param id The studio ID
    * @returns {Studio} The studio
    */
   getStudio(id: number): Studio {

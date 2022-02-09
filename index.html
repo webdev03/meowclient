@@ -68,6 +68,8 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="classes/Project/">Project</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="classes/Studio/">Studio</a>
+                    </li>
                 </ul>
       </div>
     </div>
@@ -118,12 +120,12 @@
 </code></pre>
 <p>A basic starter program:</p>
 <pre><code class="language-js">import { ScratchSession } from &quot;meowclient&quot;;
-(async() =&gt; {
+(async () =&gt; {
   const session = new ScratchSession();
   await session.init(&quot;user&quot;, &quot;pass&quot;); // change these to your scratch login credentials
   const me = session.getProfile(session.username);
-  console.log(&quot;My status is &quot; + await me.getStatus());
-})()
+  console.log(&quot;My status is &quot; + (await me.getStatus()));
+})();
 </code></pre>
 <p>Documentation is <strong>work in progress</strong> and not all things have been added yet.</p>
               
@@ -184,5 +186,5 @@
 
 <!--
 MkDocs version : 1.2.3
-Build Date UTC : 2022-01-28 07:02:48.574554+00:00
+Build Date UTC : 2022-02-09 04:13:33.027718+00:00
 -->

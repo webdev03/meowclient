@@ -77,6 +77,12 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getstudio">getStudio</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#parameters_3">Parameters</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#logout">logout</a>
     </li>
         </ul>
@@ -91,6 +97,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../classes/Profile/">Profile</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../classes/Project/">Project</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../classes/Studio/">Studio</a>
                     </li>
                 </ul>
       </div>
@@ -155,6 +163,12 @@
 </ul>
 <h4 id="returns_1">Returns</h4>
 <p>This returns a <code>Profile</code> class.</p>
+<h3 id="getstudio">getStudio</h3>
+<p>Gets a studio.</p>
+<h4 id="parameters_3">Parameters</h4>
+<ul>
+<li><code>id</code> (<code>number</code>) - The ID of the studio you want to get.</li>
+</ul>
 <h3 id="logout">logout</h3>
 <p>Logs out of Scratch.
 <strong>Note:</strong> Currently it still keeps <code>csrfToken</code>, <code>token</code>, and <code>sessionJSON</code> intact. If you want to re-login, use the <code>init</code> method or create a new <code>ScratchSession</code>.</p>

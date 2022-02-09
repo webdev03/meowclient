@@ -1,6 +1,6 @@
 import fetch from "cross-fetch";
 import { Session, UserAgent } from "../Consts";
-import { JSDOM } from "jsdom";
+import { parse } from "node-html-parser";
 
 interface UserAPIResponse {
   id: number;
@@ -56,8 +56,8 @@ class Profile {
    * @returns {string} The status of the user.
    */
   async getStatus(): Promise<"Scratcher" | "New Scratcher" | "Scratch Team"> {
-    const dom = new JSDOM(await this.getUserHTML());
-    return dom.window.document.querySelector(".group").innerHTML.trim();
+    const dom = parse(await this.getUserHTML());
+    return dom.querySelector(".group").innerHTML.trim() as "Scratcher" | "New Scratcher" | "Scratch Team";
   }
 
   /**
@@ -139,44 +139,44 @@ class Profile {
       }
     }
     const commentHTML = await commentFetch.text();
-    const dom = new JSDOM(commentHTML);
-    const items = dom.window.document.getElementsByClassName("top-level-reply");
+    const dom = parse(commentHTML);
+    const items = dom.querySelectorAll(".top-level-reply");
     let comments: ProfileComment[] = [];
     for (let elID in items) {
       const element = items[elID];
       if (typeof element == "function") break;
-      const commentID = element.getElementsByClassName("comment")[0].id;
+      const commentID = element.querySelector(".comment").id;
       const commentPoster = element
-        .getElementsByClassName("comment")[0]
+        .querySelector(".comment")
         .getElementsByTagName("a")[0]
         .getAttribute("data-comment-user");
       const commentContent = element
-        .getElementsByClassName("comment")[0]
-        .getElementsByClassName("info")[0]
-        .getElementsByClassName("content")[0]
+        .querySelector(".comment")
+        .querySelector(".info")
+        .querySelector(".content")
         .innerHTML.trim();
 
       // get replies
       let replies: ProfileCommentReply[] = [];
       let replyList = element
-        .getElementsByClassName("replies")[0]
-        .getElementsByClassName("reply");
+        .querySelector(".replies")
+        .querySelectorAll(".reply");
       for (let replyID in replyList) {
         const reply = replyList[replyID];
-        if (reply.nodeName === "A") continue;
+        if (reply.tagName === "A") continue;
         if (typeof reply === "function") continue;
         if (typeof reply === "number") continue;
-        const commentID = reply.getElementsByClassName("comment")[0].id;
+        const commentID = reply.querySelector(".comment").id;
         const commentPoster = reply
-          .getElementsByClassName("comment")[0]
+          .querySelector(".comment")
           .getElementsByTagName("a")[0]
           .getAttribute("data-comment-user");
 
         // regex here developed at https://scratch.mit.edu/discuss/post/5983094/
         const commentContent = reply
-          .getElementsByClassName("comment")[0]
-          .getElementsByClassName("info")[0]
-          .getElementsByClassName("content")[0]
+          .querySelector(".comment")
+          .querySelector(".info")
+          .querySelector(".content")
           .textContent.trim()
           .replace(/\n+/gm, "")
           .replace(/\s+/gm, " ");

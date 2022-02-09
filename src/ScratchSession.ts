@@ -1,6 +1,7 @@
 // manages authentication, and is the main handler of every other function
 import Profile from "./classes/Profile";
 import Project from "./classes/Project";
+import Studio from "./classes/Studio";
 
 import { SessionJSON, UserAgent } from "./Consts";
 import fetch from "cross-fetch";
@@ -89,6 +90,15 @@ class ScratchSession {
    */
   getProject(id: number): Project {
     return new Project({ id: id, session: this });
+  }
+
+  /**
+   * Gets a studio
+   * @param id The studio ID
+   * @returns {Studio} The studio
+   */
+  getStudio(id: number): Studio {
+    return new Studio({ id: id, session: this });
   }
 
   /**

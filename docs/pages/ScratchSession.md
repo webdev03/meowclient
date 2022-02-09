@@ -1,12 +1,15 @@
 # ScratchSession
+
 The main part of meowclient.
 
 ## Methods
+
 ### init
 
 Initialises the `ScratchSession` to perform authenticated actions. You can perform limited actions without calling this method.
 
 #### Parameters
+
 - `user` (`string`) - The username of the user you want to log in to
 - `pass` (`string`) - The password of the user you want to log in to
 
@@ -15,9 +18,11 @@ Initialises the `ScratchSession` to perform authenticated actions. You can perfo
 Gets a project.
 
 #### Parameters
+
 - `id` (`number`) - The ID of the project you want to get.
 
 #### Returns
+
 This returns a `Project` class.
 
 ### getProfile
@@ -25,10 +30,20 @@ This returns a `Project` class.
 Gets a profile.
 
 #### Parameters
+
 - `username` (`string`) - The username of the profile you want to get.
 
 #### Returns
+
 This returns a `Profile` class.
+
+### getStudio
+
+Gets a studio.
+
+#### Parameters
+
+- `id` (`number`) - The ID of the studio you want to get.
 
 ### logout
 

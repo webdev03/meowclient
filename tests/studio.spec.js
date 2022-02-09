@@ -20,3 +20,22 @@ r.test("make sure api data has correct types", () => {
   r.expectTypeOf(apiData.open_to_all, "boolean");
   r.expectTypeOf(apiData.public, "boolean");
 });
+
+const projects = await studio.getProjects();
+
+r.test("make sure studio projects returned have correct types", () => {
+  const project = projects[0];
+  r.expectTypeOf(project.id, "number");
+  r.expectTypeOf(project.title, "string");
+  r.expectTypeOf(project.image, "string");
+  r.expectTypeOf(project.actor_id, "number");
+  r.expectTypeOf(project.creator_id, "number");
+  r.expectTypeOf(project.username, "string");
+
+  // avatar
+  r.expectTypeOf(project.avatar["90x90"], "string");
+  r.expectTypeOf(project.avatar["60x60"], "string");
+  r.expectTypeOf(project.avatar["55x55"], "string");
+  r.expectTypeOf(project.avatar["50x50"], "string");
+  r.expectTypeOf(project.avatar["32x32"], "string");
+});

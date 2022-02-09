@@ -9,12 +9,12 @@ interface OldProjectResponse {
   creator_id: number;
   username: string;
   avatar: {
-    '90x90': string;
-    '60x60': string;
-    '55x55': string;
-    '50x50': string;
-    '32x32': string;
-  },
+    "90x90": string;
+    "60x60": string;
+    "55x55": string;
+    "50x50": string;
+    "32x32": string;
+  };
   actor_id: number;
 }
 
@@ -264,11 +264,14 @@ class Studio {
     limit: number = 24,
     offset: number = 0
   ): Promise<OldProjectResponse[]> {
-    const getFetch = await fetch(`https://api.scratch.mit.edu/studios/${this.id}/projects/?limit=${limit}&offset=${offset}`, {
-      headers: {
-        "User-Agent": UserAgent
+    const getFetch = await fetch(
+      `https://api.scratch.mit.edu/studios/${this.id}/projects/?limit=${limit}&offset=${offset}`,
+      {
+        headers: {
+          "User-Agent": UserAgent
+        }
       }
-    });
+    );
     if (!getFetch.ok) {
       throw new Error(`Could not get projects - ${getFetch.statusText}`);
     }

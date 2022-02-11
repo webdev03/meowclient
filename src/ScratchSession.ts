@@ -2,6 +2,7 @@
 import Profile from "./classes/Profile";
 import Project from "./classes/Project";
 import Studio from "./classes/Studio";
+import Forum from "./classes/forums/Forum";
 
 import { SessionJSON, UserAgent } from "./Consts";
 import fetch from "cross-fetch";
@@ -99,6 +100,10 @@ class ScratchSession {
    */
   getStudio(id: number): Studio {
     return new Studio({ id: id, session: this });
+  }
+
+  getForum(id: number): Forum {
+    return new Forum({ id: id, session: this });
   }
 
   /**

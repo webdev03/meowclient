@@ -252,18 +252,15 @@ class Project {
           "X-Token": this.session.sessionJSON.user.token,
           "x-requested-with": "XMLHttpRequest",
           Cookie: this.session.cookieSet,
-          referer: `https://scratch.mit.edu/projects/${this.id}/`,
+          Referer: `https://scratch.mit.edu/projects/${this.id}/`,
           "User-Agent": UserAgent,
-          accept: "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
           "Content-Length": "0",
-          Referer: "https://scratch.mit.edu/",
           Origin: "https://scratch.mit.edu",
           Host: "api.scratch.mit.edu",
           "Cache-Control": "max-age=0, no-cache",
-          "X-Requested-With": "XMLHttpRequest",
           Pragma: "no-cache",
-          Accept: "*/*",
           "Accept-Encoding": "gzip, deflate, br"
         }
       }

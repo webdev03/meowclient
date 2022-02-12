@@ -102,6 +102,11 @@ class ScratchSession {
     return new Studio({ id: id, session: this });
   }
 
+  /**
+   * Gets a forum
+   * @param id (optional) The ID of the forum you want to get (for example, 31 for the "Advanced Topics" forum)
+   * @returns {Forum} The forum
+   */
   getForum(id: number): Forum {
     return new Forum({ id: id, session: this });
   }

@@ -17,7 +17,7 @@ class Post {
   }
 
   /**
-   * Edits the post
+   * Edits the post (requires ownership of the post)
    * @param content The new content of the post
    * @returns The post with the new content
    */

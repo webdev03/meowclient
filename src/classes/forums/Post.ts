@@ -19,7 +19,7 @@ class Post {
   /**
    * Edits the post (requires ownership of the post)
    * @param content The new content of the post
-   * @returns The post with the new content
+   * @returns The status of the request
    */
   async edit(content: string) {
     const editFetch = await fetch(`https://scratch.mit.edu/discuss/post/${this.id}/edit/`, {

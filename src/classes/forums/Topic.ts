@@ -49,5 +49,53 @@ class Topic {
 
     return posts;
   }
+
+  async follow() {
+    const followFetch = await fetch(`https://scratch.mit.edu/discuss/subscription/topic/${this.id}/add/`, {
+      method: "POST",
+      headers: {
+        Cookie: this.session.cookieSet,
+        "User-Agent": UserAgent,
+        Accept: "*/*",
+        "X-CSRFToken": this.session.csrfToken,
+        "Accept-Encoding": "gzip, deflate, br",
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/x-www-form-urlencoded",
+        Host: "scratch.mit.edu",
+        Origin: "https://scratch.mit.edu",
+        Referer: `https://scratch.mit.edu/discuss/topic/${this.id}/`
+      }
+    });
+    if (!followFetch.ok) {
+      throw new Error(
+        `Error following topic ${this.id} - ${followFetch.statusText}`
+      );
+    }
+    return followFetch.status;
+  }
+
+  async unfollow() {
+    const unfollowFetch = await fetch(`https://scratch.mit.edu/discuss/subscription/topic/${this.id}/delete/`, {
+      method: "POST",
+      headers: {
+        Cookie: this.session.cookieSet,
+        "User-Agent": UserAgent,
+        Accept: "*/*",
+        "X-CSRFToken": this.session.csrfToken,
+        "Accept-Encoding": "gzip, deflate, br",
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/x-www-form-urlencoded",
+        Host: "scratch.mit.edu",
+        Origin: "https://scratch.mit.edu",
+        Referer: `https://scratch.mit.edu/discuss/topic/${this.id}/`
+      }
+    });
+    if (!unfollowFetch.ok) {
+      throw new Error(
+        `Error unfollowing topic ${this.id} - ${unfollowFetch.statusText}`
+      );
+    }
+    return unfollowFetch.status;
+  }
 }
 export default Topic;

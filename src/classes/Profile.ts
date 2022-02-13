@@ -57,7 +57,10 @@ class Profile {
    */
   async getStatus(): Promise<"Scratcher" | "New Scratcher" | "Scratch Team"> {
     const dom = parse(await this.getUserHTML());
-    return dom.querySelector(".group").innerHTML.trim() as "Scratcher" | "New Scratcher" | "Scratch Team";
+    return dom.querySelector(".group").innerHTML.trim() as
+      | "Scratcher"
+      | "New Scratcher"
+      | "Scratch Team";
   }
 
   /**

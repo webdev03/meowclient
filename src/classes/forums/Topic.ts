@@ -7,10 +7,14 @@ class Topic {
   id: number;
   session: Session;
   sticky?: boolean;
-  constructor({ id, session, sticky }: { id: number; session: Session, sticky?: boolean }) {
+  title?: string;
+  replyCount?: number;
+  constructor({ id, session, sticky, title, replyCount }: { id: number; session: Session, sticky?: boolean, title?: string, replyCount?: number }) {
     this.id = id;
     this.session = session;
     this.sticky = sticky;
+    this.title = title;
+    this.replyCount = replyCount;
   }
 
   /**

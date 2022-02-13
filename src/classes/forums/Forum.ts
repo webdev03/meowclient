@@ -37,9 +37,13 @@ class Forum {
         .getAttribute("href")
         .split("/")
         .splice(1)[3];
+      const title = child.querySelector("strong").innerText;
+      const replyCount = Number(child.querySelector(".item span").innerText.split(" ")[0])
       const isSticky = child.classList.contains("sticky");
       const topic = new Topic({
         id: Number(id),
+        title: title,
+        replyCount: replyCount,
         sticky: isSticky,
         session: this.session
       });
@@ -51,7 +55,8 @@ class Forum {
 
   /**
    * Gets a topic
-   * Note: Topic.sticky is undefined when using this!
+   * 
+   * Note: Topic.sticky, Topic.title, and Topic.replyCount give undefined when using this!
    * @param id The ID of the topic
    * @returns {Topic} The topic
    */

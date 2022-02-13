@@ -37,8 +37,10 @@ class Forum {
         .getAttribute("href")
         .split("/")
         .splice(1)[3];
+      const isSticky = child.classList.contains("sticky");
       const topic = new Topic({
         id: Number(id),
+        sticky: isSticky,
         session: this.session
       });
       topics.push(topic);
@@ -49,6 +51,7 @@ class Forum {
 
   /**
    * Gets a topic
+   * Note: Topic.sticky is undefined when using this!
    * @param id The ID of the topic
    * @returns {Topic} The topic
    */

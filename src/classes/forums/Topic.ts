@@ -6,9 +6,11 @@ import fetch from "cross-fetch";
 class Topic {
   id: number;
   session: Session;
-  constructor({ id, session }: { id: number; session: Session }) {
+  sticky?: boolean;
+  constructor({ id, session, sticky }: { id: number; session: Session, sticky?: boolean }) {
     this.id = id;
     this.session = session;
+    this.sticky = sticky;
   }
 
   /**

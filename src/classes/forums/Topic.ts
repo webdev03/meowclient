@@ -11,6 +11,10 @@ class Topic {
     this.session = session;
   }
 
+  /**
+   * Gets the posts in the topic
+   * @returns An array of posts in the topic
+   */
   async getPosts() {
     let posts = [];
 
@@ -50,6 +54,10 @@ class Topic {
     return posts;
   }
 
+  /**
+   * Follows the topic
+   * @returns The status code of the request
+   */
   async follow() {
     const followFetch = await fetch(`https://scratch.mit.edu/discuss/subscription/topic/${this.id}/add/`, {
       method: "POST",
@@ -74,6 +82,10 @@ class Topic {
     return followFetch.status;
   }
 
+  /**
+   * Unfollows the topic
+   * @returns The status code of the request
+   */
   async unfollow() {
     const unfollowFetch = await fetch(`https://scratch.mit.edu/discuss/subscription/topic/${this.id}/delete/`, {
       method: "POST",

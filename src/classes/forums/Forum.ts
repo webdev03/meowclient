@@ -13,7 +13,7 @@ class Forum {
 
   /**
    * Gets a list of topics
-   * @returns {Promise<Topic[]>} An array of topics
+   * @returns An array of topics
    */
   async getTopics() {
     let topics: Topic[] = [];

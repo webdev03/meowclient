@@ -1,14 +1,14 @@
 # Forums
 
-Access the Scratch forums through meowclient. Accessible with `ScratchSession.getForum`.
+Access the Scratch forums through meowclient!
 
 ## getForum
 
-Gets a forum.
+Gets a forum. Accessible with `ScratchSession.getForum`.
 
 ### Parameters
 
-- `id` (optional): The id of the forum. If not provided, only a few options will work.
+- `id` (`number`): The id of the forum. If not provided, only a few options will work.
 
 ### Returns
 
@@ -30,7 +30,7 @@ Gets a topic.
 
 #### Parameters
 
-- `id`: The id of the topic.
+- `id` (`number`): The id of the topic.
 
 #### Returns
 
@@ -58,6 +58,22 @@ A `Promise` that resolves to a number.
 ### unfollow (Promise)
 
 Unfollows the topic.
+
+#### Returns
+
+A `Promise` that resolves to a number.
+**Note: This _will_ change in future updates!**
+
+## Post
+
+- `id` (`number`): The id of the post.
+- `author` (`string`): The author of the post.
+- `content` (`string`): The content of the post.
+- `parsableContent` (`HTMLElement`): Parsable content with `node-html-parser`.
+
+### edit (Promise)
+
+Edits the post.
 
 #### Returns
 

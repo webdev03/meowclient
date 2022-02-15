@@ -67,9 +67,8 @@ class Studio {
   /**
    * Sets the title of the studio.
    * @param value The value to set the title to
-   * @returns {number} The status of the request
    */
-  async setTitle(value: string): Promise<number> {
+  async setTitle(value: string) {
     const setFetch = await fetch(
       `https://scratch.mit.edu/site-api/galleries/all/${this.id}/`,
       {
@@ -87,13 +86,12 @@ class Studio {
     if (!setFetch.ok) {
       throw new Error(`Could not set title - ${setFetch.statusText}`);
     }
-    return setFetch.status;
+    return setFetch;
   }
 
   /**
    * Sets the description of the studio.
    * @param value The value to set the description to
-   * @returns {number} The status of the request
    */
   async setDescription(value: string): Promise<number> {
     const setFetch = await fetch(
@@ -113,13 +111,12 @@ class Studio {
     if (!setFetch.ok) {
       throw new Error(`Could not set description - ${setFetch.statusText}`);
     }
-    return setFetch.status;
+    return setFetch;
   }
 
   /**
    * Invites a curator to the studio.
    * @param username The username of the user to add
-   * @returns {number} The status of the request
    */
   async inviteCurator(username: string): Promise<number> {
     const inviteFetch = await fetch(
@@ -136,13 +133,12 @@ class Studio {
     if (!inviteFetch.ok) {
       throw new Error(`Could not invite curator - ${inviteFetch.statusText}`);
     }
-    return inviteFetch.status;
+    return inviteFetch;
   }
 
   /**
    * Removes a curator from the studio.
    * @param username The username of the user to remove
-   * @returns {number} The status of the request
    */
   async removeCurator(username: string): Promise<number> {
     const removeFetch = await fetch(
@@ -159,13 +155,12 @@ class Studio {
     if (!removeFetch.ok) {
       throw new Error(`Could not remove curator - ${removeFetch.statusText}`);
     }
-    return removeFetch.status;
+    return removeFetch;
   }
 
   /**
    * Adds a project to the studio.
    * @param project The project ID to add to the studio
-   * @returns {number} The status of the request
    */
   async addProject(project: number): Promise<number> {
     const addFetch = await fetch(
@@ -181,13 +176,12 @@ class Studio {
     if (!addFetch.ok) {
       throw new Error(`Could not add project - ${addFetch.statusText}`);
     }
-    return addFetch.status;
+    return addFetch;
   }
 
   /**
    * Removes a project from the studio.
    * @param project The project ID to remove from the studio
-   * @returns {number} The status of the request
    */
   async removeProject(project: number): Promise<number> {
     const removeFetch = await fetch(
@@ -203,7 +197,7 @@ class Studio {
     if (!removeFetch.ok) {
       throw new Error(`Could not remove project - ${removeFetch.statusText}`);
     }
-    return removeFetch.status;
+    return removeFetch;
   }
 
   /**

@@ -104,7 +104,7 @@ class Topic {
         `Error following topic ${this.id} - ${followFetch.statusText}`
       );
     }
-    return followFetch.status;
+    return followFetch;
   }
 
   /**
@@ -135,7 +135,7 @@ class Topic {
         `Error unfollowing topic ${this.id} - ${unfollowFetch.statusText}`
       );
     }
-    return unfollowFetch.status;
+    return unfollowFetch;
   }
 }
 export default Topic;

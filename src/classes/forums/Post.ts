@@ -66,7 +66,7 @@ class Post {
         `Error editing post ${this.id} - ${editFetch.statusText}`
       );
     }
-    return editFetch.status;
+    return editFetch;
   }
 }
 

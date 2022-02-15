@@ -66,7 +66,6 @@ class Profile {
   /**
    * Deletes a comment
    * @param id The comment ID, for example 12345, *not* comment-12345
-   * @returns {number} The status code of the request.
    */
   async deleteComment(id: string | number) {
     const delFetch = await fetch(
@@ -91,7 +90,7 @@ class Profile {
       console.log(delFetch.status, await delFetch.text());
       throw new Error("Error deleting comment.");
     }
-    return delFetch.status;
+    return delFetch;
   }
 
   private async getUserHTML() {

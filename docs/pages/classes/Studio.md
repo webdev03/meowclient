@@ -18,8 +18,7 @@ Sets the title of the studio.
 
 #### Returns
 
-A `Promise` that resolves to the status code of the request.
-**Note: This _will_ change in future updates!**
+A `Response` object.
 
 ### setDescription
 
@@ -31,8 +30,7 @@ Sets the description of the studio.
 
 #### Returns
 
-A `Promise` that resolves to the status code of the request.
-**Note: This _will_ change in future updates!**
+A `Response` object.
 
 ### inviteCurator
 
@@ -44,8 +42,7 @@ Invites a user to be a curator of the studio.
 
 #### Returns
 
-A `Promise` that resolves to the status code of the request.
-**Note: This _will_ change in future updates!**
+A `Response` object.
 
 ### removeCurator
 
@@ -57,7 +54,7 @@ Removes a user from the studio.
 
 #### Returns
 
-A `Promise` that resolves to the status code of the request. **Note: This _will_ change in future updates!**
+A `Response` object.
 
 ### addProject
 
@@ -69,7 +66,7 @@ Adds a project to the studio.
 
 #### Returns
 
-A `Promise` that resolves to the status code of the request. **Note: This _will_ change in future updates!**
+A `Response` object.
 
 ### removeProject
 
@@ -81,7 +78,7 @@ Removes a project from the studio.
 
 #### Returns
 
-A `Promise` that resolves to the status code of the request. **Note: This _will_ change in future updates!**
+A `Response` object.
 
 ### getCurators
 

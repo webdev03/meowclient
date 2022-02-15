@@ -52,8 +52,7 @@ Follows the topic.
 
 #### Returns
 
-A `Promise` that resolves to a number.
-**Note: This _will_ change in future updates!**
+A `Response` object.
 
 ### unfollow (Promise)
 
@@ -61,8 +60,7 @@ Unfollows the topic.
 
 #### Returns
 
-A `Promise` that resolves to a number.
-**Note: This _will_ change in future updates!**
+A `Response` object.
 
 ## Post
 
@@ -78,5 +76,4 @@ Edits the post.
 
 #### Returns
 
-A `Promise` that resolves to a number.
-**Note: This _will_ change in future updates!**
+A `Response` object.

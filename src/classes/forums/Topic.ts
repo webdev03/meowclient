@@ -45,10 +45,12 @@ class Topic {
       const id = child.getAttribute("id").split("-")[1];
       const content = child.querySelector(".post-content").innerHTML;
       const parsableContent = child.querySelector(".post-content");
+      const time = new Date(child.querySelector("time").getAttribute("datetime"));
       const post = new Post({
         id: Number(id),
         session: this.session,
         content: content,
+        time: time,
         parsableContent: parsableContent,
         author: child
           .getElementsByTagName("header")[0]

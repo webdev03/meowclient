@@ -6,26 +6,30 @@ class Post {
   id: number;
   session: Session;
   content: string;
-  parseableContent: HTMLElement;
+  parsableContent: HTMLElement;
   author: string;
+  time: Date;
   constructor({
     id,
     session,
     content,
     parsableContent,
-    author
+    author,
+    time
   }: {
     id: number;
     session: Session;
     content: string;
     parsableContent: HTMLElement;
     author: string;
+    time: Date;
   }) {
     this.id = id;
     this.session = session;
     this.content = content;
     this.author = author;
-    this.parseableContent = parsableContent;
+    this.parsableContent = parsableContent;
+    this.time = time;
   }
 
   /**
@@ -50,11 +54,10 @@ class Post {
           Referer: `https://scratch.mit.edu/discuss/post/${this.id}/edit/`
         },
         method: "POST",
-        body: `csrfmiddlewaretoken=${
-          this.session.csrfToken
-        }&body=${encodeURIComponent(content)
-          .replace("%20", "+")
-          .replace("\n", "\r\n")}`
+        body: `csrfmiddlewaretoken=${this.session.csrfToken
+          }&body=${encodeURIComponent(content)
+            .replace("%20", "+")
+            .replace("\n", "\r\n")}`
       }
     );
     if (!editFetch.ok) {

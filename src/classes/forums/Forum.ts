@@ -38,7 +38,9 @@ class Forum {
         .split("/")
         .splice(1)[3];
       const title = child.querySelector("strong").innerText;
-      const replyCount = Number(child.querySelector(".item span").innerText.split(" ")[0])
+      const replyCount = Number(
+        child.querySelector(".item span").innerText.split(" ")[0]
+      );
       const isSticky = child.classList.contains("sticky");
       const topic = new Topic({
         id: Number(id),
@@ -55,7 +57,7 @@ class Forum {
 
   /**
    * Gets a topic
-   * 
+   *
    * Note: Topic.sticky, Topic.title, and Topic.replyCount give undefined when using this!
    * @param id The ID of the topic
    * @returns {Topic} The topic

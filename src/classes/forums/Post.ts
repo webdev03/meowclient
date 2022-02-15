@@ -54,10 +54,11 @@ class Post {
           Referer: `https://scratch.mit.edu/discuss/post/${this.id}/edit/`
         },
         method: "POST",
-        body: `csrfmiddlewaretoken=${this.session.csrfToken
-          }&body=${encodeURIComponent(content)
-            .replace("%20", "+")
-            .replace("\n", "\r\n")}`
+        body: `csrfmiddlewaretoken=${
+          this.session.csrfToken
+        }&body=${encodeURIComponent(content)
+          .replace("%20", "+")
+          .replace("\n", "\r\n")}`
       }
     );
     if (!editFetch.ok) {

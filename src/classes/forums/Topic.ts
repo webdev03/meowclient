@@ -9,7 +9,19 @@ class Topic {
   sticky?: boolean;
   title?: string;
   replyCount?: number;
-  constructor({ id, session, sticky, title, replyCount }: { id: number; session: Session, sticky?: boolean, title?: string, replyCount?: number }) {
+  constructor({
+    id,
+    session,
+    sticky,
+    title,
+    replyCount
+  }: {
+    id: number;
+    session: Session;
+    sticky?: boolean;
+    title?: string;
+    replyCount?: number;
+  }) {
     this.id = id;
     this.session = session;
     this.sticky = sticky;
@@ -45,7 +57,9 @@ class Topic {
       const id = child.getAttribute("id").split("-")[1];
       const content = child.querySelector(".post-content").innerHTML;
       const parsableContent = child.querySelector(".post-content");
-      const time = new Date(child.querySelector("time").getAttribute("datetime"));
+      const time = new Date(
+        child.querySelector("time").getAttribute("datetime")
+      );
       const post = new Post({
         id: Number(id),
         session: this.session,
@@ -67,21 +81,24 @@ class Topic {
    * @returns The status code of the request
    */
   async follow() {
-    const followFetch = await fetch(`https://scratch.mit.edu/discuss/subscription/topic/${this.id}/add/`, {
-      method: "POST",
-      headers: {
-        Cookie: this.session.cookieSet,
-        "User-Agent": UserAgent,
-        Accept: "*/*",
-        "X-CSRFToken": this.session.csrfToken,
-        "Accept-Encoding": "gzip, deflate, br",
-        "Cache-Control": "no-cache",
-        "Content-Type": "application/x-www-form-urlencoded",
-        Host: "scratch.mit.edu",
-        Origin: "https://scratch.mit.edu",
-        Referer: `https://scratch.mit.edu/discuss/topic/${this.id}/`
+    const followFetch = await fetch(
+      `https://scratch.mit.edu/discuss/subscription/topic/${this.id}/add/`,
+      {
+        method: "POST",
+        headers: {
+          Cookie: this.session.cookieSet,
+          "User-Agent": UserAgent,
+          Accept: "*/*",
+          "X-CSRFToken": this.session.csrfToken,
+          "Accept-Encoding": "gzip, deflate, br",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/x-www-form-urlencoded",
+          Host: "scratch.mit.edu",
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/discuss/topic/${this.id}/`
+        }
       }
-    });
+    );
     if (!followFetch.ok) {
       throw new Error(
         `Error following topic ${this.id} - ${followFetch.statusText}`
@@ -95,21 +112,24 @@ class Topic {
    * @returns The status code of the request
    */
   async unfollow() {
-    const unfollowFetch = await fetch(`https://scratch.mit.edu/discuss/subscription/topic/${this.id}/delete/`, {
-      method: "POST",
-      headers: {
-        Cookie: this.session.cookieSet,
-        "User-Agent": UserAgent,
-        Accept: "*/*",
-        "X-CSRFToken": this.session.csrfToken,
-        "Accept-Encoding": "gzip, deflate, br",
-        "Cache-Control": "no-cache",
-        "Content-Type": "application/x-www-form-urlencoded",
-        Host: "scratch.mit.edu",
-        Origin: "https://scratch.mit.edu",
-        Referer: `https://scratch.mit.edu/discuss/topic/${this.id}/`
+    const unfollowFetch = await fetch(
+      `https://scratch.mit.edu/discuss/subscription/topic/${this.id}/delete/`,
+      {
+        method: "POST",
+        headers: {
+          Cookie: this.session.cookieSet,
+          "User-Agent": UserAgent,
+          Accept: "*/*",
+          "X-CSRFToken": this.session.csrfToken,
+          "Accept-Encoding": "gzip, deflate, br",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/x-www-form-urlencoded",
+          Host: "scratch.mit.edu",
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/discuss/topic/${this.id}/`
+        }
       }
-    });
+    );
     if (!unfollowFetch.ok) {
       throw new Error(
         `Error unfollowing topic ${this.id} - ${unfollowFetch.statusText}`

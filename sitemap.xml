@@ -2,32 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://webdev03.github.io/meowclient/</loc>
-         <lastmod>2022-02-09</lastmod>
+         <lastmod>2022-02-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://webdev03.github.io/meowclient/ScratchSession/</loc>
-         <lastmod>2022-02-09</lastmod>
+         <lastmod>2022-02-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://webdev03.github.io/meowclient/classes/CloudConnection/</loc>
-         <lastmod>2022-02-09</lastmod>
+         <lastmod>2022-02-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://webdev03.github.io/meowclient/classes/Forums/</loc>
+         <lastmod>2022-02-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://webdev03.github.io/meowclient/classes/Profile/</loc>
-         <lastmod>2022-02-09</lastmod>
+         <lastmod>2022-02-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://webdev03.github.io/meowclient/classes/Project/</loc>
-         <lastmod>2022-02-09</lastmod>
+         <lastmod>2022-02-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://webdev03.github.io/meowclient/classes/Studio/</loc>
-         <lastmod>2022-02-09</lastmod>
+         <lastmod>2022-02-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

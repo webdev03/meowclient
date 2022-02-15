@@ -1,6 +1,6 @@
 // a lot of this has been taken from https://github.com/meow-js/meow-js/blob/master/src/classes/CloudConnection.js thank you so much!
 
-import WebSocket from "ws";
+import { WebSocket } from "ws";
 import { Session } from "../Consts";
 
 class CloudConnection {

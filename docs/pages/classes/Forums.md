@@ -70,6 +70,7 @@ A `Promise` that resolves to a number.
 - `author` (`string`): The author of the post.
 - `content` (`string`): The content of the post.
 - `parsableContent` (`HTMLElement`): Parsable content with `node-html-parser`.
+- `time` (`Date`): The time the post was created.
 
 ### edit (Promise)
 

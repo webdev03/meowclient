@@ -93,7 +93,7 @@ class Studio {
    * Sets the description of the studio.
    * @param value The value to set the description to
    */
-  async setDescription(value: string): Promise<number> {
+  async setDescription(value: string) {
     const setFetch = await fetch(
       `https://scratch.mit.edu/site-api/galleries/all/${this.id}/`,
       {
@@ -118,7 +118,7 @@ class Studio {
    * Invites a curator to the studio.
    * @param username The username of the user to add
    */
-  async inviteCurator(username: string): Promise<number> {
+  async inviteCurator(username: string) {
     const inviteFetch = await fetch(
       `https://scratch.mit.edu/site-api/users/curators-in/${this.id}/invite_curator/?usernames=${username}`,
       {
@@ -140,7 +140,7 @@ class Studio {
    * Removes a curator from the studio.
    * @param username The username of the user to remove
    */
-  async removeCurator(username: string): Promise<number> {
+  async removeCurator(username: string) {
     const removeFetch = await fetch(
       `https://scratch.mit.edu/site-api/users/curators-in/${this.id}/remove/?usernames=${username}`,
       {
@@ -162,7 +162,7 @@ class Studio {
    * Adds a project to the studio.
    * @param project The project ID to add to the studio
    */
-  async addProject(project: number): Promise<number> {
+  async addProject(project: number) {
     const addFetch = await fetch(
       `https://api.scratch.mit.edu/studios/${this.id}/project/${project}`,
       {
@@ -183,7 +183,7 @@ class Studio {
    * Removes a project from the studio.
    * @param project The project ID to remove from the studio
    */
-  async removeProject(project: number): Promise<number> {
+  async removeProject(project: number) {
     const removeFetch = await fetch(
       `https://api.scratch.mit.edu/studios/${this.id}/project/${project}`,
       {

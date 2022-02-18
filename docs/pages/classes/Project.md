@@ -74,7 +74,23 @@ Gets the comments on the project.
 
 #### Returns
 
-This fetches and returns the data from the project comments - for example from [https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&limit=20](https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&limit=20). Type definitions will be added soon.
+An array of
+
+```ts
+id: number;
+parent_id: null | number;
+commentee_id: null | number;
+content: string;
+datetime_created: string;
+datetime_modified: string;
+visibility: "visible" | "hidden";
+author: {
+  id: number;
+  username: string;
+  scratchteam: boolean;
+  image: string;
+}
+```
 
 ### setTitle
 

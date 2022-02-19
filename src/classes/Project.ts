@@ -57,8 +57,8 @@ interface ProjectAPIResponse {
 
 interface ProjectComment {
   id: number;
-  parent_id: null | number;
-  commentee_id: null | number;
+  parent_id: null;
+  commentee_id: null;
   content: string;
   datetime_created: string;
   datetime_modified: string;
@@ -69,6 +69,23 @@ interface ProjectComment {
     scratchteam: boolean;
     image: string;
   };
+}
+
+interface ProjectCommentReply {
+  id: number;
+  parent_id: number;
+  commentee_id: number;
+  content: string;
+  datetime_created: string;
+  datetime_modified: string;
+  visibility: "visible" | "hidden";
+  author: {
+    id: number;
+    username: string;
+    scratchteam: boolean;
+    image: string;
+  };
+  reply_count: number;
 }
 
 class Project {
@@ -111,6 +128,35 @@ class Project {
     const apiData = await this.getAPIData();
     const commentFetch = await fetch(
       `https://api.scratch.mit.edu/users/${apiData.author.username}/projects/${this.id}/comments?offset=${offset}&limit=${limit}`,
+      {
+        headers: {
+          "User-Agent": UserAgent
+        }
+      }
+    );
+    if (!commentFetch.ok) {
+      throw new Error(
+        `Comments returned status ${commentFetch.status} - ${commentFetch.statusText}`
+      );
+    }
+    return await commentFetch.json();
+  }
+
+  /**
+   * Gets the comment replies to a comment
+   * @param offset The offset of comments
+   * @param limit The limit of comments to return
+   * @param id The id of the comment to get
+   * @returns The comment replies
+   */
+  async getCommentReplies(
+    offset = 0,
+    limit = 20,
+    id: number | string
+  ): Promise<ProjectCommentReply[]> {
+    const apiData = await this.getAPIData();
+    const commentFetch = await fetch(
+      `https://api.scratch.mit.edu/users/${apiData.author.username}/projects/${this.id}/comments/${id}/replies?offset=${offset}&limit=${limit}`,
       {
         headers: {
           "User-Agent": UserAgent

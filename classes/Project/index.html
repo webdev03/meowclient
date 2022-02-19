@@ -220,7 +220,21 @@ remix: {
 <li><code>limit</code> (<code>number</code>) The limit of comments to return</li>
 </ul>
 <h4 id="returns_1">Returns</h4>
-<p>This fetches and returns the data from the project comments - for example from <a href="https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&amp;limit=20">https://api.scratch.mit.edu/users/griffpatch/projects/612229554/comments?offset=0&amp;limit=20</a>. Type definitions will be added soon.</p>
+<p>An array of</p>
+<pre><code class="language-ts">id: number;
+parent_id: null | number;
+commentee_id: null | number;
+content: string;
+datetime_created: string;
+datetime_modified: string;
+visibility: &quot;visible&quot; | &quot;hidden&quot;;
+author: {
+  id: number;
+  username: string;
+  scratchteam: boolean;
+  image: string;
+}
+</code></pre>
 <h3 id="settitle">setTitle</h3>
 <p>Sets the project title (requires you to own the project).</p>
 <h4 id="parameters_1">Parameters</h4>

@@ -2,8 +2,9 @@
 
 import { WebSocket } from "ws";
 import { Session } from "../Consts";
+import events from "events";
 
-class CloudConnection extends EventEmitter {
+class CloudConnection extends events.EventEmitter {
   creator: string;
   id: number;
   session: Session;

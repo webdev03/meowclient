@@ -7,3 +7,4 @@ node_modules/
 localtest/
 docs/site
 .pnpm-debug.log
+.nyc_output

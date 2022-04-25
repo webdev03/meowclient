@@ -1,52 +1,57 @@
-import { Tester } from "neotest";
+import tap from "tap";
 import { ScratchSession } from "../dist/index.js";
 
-const r = new Tester();
 const session = new ScratchSession();
 
 // basic variables
 const username = "-Akroation-";
 const user = session.getProfile(username);
 
-r.test("make sure status is string", async () => {
-  r.expectTypeOf(await user.getStatus(), "string");
+tap.test("make sure status is string", async (t) => {
+  t.type(await user.getStatus(), "string");
+  t.end();
 });
 
-r.test("make sure status is not empty", async () => {
+tap.test("make sure status is not empty", async (t) => {
   if ((await user.getStatus()) === "") {
     throw new Error("Status is empty");
   }
+  t.end();
 });
 
 // profile comments
 const profileComments = await user.getComments();
 
-r.test("make sure comments is an object (also array)", () => {
-  r.expectTypeOf(profileComments, "object");
+tap.test("make sure comments is an object (also array)", (t) => {
+  t.type(profileComments, "object");
+  t.end();
 });
 
-r.test("make sure comments is not empty", () => {
+tap.test("make sure comments is not empty", (t) => {
   if (profileComments.length === 0) {
     throw new Error("Comments is empty");
   }
+  t.end();
 });
 
-r.test("make sure comments has correct type", () => {
+tap.test("make sure comments has correct type", (t) => {
   profileComments.forEach((comment) => {
-    r.expectTypeOf(comment.id, "string");
-    r.expectTypeOf(comment.username, "string");
-    r.expectTypeOf(comment.content, "string");
-    r.expectTypeOf(comment.replies, "object");
+    t.type(comment.id, "string");
+    t.type(comment.username, "string");
+    t.type(comment.content, "string");
+    t.type(comment.replies, "object");
   });
+  t.end();
 });
 
 // comment replies
-r.test("make sure replies has correct type", () => {
+tap.test("make sure replies has correct type", (t) => {
   profileComments.forEach((comment) => {
     comment.replies.forEach((reply) => {
-      r.expectTypeOf(reply.id, "string");
-      r.expectTypeOf(reply.username, "string");
-      r.expectTypeOf(reply.content, "string");
+      t.type(reply.id, "string");
+      t.type(reply.username, "string");
+      t.type(reply.content, "string");
     });
   });
+  t.end();
 });

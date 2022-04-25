@@ -9,6 +9,14 @@ class CloudConnection {
   session: Session;
   server: string;
   connection: WebSocket;
+  open: boolean = false;
+  private queue: Array<{
+    user: string;
+    method: string;
+    name: string;
+    value: string | number;
+    project_id: number;
+  }> = [];
   variables: object = {};
   disconnected: boolean = false;
   constructor({
@@ -28,6 +36,7 @@ class CloudConnection {
   }
 
   private connect() {
+    this.open = false;
     this.connection = new WebSocket(this.server, {
       headers: {
         Cookie: this.session.cookieSet,
@@ -44,11 +53,16 @@ class CloudConnection {
       }
     });
     this.connection.on("open", () => {
+      this.open = true;
       this.send({
         method: "handshake",
         user: this.session.sessionJSON.user.username,
         project_id: this.id.toString()
       });
+      // handle queue
+      for (let item of this.queue) {
+        this.send(item);
+      }
     });
     this.connection.on("error", (err) => {
       throw err;
@@ -75,6 +89,16 @@ class CloudConnection {
       ? variable.substring(2)
       : variable;
     this.variables[`☁ ${varname}`] = value;
+    if (!this.open) {
+      this.queue.push({
+        user: this.session.sessionJSON.user.username,
+        method: "set",
+        name: `☁ ${varname}`,
+        value: value.toString(),
+        project_id: this.id
+      });
+      return;
+    }
     this.send({
       user: this.session.sessionJSON.user.username,
       method: "set",

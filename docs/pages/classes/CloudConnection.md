@@ -44,12 +44,14 @@ Returns a websocket connection. This uses the [ws](https://github.com/websockets
 ## EventEmitter
 
 There are different events:
+
 - `set` (Set a variable)
 - `connect` (Connect to cloud data)
 - `reconnect` (Reconnect to cloud data)
 - `error` (Error in WS connection)
 
 You can use it like this:
+
 ```ts
 CloudConnection.on("set", (data) => {
   console.log(`Variable ${data.name} set to ${data.value}`);

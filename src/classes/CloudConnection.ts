@@ -2,13 +2,22 @@
 
 import { WebSocket } from "ws";
 import { Session } from "../Consts";
+import events from "events";
 
-class CloudConnection {
+class CloudConnection extends events.EventEmitter {
   creator: string;
   id: number;
   session: Session;
   server: string;
   connection: WebSocket;
+  open: boolean = false;
+  private queue: Array<{
+    user: string;
+    method: string;
+    name: string;
+    value: string | number;
+    project_id: number;
+  }> = [];
   variables: object = {};
   disconnected: boolean = false;
   constructor({
@@ -20,6 +29,7 @@ class CloudConnection {
     session: Session;
     server?: string;
   }) {
+    super();
     this.id = id;
     this.session = session;
     this.server = server;
@@ -28,6 +38,7 @@ class CloudConnection {
   }
 
   private connect() {
+    this.open = false;
     this.connection = new WebSocket(this.server, {
       headers: {
         Cookie: this.session.cookieSet,
@@ -39,22 +50,33 @@ class CloudConnection {
       for (const message of e.toString().split("\n")) {
         const obj = JSON.parse(message || '{"method": "err"}');
         if (obj.method == "set") {
+          this.emit("set", {name: obj.name, value: obj.value});
           this.variables[obj.name] = obj.value;
         }
       }
     });
     this.connection.on("open", () => {
+      this.open = true;
       this.send({
         method: "handshake",
         user: this.session.sessionJSON.user.username,
         project_id: this.id.toString()
       });
+      this.emit("connect", null);
+      // handle queue
+      for (let item of this.queue) {
+        this.send(item);
+      }
     });
     this.connection.on("error", (err) => {
+      this.emit("error", err);
       throw err;
     });
     this.connection.on("close", () => {
-      if (!this.disconnected) this.connect();
+      if (!this.disconnected) {
+          this.emit("reconnect", null);
+          this.connect();
+      }
     });
   }
 
@@ -62,6 +84,7 @@ class CloudConnection {
    * Sends a packet through cloud
    */
   private send(data) {
+    this.emit("internal-send", data);
     this.connection.send(`${JSON.stringify(data)}\n`);
   }
 
@@ -75,6 +98,16 @@ class CloudConnection {
       ? variable.substring(2)
       : variable;
     this.variables[`☁ ${varname}`] = value;
+    if (!this.open) {
+      this.queue.push({
+        user: this.session.sessionJSON.user.username,
+        method: "set",
+        name: `☁ ${varname}`,
+        value: value.toString(),
+        project_id: this.id
+      });
+      return;
+    }
     this.send({
       user: this.session.sessionJSON.user.username,
       method: "set",
@@ -100,6 +133,7 @@ class CloudConnection {
    * Closes the cloud connection
    */
   close() {
+    this.emit("close", null);
     this.disconnected = true;
     this.connection.close();
   }

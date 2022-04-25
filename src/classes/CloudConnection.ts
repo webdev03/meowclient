@@ -3,7 +3,7 @@
 import { WebSocket } from "ws";
 import { Session } from "../Consts";
 
-class CloudConnection extends events.EventEmitter {
+class CloudConnection extends EventEmitter {
   creator: string;
   id: number;
   session: Session;

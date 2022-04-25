@@ -86,6 +86,8 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eventemitter">EventEmitter</a>
+    </li>
     </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../Forums/">Forums</a>
@@ -139,6 +141,7 @@
               
                 <h1 id="cloudconnection">CloudConnection</h1>
 <p>The class to use cloud variables. Accessible through <code>Project.createCloudConnection</code>.</p>
+<p><strong>Note: This is also an EventEmitter!</strong></p>
 <h2 id="methods">Methods</h2>
 <h3 id="setvariable">setVariable</h3>
 <p>Sets a cloud variable</p>
@@ -162,6 +165,19 @@
 <p>Returns an object with the cloud variable data.</p>
 <h3 id="connection">connection</h3>
 <p>Returns a websocket connection. This uses the <a href="https://github.com/websockets/ws">ws</a> library.</p>
+<h2 id="eventemitter">EventEmitter</h2>
+<p>There are different events:</p>
+<ul>
+<li><code>set</code> (Set a variable)</li>
+<li><code>connect</code> (Connect to cloud data)</li>
+<li><code>reconnect</code> (Reconnect to cloud data)</li>
+<li><code>error</code> (Error in WS connection)</li>
+</ul>
+<p>You can use it like this:</p>
+<pre><code class="language-ts">CloudConnection.on(&quot;set&quot;, (data) =&gt; {
+  console.log(`Variable ${data.name} set to ${data.value}`);
+});
+</code></pre>
               
             </div>
           </div>

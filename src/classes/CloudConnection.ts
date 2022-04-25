@@ -50,7 +50,7 @@ class CloudConnection extends events.EventEmitter {
       for (const message of e.toString().split("\n")) {
         const obj = JSON.parse(message || '{"method": "err"}');
         if (obj.method == "set") {
-          this.emit("set", {name: obj.name, value: obj.value});
+          this.emit("set", { name: obj.name, value: obj.value });
           this.variables[obj.name] = obj.value;
         }
       }
@@ -74,8 +74,8 @@ class CloudConnection extends events.EventEmitter {
     });
     this.connection.on("close", () => {
       if (!this.disconnected) {
-          this.emit("reconnect", null);
-          this.connect();
+        this.emit("reconnect", null);
+        this.connect();
       }
     });
   }

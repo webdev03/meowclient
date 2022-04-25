@@ -3,7 +3,7 @@
 import { WebSocket } from "ws";
 import { Session } from "../Consts";
 
-class CloudConnection {
+class CloudConnection extends events.EventEmitter {
   creator: string;
   id: number;
   session: Session;
@@ -35,10 +35,13 @@ class CloudConnection {
       }
     });
     this.connection.on("message", (e) => {
+      this.emit("message-may-be-empty", e);
       if (!e) return;
+      this.emit("message", e);
       for (const message of e.toString().split("\n")) {
         const obj = JSON.parse(message || '{"method": "err"}');
         if (obj.method == "set") {
+          this.emit("set", {name: obj.name, value: obj.value});
           this.variables[obj.name] = obj.value;
         }
       }
@@ -49,12 +52,17 @@ class CloudConnection {
         user: this.session.sessionJSON.user.username,
         project_id: this.id.toString()
       });
+      this.emit("connect", null);
     });
     this.connection.on("error", (err) => {
+      this.emit("error", err);
       throw err;
     });
     this.connection.on("close", () => {
-      if (!this.disconnected) this.connect();
+      if (!this.disconnected) {
+          this.emit("reconnect", null);
+          this.connect();
+      }
     });
   }
 
@@ -62,6 +70,7 @@ class CloudConnection {
    * Sends a packet through cloud
    */
   private send(data) {
+    this.emit("internal-send", data);
     this.connection.send(`${JSON.stringify(data)}\n`);
   }
 
@@ -100,6 +109,7 @@ class CloudConnection {
    * Closes the cloud connection
    */
   close() {
+    this.emit("close", null);
     this.disconnected = true;
     this.connection.close();
   }

@@ -2,6 +2,7 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts", "dist"],
   "compilerOptions": {
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
   }
 }

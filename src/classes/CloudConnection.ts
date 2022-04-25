@@ -5,7 +5,6 @@ import { Session } from "../Consts";
 import events from "events";
 
 class CloudConnection extends events.EventEmitter {
-  super();
   creator: string;
   id: number;
   session: Session;
@@ -22,6 +21,7 @@ class CloudConnection extends events.EventEmitter {
     session: Session;
     server?: string;
   }) {
+    super();
     this.id = id;
     this.session = session;
     this.server = server;

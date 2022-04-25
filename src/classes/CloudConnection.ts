@@ -37,9 +37,7 @@ class CloudConnection extends events.EventEmitter {
       }
     });
     this.connection.on("message", (e) => {
-      this.emit("message-may-be-empty", e);
       if (!e) return;
-      this.emit("message", e);
       for (const message of e.toString().split("\n")) {
         const obj = JSON.parse(message || '{"method": "err"}');
         if (obj.method == "set") {

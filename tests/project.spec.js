@@ -1,4 +1,4 @@
-import tap from "tap"
+import tap from "tap";
 import { ScratchSession } from "../dist/index.js";
 
 const session = new ScratchSession();

@@ -9,14 +9,14 @@ const user = session.getProfile(username);
 
 tap.test("make sure status is string", async (t) => {
   t.type(await user.getStatus(), "string");
-  t.end()
+  t.end();
 });
 
 tap.test("make sure status is not empty", async (t) => {
   if ((await user.getStatus()) === "") {
     throw new Error("Status is empty");
   }
-  t.end()
+  t.end();
 });
 
 // profile comments
@@ -24,14 +24,14 @@ const profileComments = await user.getComments();
 
 tap.test("make sure comments is an object (also array)", (t) => {
   t.type(profileComments, "object");
-  t.end()
+  t.end();
 });
 
 tap.test("make sure comments is not empty", (t) => {
   if (profileComments.length === 0) {
     throw new Error("Comments is empty");
   }
-  t.end()
+  t.end();
 });
 
 tap.test("make sure comments has correct type", (t) => {
@@ -41,7 +41,7 @@ tap.test("make sure comments has correct type", (t) => {
     t.type(comment.content, "string");
     t.type(comment.replies, "object");
   });
-  t.end()
+  t.end();
 });
 
 // comment replies
@@ -53,5 +53,5 @@ tap.test("make sure replies has correct type", (t) => {
       t.type(reply.content, "string");
     });
   });
-  t.end()
+  t.end();
 });

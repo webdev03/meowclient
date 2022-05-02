@@ -40,7 +40,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">14"
+    "node": ">13"
   },
   "engineStrict": true
 }

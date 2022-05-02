@@ -1,5 +1,8 @@
 name: Test
 on:
+  push:
+    branches: 
+      - main
   pull_request:
     paths:
       - "src/**"
@@ -8,14 +11,18 @@ on:
 jobs:
   build:
     name: Test code
+    strategy:
+      matrix:
+        version: [18.x, 16.x, 12.x, 14.x]
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout main
         uses: actions/checkout@v2
         # setup nodejs
       - uses: actions/setup-node@v2
         with:
-          node-version: "16.x" # Version range or exact version of a Node.js version to use, using SemVer's version range syntax
+          node-version: ${{ matrix.version }} # Version range or exact version of a Node.js version to use, using SemVer's version range syntax
       # setup pnpm
       - uses: pnpm/action-setup@v2.0.1
         with:

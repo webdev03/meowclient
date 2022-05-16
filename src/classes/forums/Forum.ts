@@ -68,6 +68,43 @@ class Forum {
       session: this.session
     });
   }
+
+  /**
+   * Sets the currently logged in user's signature
+   * @param content The content to set the signature to
+   * @returns {Request} The request to set the signature
+   */
+  async setSignature(content: string) {
+    const editFetch = await fetch(
+      `https://scratch.mit.edu/discuss/settings/${this.session.sessionJSON.user.username}/`,
+      {
+        headers: {
+          Cookie: this.session.cookieSet,
+          "User-Agent": UserAgent,
+          Accept:
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+          "Accept-Encoding": "gzip, deflate, br",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/x-www-form-urlencoded",
+          Host: "scratch.mit.edu",
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/discuss/settings/${this.session.sessionJSON.user.username}/`
+        },
+        method: "POST",
+        body: `csrfmiddlewaretoken=${
+          this.session.csrfToken
+        }&signature=${encodeURIComponent(content)
+          .replace("%20", "+")
+          .replace("\n", "\r\n")}&update=`
+      }
+    );
+    if (!editFetch.ok) {
+      throw new Error(
+        `Error editing signature - ${editFetch.statusText}`
+      );
+    }
+    return editFetch;
+  }
 }
 
 export default Forum;

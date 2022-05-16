@@ -36,6 +36,18 @@ Gets a topic.
 
 A `Topic` object.
 
+### setSignature
+
+Sets the user's signature
+
+#### Parameters
+
+- `content` (`string`): The content to set the signature to.
+
+#### Returns
+
+A `Topic` object.
+
 ## Topic
 
 ### getPosts (Promise)

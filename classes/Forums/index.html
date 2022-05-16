@@ -1,64 +1,58 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  <link rel="canonical" href="https://webdev03.github.io/meowclient/classes/Forums/">
-  <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Forums - meowclient</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
-
-  <link rel="stylesheet" href="../../css/theme.css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Forums";
-    var mkdocs_page_input_path = "classes/Forums.md";
-    var mkdocs_page_url = "/meowclient/classes/Forums/";
-  </script>
-  
-  <script src="../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://webdev03.github.io/meowclient/classes/Forums/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Forums - meowclient</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Forums";
+        var mkdocs_page_input_path = "classes/Forums.md";
+        var mkdocs_page_url = "/meowclient/classes/Forums/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> meowclient</a>
-        <div role="search">
+          <a href="../.." class="icon icon-home"> meowclient
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../..">meowclient</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../ScratchSession/">ScratchSession</a>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">Classes</span></p>
-                <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../CloudConnection/">CloudConnection</a>
-                    </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Forums</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">meowclient</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ScratchSession/">ScratchSession</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Classes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../CloudConnection/">CloudConnection</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Forums</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#getforum">getForum</a>
         <ul>
@@ -84,25 +78,33 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setsignature">setSignature</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#parameters_2">Parameters</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#returns_3">Returns</a>
+    </li>
+        </ul>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#topic">Topic</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#getposts-promise">getPosts (Promise)</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#returns_3">Returns</a>
+    <li class="toctree-l4"><a class="reference internal" href="#returns_4">Returns</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#follow-promise">follow (Promise)</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#returns_4">Returns</a>
+    <li class="toctree-l4"><a class="reference internal" href="#returns_5">Returns</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#unfollow-promise">unfollow (Promise)</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#returns_5">Returns</a>
+    <li class="toctree-l4"><a class="reference internal" href="#returns_6">Returns</a>
     </li>
         </ul>
     </li>
@@ -112,60 +114,46 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#edit-promise">edit (Promise)</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#returns_6">Returns</a>
+    <li class="toctree-l4"><a class="reference internal" href="#returns_7">Returns</a>
     </li>
         </ul>
     </li>
         </ul>
     </li>
     </ul>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../Profile/">Profile</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../Project/">Project</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../Studio/">Studio</a>
-                    </li>
-                </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Profile/">Profile</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Project/">Project</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Studio/">Studio</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">meowclient</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">meowclient</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
-    
-      
-        
-          <li>Classes &raquo;</li>
-        
-      
-    
-    <li>Forums</li>
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Classes &raquo;</li><li>Forums</li>
     <li class="wy-breadcrumbs-aside">
-      
         <a href="https://github.com/webdev03/meowclient/edit/main/docs/pages/classes/Forums.md"
           class="icon icon-github"> Edit on GitHub</a>
-      
     </li>
   </ul>
-  
   <hr/>
 </div>
 
-          <div role="main">
-            <div class="section">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
                 <h1 id="forums">Forums</h1>
 <p>Access the Scratch forums through meowclient!</p>
@@ -190,18 +178,26 @@
 </ul>
 <h4 id="returns_2">Returns</h4>
 <p>A <code>Topic</code> object.</p>
+<h3 id="setsignature">setSignature</h3>
+<p>Sets the user's signature</p>
+<h4 id="parameters_2">Parameters</h4>
+<ul>
+<li><code>content</code> (<code>string</code>): The content to set the signature to.</li>
+</ul>
+<h4 id="returns_3">Returns</h4>
+<p>A <code>Topic</code> object.</p>
 <h2 id="topic">Topic</h2>
 <h3 id="getposts-promise">getPosts (Promise)</h3>
 <p>Gets the posts in the topic.</p>
-<h4 id="returns_3">Returns</h4>
+<h4 id="returns_4">Returns</h4>
 <p>An array of <code>Post</code> objects.</p>
 <h3 id="follow-promise">follow (Promise)</h3>
 <p>Follows the topic.</p>
-<h4 id="returns_4">Returns</h4>
+<h4 id="returns_5">Returns</h4>
 <p>A <code>Response</code> object.</p>
 <h3 id="unfollow-promise">unfollow (Promise)</h3>
 <p>Unfollows the topic.</p>
-<h4 id="returns_5">Returns</h4>
+<h4 id="returns_6">Returns</h4>
 <p>A <code>Response</code> object.</p>
 <h2 id="post">Post</h2>
 <ul>
@@ -213,33 +209,25 @@
 </ul>
 <h3 id="edit-promise">edit (Promise)</h3>
 <p>Edits the post.</p>
-<h4 id="returns_6">Returns</h4>
+<h4 id="returns_7">Returns</h4>
 <p>A <code>Response</code> object.</p>
               
             </div>
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../CloudConnection/" class="btn btn-neutral float-left" title="CloudConnection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../Profile/" class="btn btn-neutral float-right" title="Profile">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../CloudConnection/" class="btn btn-neutral" title="CloudConnection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -247,7 +235,7 @@
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="versions">
+  <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>

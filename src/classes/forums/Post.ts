@@ -35,7 +35,7 @@ class Post {
   /**
    * Edits the post (requires ownership of the post)
    * @param content The new content of the post
-   * @returns The status of the request
+   * @returns The API response
    */
   async edit(content: string) {
     const editFetch = await fetch(

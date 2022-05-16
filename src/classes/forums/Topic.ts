@@ -78,7 +78,7 @@ class Topic {
 
   /**
    * Follows the topic
-   * @returns The status code of the request
+   * @returns The request
    */
   async follow() {
     const followFetch = await fetch(
@@ -109,7 +109,7 @@ class Topic {
 
   /**
    * Unfollows the topic
-   * @returns The status code of the request
+   * @returns The request
    */
   async unfollow() {
     const unfollowFetch = await fetch(

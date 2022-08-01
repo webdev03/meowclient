@@ -129,7 +129,7 @@ class Profile {
    * @returns {Array} An array of comments.
    * apiID is used to input into deleteComment
    */
-  async getComments(page: number = 1): Promise<ProfileCommentReply[]> {
+  async getComments(page: number = 1): Promise<ProfileComment[]> {
     const commentFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/?page=${page}`
     );

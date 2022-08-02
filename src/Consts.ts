@@ -16,7 +16,15 @@ interface SessionJSON {
     educator: boolean;
     educator_invitee: boolean;
     student: boolean;
-    mute_status: any; // not sure, it is an object though
+    mute_status: {
+      offenses: {
+        expiresAt: number;
+        messageType: string | null;
+      }[];
+      showWarning: boolean;
+      muteExpiresAt: number;
+      currentMessageType: string | null;
+    };
   };
   flags: {
     must_reset_password: boolean;

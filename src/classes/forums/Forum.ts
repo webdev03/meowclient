@@ -99,9 +99,7 @@ class Forum {
       }
     );
     if (!editFetch.ok) {
-      throw new Error(
-        `Error editing signature - ${editFetch.statusText}`
-      );
+      throw new Error(`Error editing signature - ${editFetch.statusText}`);
     }
     return editFetch;
   }

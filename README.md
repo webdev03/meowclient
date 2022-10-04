@@ -1,10 +1,33 @@
-# meowclient
 
-a very cool library!
+# Meowclient 
+
+<p align= "center">
+<img src="https://www.linkpicture.com/q/cute-cat-face-outline-icon-vector-illustration-148856151-removebg-preview-1.png" width="150px">
+ </p>
+ 
+<h3 align="center"> A very cool library to connect to <a href="https://scratch.mit.edu/">Scratch.</a>  </h3>
+
+
+
+
+##  Getting Started
+
+Follow the steps below:
+
+###  ⏳ Installation
+
+Install Meowclient with this **Quickstart** command to install the latest version of meowclient in your `package.json`.
+
+```bash
+ npm install meowclient
+```
+
+This command generates a brand new project with the default features.
+#### The library supports both CJS and ESM.
 
 ## Example (async)
 
-```js
+```javascript
 import { ScratchSession } from "meowclient";
 const session = new ScratchSession();
 await session.init("user", "pass");
@@ -13,9 +36,9 @@ const me = session.getProfile(session.username);
 console.log("My status is " + (await me.getStatus()));
 ```
 
-you might be able to use this without even logging in by not running .init on the session
+You might be able to use this **without even logging in by not running .init** on the session.
 
-the cjs way (if you still use it)
+### The CJS way (if you still use it)
 
 ```js
 const { ScratchSession } = require("meowclient");
@@ -33,7 +56,7 @@ This is made with _typescript_ so you will also get .d.ts definition file and I 
 
 ## Why not _insert library name here_?
 
-esm support, typescript, comments parsing
+ESM support, typescript, comments parsing
 
 ## Extra things
 
@@ -42,3 +65,5 @@ I will not add any social actions to the library because then less chance of peo
 ## Thanks
 
 Thanks to [Scratchclient](https://github.com/CubeyTheCube/scratchclient) and Raihan142857 ([CubeyTheCube](https://github.com/CubeyTheCube)) for a lot of the login stuff!
+
+

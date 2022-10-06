@@ -1,14 +1,7 @@
 
 # Meowclient [![Test](https://github.com/webdev03/meowclient/actions/workflows/test.yml/badge.svg)](https://github.com/webdev03/meowclient/actions/workflows/test.yml)
-
-<p align= "center">
-<img src="https://www.linkpicture.com/q/cute-cat-face-outline-icon-vector-illustration-148856151-removebg-preview-1.png" width="150px">
- </p>
  
 <h3 align="center"> A very cool library to connect to <a href="https://scratch.mit.edu/">Scratch.</a>  </h3>
-
-
-
 
 ##  Getting Started
 

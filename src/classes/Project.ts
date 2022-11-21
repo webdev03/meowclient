@@ -53,6 +53,7 @@ interface ProjectAPIResponse {
     parent: null | number;
     root: null | number;
   };
+  project_token: string;
 }
 
 interface ProjectComment {
@@ -91,7 +92,6 @@ interface ProjectCommentReply {
 class Project {
   id: number;
   session: Session;
-  scratchProjectAPI: ProjectAPIResponse;
   constructor({ id, session }: { id: number; session: Session }) {
     this.id = id;
     this.session = session;
@@ -101,7 +101,6 @@ class Project {
    * Gets the api.scratch.mit.edu response of the project
    */
   async getAPIData(): Promise<ProjectAPIResponse> {
-    if (typeof this.scratchProjectAPI === "undefined") {
       const apiFetch = await fetch(
         `https://api.scratch.mit.edu/projects/${this.id}`,
         {
@@ -113,9 +112,7 @@ class Project {
       if (!apiFetch.ok) {
         throw new Error("Cannot find project.");
       }
-      this.scratchProjectAPI = await apiFetch.json();
-    }
-    return this.scratchProjectAPI;
+      return await apiFetch.json();
   }
 
   /**
@@ -197,7 +194,6 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in setting title. ${setFetch.status}`);
     }
-    this.scratchProjectAPI = undefined; // this is to reset it
   }
   /**
    * Sets the instructions of the project (requires ownership of the project)
@@ -225,7 +221,6 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in setting instructions. ${setFetch.status}`);
     }
-    this.scratchProjectAPI = undefined; // this is to reset it
   }
 
   /**
@@ -254,7 +249,6 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in setting Notes and Credits. ${setFetch.status}`);
     }
-    this.scratchProjectAPI = undefined; // this is to reset it
   }
 
   /**

@@ -41,8 +41,6 @@ interface ProfileComment {
 
 class Profile {
   user: string;
-  status: string;
-  private scratchUserHTML: string;
   session: Session;
   scratchUserAPI: UserAPIResponse;
   constructor({ username, session }: { username: string; session: Session }) {
@@ -94,16 +92,13 @@ class Profile {
   }
 
   private async getUserHTML() {
-    if (!(typeof this.scratchUserHTML === "string")) {
       const scratchUserFetch = await fetch(
         `https://scratch.mit.edu/users/${this.user}`
       );
       if (!scratchUserFetch.ok) {
         throw new Error("Cannot find user.");
       }
-      this.scratchUserHTML = await scratchUserFetch.text();
-    }
-    return this.scratchUserHTML;
+      return await scratchUserFetch.text();
   }
 
   /**
@@ -111,7 +106,6 @@ class Profile {
    * @returns The API response of the user
    */
   async getUserAPI() {
-    if (typeof this.scratchUserAPI === "undefined") {
       const scratchUserFetch = await fetch(
         `https://api.scratch.mit.edu/users/${this.user}`
       );
@@ -119,8 +113,6 @@ class Profile {
         throw new Error("Cannot find user.");
       }
       this.scratchUserAPI = await scratchUserFetch.json();
-    }
-    return this.scratchUserAPI;
   }
 
   /**

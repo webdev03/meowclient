@@ -92,13 +92,13 @@ class Profile {
   }
 
   private async getUserHTML() {
-      const scratchUserFetch = await fetch(
-        `https://scratch.mit.edu/users/${this.user}`
-      );
-      if (!scratchUserFetch.ok) {
-        throw new Error("Cannot find user.");
-      }
-      return await scratchUserFetch.text();
+    const scratchUserFetch = await fetch(
+      `https://scratch.mit.edu/users/${this.user}`
+    );
+    if (!scratchUserFetch.ok) {
+      throw new Error("Cannot find user.");
+    }
+    return await scratchUserFetch.text();
   }
 
   /**
@@ -106,13 +106,13 @@ class Profile {
    * @returns The API response of the user
    */
   async getUserAPI() {
-      const scratchUserFetch = await fetch(
-        `https://api.scratch.mit.edu/users/${this.user}`
-      );
-      if (!scratchUserFetch.ok) {
-        throw new Error("Cannot find user.");
-      }
-      this.scratchUserAPI = await scratchUserFetch.json();
+    const scratchUserFetch = await fetch(
+      `https://api.scratch.mit.edu/users/${this.user}`
+    );
+    if (!scratchUserFetch.ok) {
+      throw new Error("Cannot find user.");
+    }
+    this.scratchUserAPI = await scratchUserFetch.json();
   }
 
   /**

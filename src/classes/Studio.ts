@@ -49,15 +49,15 @@ class Studio {
   }
 
   async getAPIData(): Promise<StudioAPIResponse> {
-      const response = await fetch(
-        `https://api.scratch.mit.edu/studios/${this.id}/`,
-        {
-          headers: {
-            "User-Agent": UserAgent
-          }
+    const response = await fetch(
+      `https://api.scratch.mit.edu/studios/${this.id}/`,
+      {
+        headers: {
+          "User-Agent": UserAgent
         }
-      );
-      return await response.json();
+      }
+    );
+    return await response.json();
   }
 
   /**

@@ -1,13 +1,12 @@
-
 # Meowclient [![Test](https://github.com/webdev03/meowclient/actions/workflows/test.yml/badge.svg)](https://github.com/webdev03/meowclient/actions/workflows/test.yml)
- 
+
 <h3 align="center">A feature-rich library to connect to <a href="https://scratch.mit.edu/">Scratch.</a></h3>
 
-##  Getting Started
+## Getting Started
 
 Follow the steps below:
 
-###  ⏳ Installation
+### ⏳ Installation
 
 If you run this install command you will get the latest version of meowclient in your `package.json`.
 
@@ -46,5 +45,3 @@ Automating social actions such as loving, favouriting, commenting, or following 
 ## Thanks
 
 Thanks to [Scratchclient](https://github.com/CubeyTheCube/scratchclient) and Raihan142857 ([CubeyTheCube](https://github.com/CubeyTheCube)) for a lot of the login stuff!
-
-

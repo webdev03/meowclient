@@ -101,18 +101,18 @@ class Project {
    * Gets the api.scratch.mit.edu response of the project
    */
   async getAPIData(): Promise<ProjectAPIResponse> {
-      const apiFetch = await fetch(
-        `https://api.scratch.mit.edu/projects/${this.id}`,
-        {
-          headers: {
-            "User-Agent": UserAgent
-          }
+    const apiFetch = await fetch(
+      `https://api.scratch.mit.edu/projects/${this.id}`,
+      {
+        headers: {
+          "User-Agent": UserAgent
         }
-      );
-      if (!apiFetch.ok) {
-        throw new Error("Cannot find project.");
       }
-      return await apiFetch.json();
+    );
+    if (!apiFetch.ok) {
+      throw new Error("Cannot find project.");
+    }
+    return await apiFetch.json();
   }
 
   /**

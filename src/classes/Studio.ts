@@ -43,14 +43,12 @@ interface StudioAPIResponse {
 class Studio {
   id: number;
   session: Session;
-  scratchStudioAPI: StudioAPIResponse;
   constructor({ id, session }: { id: number; session: Session }) {
     this.id = id;
     this.session = session;
   }
 
   async getAPIData(): Promise<StudioAPIResponse> {
-    if (typeof this.scratchStudioAPI === "undefined") {
       const response = await fetch(
         `https://api.scratch.mit.edu/studios/${this.id}/`,
         {
@@ -59,9 +57,7 @@ class Studio {
           }
         }
       );
-      this.scratchStudioAPI = await response.json();
-    }
-    return this.scratchStudioAPI;
+      return await response.json();
   }
 
   /**

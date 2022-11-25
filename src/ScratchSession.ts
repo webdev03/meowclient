@@ -3,10 +3,9 @@ import Profile from "./classes/Profile";
 import Project from "./classes/Project";
 import Studio from "./classes/Studio";
 import Forum from "./classes/forums/Forum";
-
 import { SessionJSON, UserAgent } from "./Consts";
 import fetch from "cross-fetch";
-
+import { createHash } from "node:crypto";
 /**
  * Logs into Scratch
  */
@@ -109,6 +108,37 @@ class ScratchSession {
    */
   getForum(id?: number): Forum {
     return new Forum({ id: id, session: this });
+  }
+
+  /**
+   * Uploads a file to assets.scratch.mit.edu.
+   * This can be used for adding images to be used in a forum post or signature.
+   * @param buffer The buffer of the file you want to upload
+   * @param fileExtension The extension of the file you have uploaded, for example "png"
+   * @returns The URL to access the file you have uploaded
+   * @example
+   * await session.uploadToAssets(fs.readFileSync("photo.png"), "png"); // returns URL to image
+   */
+  async uploadToAssets(buffer: Buffer, fileExtension: string) {
+    const md5hash = createHash("md5").update(buffer).digest("hex");
+    const upload = await fetch(`https://assets.scratch.mit.edu/${md5hash}.${fileExtension}`, {
+      method: "POST",
+      body: buffer,
+      headers: {
+        Cookie: this.cookieSet,
+        "User-Agent": UserAgent,
+        Referer: "https://scratch.mit.edu/",
+        Host: "assets.scratch.mit.edu",
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+        Accept: "*/*",
+        "Accept-Encoding": "gzip, deflate, br"
+      }
+    });
+    if(!upload.ok) {
+      throw new Error("Upload failed");
+    }
+    return `https://assets.scratch.mit.edu/${md5hash}.${fileExtension}`;
   }
 
   /**

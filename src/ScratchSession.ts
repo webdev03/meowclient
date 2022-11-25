@@ -121,21 +121,24 @@ class ScratchSession {
    */
   async uploadToAssets(buffer: Buffer, fileExtension: string) {
     const md5hash = createHash("md5").update(buffer).digest("hex");
-    const upload = await fetch(`https://assets.scratch.mit.edu/${md5hash}.${fileExtension}`, {
-      method: "POST",
-      body: buffer,
-      headers: {
-        Cookie: this.cookieSet,
-        "User-Agent": UserAgent,
-        Referer: "https://scratch.mit.edu/",
-        Host: "assets.scratch.mit.edu",
-        "Cache-Control": "no-cache",
-        Pragma: "no-cache",
-        Accept: "*/*",
-        "Accept-Encoding": "gzip, deflate, br"
+    const upload = await fetch(
+      `https://assets.scratch.mit.edu/${md5hash}.${fileExtension}`,
+      {
+        method: "POST",
+        body: buffer,
+        headers: {
+          Cookie: this.cookieSet,
+          "User-Agent": UserAgent,
+          Referer: "https://scratch.mit.edu/",
+          Host: "assets.scratch.mit.edu",
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          Accept: "*/*",
+          "Accept-Encoding": "gzip, deflate, br"
+        }
       }
-    });
-    if(!upload.ok) {
+    );
+    if (!upload.ok) {
       throw new Error("Upload failed");
     }
     return `https://assets.scratch.mit.edu/${md5hash}.${fileExtension}`;

@@ -48,7 +48,7 @@ class Studio {
     this.session = session;
   }
 
-  async getAPIData(): Promise<StudioAPIResponse> {
+  async getAPIData() {
     const response = await fetch(
       `https://api.scratch.mit.edu/studios/${this.id}/`,
       {
@@ -57,7 +57,7 @@ class Studio {
         }
       }
     );
-    return await response.json();
+    return (await response.json()) as StudioAPIResponse;
   }
 
   /**
@@ -202,10 +202,7 @@ class Studio {
    * @param offset The offset of the curators to return
    * @returns An array of curators
    */
-  async getCurators(
-    limit: number = 24,
-    offset: number = 0
-  ): Promise<UserAPIResponse[]> {
+  async getCurators(limit: number = 24, offset: number = 0) {
     const getFetch = await fetch(
       `https://api.scratch.mit.edu/studios/${this.id}/curators/?limit=${limit}&offset=${offset}`,
       {
@@ -217,7 +214,7 @@ class Studio {
     if (!getFetch.ok) {
       throw new Error(`Could not get curators - ${getFetch.statusText}`);
     }
-    return await getFetch.json();
+    return (await getFetch.json()) as UserAPIResponse[];
   }
 
   /**
@@ -226,10 +223,7 @@ class Studio {
    * @param offset The offset of the managers to return
    * @returns An array of managers
    */
-  async getManagers(
-    limit: number = 24,
-    offset: number = 0
-  ): Promise<UserAPIResponse[]> {
+  async getManagers(limit: number = 24, offset: number = 0) {
     const getFetch = await fetch(
       `https://api.scratch.mit.edu/studios/${this.id}/managers/?limit=${limit}&offset=${offset}`,
       {
@@ -241,7 +235,7 @@ class Studio {
     if (!getFetch.ok) {
       throw new Error(`Could not get managers - ${getFetch.statusText}`);
     }
-    return await getFetch.json();
+    return (await getFetch.json()) as UserAPIResponse[];
   }
 
   /**
@@ -250,10 +244,7 @@ class Studio {
    * @param offset The offset of the projects to return
    * @returns An array of users
    */
-  async getProjects(
-    limit: number = 24,
-    offset: number = 0
-  ): Promise<OldProjectResponse[]> {
+  async getProjects(limit: number = 24, offset: number = 0) {
     const getFetch = await fetch(
       `https://api.scratch.mit.edu/studios/${this.id}/projects/?limit=${limit}&offset=${offset}`,
       {
@@ -265,7 +256,7 @@ class Studio {
     if (!getFetch.ok) {
       throw new Error(`Could not get projects - ${getFetch.statusText}`);
     }
-    return await getFetch.json();
+    return (await getFetch.json()) as OldProjectResponse[];
   }
 }
 

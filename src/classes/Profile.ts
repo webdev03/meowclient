@@ -53,7 +53,7 @@ class Profile {
    * Can either be Scratcher, New Scratcher, or Scratch Team.
    * @returns {string} The status of the user.
    */
-  async getStatus(): Promise<"Scratcher" | "New Scratcher" | "Scratch Team"> {
+  async getStatus() {
     const dom = parse(await this.getUserHTML());
     return dom.querySelector(".group").innerHTML.trim() as
       | "Scratcher"
@@ -118,10 +118,10 @@ class Profile {
   /**
    * Gets comments on the user's profile
    * @param page The page to look at.
-   * @returns {Array} An array of comments.
+   * @returns An array of comments.
    * apiID is used to input into deleteComment
    */
-  async getComments(page: number = 1): Promise<ProfileComment[]> {
+  async getComments(page: number = 1) {
     const commentFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/?page=${page}`
     );

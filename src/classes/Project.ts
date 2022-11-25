@@ -100,7 +100,7 @@ class Project {
   /**
    * Gets the api.scratch.mit.edu response of the project
    */
-  async getAPIData(): Promise<ProjectAPIResponse> {
+  async getAPIData() {
     const apiFetch = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}`,
       {
@@ -112,7 +112,7 @@ class Project {
     if (!apiFetch.ok) {
       throw new Error("Cannot find project.");
     }
-    return await apiFetch.json();
+    return (await apiFetch.json()) as ProjectAPIResponse;
   }
 
   /**
@@ -121,7 +121,7 @@ class Project {
    * @param limit The limit of comments to return
    * @returns The API response
    */
-  async getComments(offset = 0, limit = 20): Promise<ProjectComment[]> {
+  async getComments(offset = 0, limit = 20) {
     const apiData = await this.getAPIData();
     const commentFetch = await fetch(
       `https://api.scratch.mit.edu/users/${apiData.author.username}/projects/${this.id}/comments?offset=${offset}&limit=${limit}`,
@@ -136,21 +136,17 @@ class Project {
         `Comments returned status ${commentFetch.status} - ${commentFetch.statusText}`
       );
     }
-    return await commentFetch.json();
+    return (await commentFetch.json()) as ProjectComment[];
   }
 
   /**
-   * Gets the comment replies to a comment
+   * Gets the replies to a comment
    * @param offset The offset of comments
    * @param limit The limit of comments to return
    * @param id The id of the comment to get
    * @returns The comment replies
    */
-  async getCommentReplies(
-    offset = 0,
-    limit = 20,
-    id: number | string
-  ): Promise<ProjectCommentReply[]> {
+  async getCommentReplies(id: number | string, offset = 0, limit = 20) {
     const apiData = await this.getAPIData();
     const commentFetch = await fetch(
       `https://api.scratch.mit.edu/users/${apiData.author.username}/projects/${this.id}/comments/${id}/replies?offset=${offset}&limit=${limit}`,
@@ -165,7 +161,7 @@ class Project {
         `Comments returned status ${commentFetch.status} - ${commentFetch.statusText}`
       );
     }
-    return await commentFetch.json();
+    return (await commentFetch.json()) as ProjectCommentReply[];
   }
 
   /**

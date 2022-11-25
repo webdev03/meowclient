@@ -1,6 +1,6 @@
 # Meowclient [![Test](https://github.com/webdev03/meowclient/actions/workflows/test.yml/badge.svg)](https://github.com/webdev03/meowclient/actions/workflows/test.yml)
 
-<h3 align="center">A feature-rich library to connect to <a href="https://scratch.mit.edu/">Scratch.</a></h3>
+<h3>A feature-rich library to connect to <a href="https://scratch.mit.edu/">Scratch.</a></h3>
 
 ## Getting Started
 
@@ -21,7 +21,6 @@ import { ScratchSession } from "meowclient";
 const session = new ScratchSession();
 await session.init("user", "pass");
 const me = session.getProfile(session.username);
-// next line gets html and stores it so only 1 fetch request and no .init function - recreate the object to reset it
 console.log("My status is " + (await me.getStatus()));
 ```
 

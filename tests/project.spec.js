@@ -29,7 +29,7 @@ tap.test("make sure project comments are iterable", (t) => {
 
 tap.test("make sure project comment replies work", async (t) => {
   const id = comments[0].id;
-  const replies = await project.getCommentReplies(0, 20, id);
+  const replies = await project.getCommentReplies(id, 0, 20);
   const reply = replies[0];
   t.type(reply, "object");
   t.end();

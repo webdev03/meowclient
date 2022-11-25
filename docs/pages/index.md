@@ -24,12 +24,10 @@ A basic starter program:
 
 ```js
 import { ScratchSession } from "meowclient";
-(async () => {
-  const session = new ScratchSession();
-  await session.init("user", "pass"); // change these to your scratch login credentials
-  const me = session.getProfile(session.username);
-  console.log("My status is " + (await me.getStatus()));
-})();
+const session = new ScratchSession();
+await session.init("user", "pass"); // change these to your scratch login credentials
+const me = session.getProfile(session.username);
+console.log("My status is " + (await me.getStatus()));
 ```
 
 Documentation is **work in progress** and not all things have been added yet.

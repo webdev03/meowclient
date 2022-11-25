@@ -8,7 +8,7 @@ The class to use cloud variables. Accessible through `Project.createCloudConnect
 
 ### setVariable
 
-Sets a cloud variable
+Sets a cloud variable.
 
 #### Parameters
 
@@ -17,7 +17,7 @@ Sets a cloud variable
 
 ### getVariable
 
-Gets a cloud variable
+Gets a cloud variable.
 
 #### Parameters
 

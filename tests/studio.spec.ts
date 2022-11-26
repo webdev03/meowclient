@@ -1,5 +1,5 @@
 import tap from "tap";
-import { ScratchSession } from "../dist/index.js";
+import { ScratchSession } from "../src";
 
 const session = new ScratchSession();
 

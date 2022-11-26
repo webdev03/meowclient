@@ -1,5 +1,5 @@
 import tap from "tap";
-import { ScratchSession } from "../dist/index.js";
+import { ScratchSession } from "../src";
 
 const session = new ScratchSession();
 
@@ -9,13 +9,6 @@ const user = session.getProfile(username);
 
 tap.test("make sure status is string", async (t) => {
   t.type(await user.getStatus(), "string");
-  t.end();
-});
-
-tap.test("make sure status is not empty", async (t) => {
-  if ((await user.getStatus()) === "") {
-    throw new Error("Status is empty");
-  }
   t.end();
 });
 

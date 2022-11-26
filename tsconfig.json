@@ -7,8 +7,5 @@
     "esModuleInterop": true,
     "module": "es2022",
     "target": "es2020"
-  },
-  "ts-node": {
-    "esm": true
   }
 }

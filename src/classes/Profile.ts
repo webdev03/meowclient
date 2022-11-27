@@ -42,7 +42,6 @@ interface ProfileComment {
 class Profile {
   user: string;
   session: Session;
-  scratchUserAPI: UserAPIResponse;
   constructor({ username, session }: { username: string; session: Session }) {
     this.user = username;
     this.session = session;
@@ -111,7 +110,7 @@ class Profile {
     if (!scratchUserFetch.ok) {
       throw new Error("Cannot find user.");
     }
-    this.scratchUserAPI = await scratchUserFetch.json();
+    return await scratchUserFetch.json();
   }
 
   /**

@@ -13,7 +13,7 @@ jobs:
     name: Test code
     strategy:
       matrix:
-        version: [latest, 18.x, 16.x, 14.x]
+        version: [19.x, 18.x, 16.x, 14.x]
     runs-on: ubuntu-latest
 
     steps:

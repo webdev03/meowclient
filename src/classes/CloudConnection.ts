@@ -19,7 +19,7 @@ class CloudConnection extends events.EventEmitter {
     project_id: number;
   }> = [];
   variables: {
-    [name: string]: string
+    [name: string]: string;
   } = {};
   disconnected: boolean = false;
   constructor({

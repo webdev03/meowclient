@@ -92,9 +92,7 @@ class Forum {
         method: "POST",
         body: `csrfmiddlewaretoken=${
           this.session.csrfToken
-        }&signature=${encodeURIComponent(content)
-          .replace("%20", "+")
-          .replace("\n", "\r\n")}&update=`
+        }&signature=${encodeURIComponent(content)}&update=`
       }
     );
     if (!editFetch.ok) {

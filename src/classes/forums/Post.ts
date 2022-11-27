@@ -55,9 +55,7 @@ class Post {
         method: "POST",
         body: `csrfmiddlewaretoken=${
           this.session.csrfToken
-        }&body=${encodeURIComponent(content)
-          .replace("%20", "+")
-          .replace("\n", "\r\n")}`
+        }&body=${encodeURIComponent(content)}`
       }
     );
     if (!editFetch.ok) {

@@ -148,7 +148,6 @@ class Studio {
     if (!removeFetch.ok) {
       throw new Error(`Could not remove curator - ${removeFetch.statusText}`);
     }
-
   }
 
   /**

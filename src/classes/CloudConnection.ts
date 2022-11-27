@@ -15,10 +15,12 @@ class CloudConnection extends events.EventEmitter {
     user: string;
     method: string;
     name: string;
-    value: string | number;
+    value: string;
     project_id: number;
   }> = [];
-  variables: object = {};
+  variables: {
+    [name: string]: string
+  } = {};
   disconnected: boolean = false;
   constructor({
     id,
@@ -93,11 +95,11 @@ class CloudConnection extends events.EventEmitter {
    * @param variable The variable name to set
    * @param value The value to set the variable to
    */
-  setVariable(variable: string, value: string | number) {
+  setVariable(variable: string, value: number | string) {
     const varname = variable.startsWith("☁ ")
       ? variable.substring(2)
       : variable;
-    this.variables[`☁ ${varname}`] = value;
+    this.variables[`☁ ${varname}`] = value.toString();
     if (!this.open) {
       this.queue.push({
         user: this.session.sessionJSON.user.username,

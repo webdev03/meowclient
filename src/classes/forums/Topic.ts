@@ -78,7 +78,6 @@ class Topic {
 
   /**
    * Follows the topic
-   * @returns The request
    */
   async follow() {
     const followFetch = await fetch(
@@ -104,12 +103,10 @@ class Topic {
         `Error following topic ${this.id} - ${followFetch.statusText}`
       );
     }
-    return followFetch;
   }
 
   /**
    * Unfollows the topic
-   * @returns The request
    */
   async unfollow() {
     const unfollowFetch = await fetch(
@@ -135,7 +132,6 @@ class Topic {
         `Error unfollowing topic ${this.id} - ${unfollowFetch.statusText}`
       );
     }
-    return unfollowFetch;
   }
 }
 export default Topic;

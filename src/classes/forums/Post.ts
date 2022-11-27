@@ -35,7 +35,6 @@ class Post {
   /**
    * Edits the post (requires ownership of the post)
    * @param content The new content of the post
-   * @returns The API response
    */
   async edit(content: string) {
     const editFetch = await fetch(
@@ -66,7 +65,6 @@ class Post {
         `Error editing post ${this.id} - ${editFetch.statusText}`
       );
     }
-    return editFetch;
   }
 }
 

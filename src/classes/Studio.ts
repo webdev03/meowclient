@@ -82,7 +82,6 @@ class Studio {
     if (!setFetch.ok) {
       throw new Error(`Could not set title - ${setFetch.statusText}`);
     }
-    return setFetch;
   }
 
   /**
@@ -107,7 +106,6 @@ class Studio {
     if (!setFetch.ok) {
       throw new Error(`Could not set description - ${setFetch.statusText}`);
     }
-    return setFetch;
   }
 
   /**
@@ -129,7 +127,6 @@ class Studio {
     if (!inviteFetch.ok) {
       throw new Error(`Could not invite curator - ${inviteFetch.statusText}`);
     }
-    return inviteFetch;
   }
 
   /**
@@ -151,7 +148,7 @@ class Studio {
     if (!removeFetch.ok) {
       throw new Error(`Could not remove curator - ${removeFetch.statusText}`);
     }
-    return removeFetch;
+
   }
 
   /**
@@ -172,7 +169,6 @@ class Studio {
     if (!addFetch.ok) {
       throw new Error(`Could not add project - ${addFetch.statusText}`);
     }
-    return addFetch;
   }
 
   /**
@@ -193,7 +189,6 @@ class Studio {
     if (!removeFetch.ok) {
       throw new Error(`Could not remove project - ${removeFetch.statusText}`);
     }
-    return removeFetch;
   }
 
   /**

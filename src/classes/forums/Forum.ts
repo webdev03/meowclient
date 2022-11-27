@@ -72,7 +72,6 @@ class Forum {
   /**
    * Sets the currently logged in user's signature
    * @param content The content to set the signature to
-   * @returns {Request} The request to set the signature
    */
   async setSignature(content: string) {
     const editFetch = await fetch(
@@ -101,7 +100,6 @@ class Forum {
     if (!editFetch.ok) {
       throw new Error(`Error editing signature - ${editFetch.statusText}`);
     }
-    return editFetch;
   }
 }
 

@@ -88,7 +88,6 @@ class Profile {
       console.log(delFetch.status, await delFetch.text());
       throw new Error("Error deleting comment.");
     }
-    return delFetch;
   }
 
   private async getUserHTML() {

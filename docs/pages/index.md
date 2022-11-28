@@ -30,4 +30,6 @@ const me = session.getProfile(session.username);
 console.log("My status is " + (await me.getStatus()));
 ```
 
-Documentation is **work in progress** and not all things have been added yet.
+If you use VS Code, you should be able to use the JSDoc documentation. If you use TypeScript you can also take full advantage of the types.
+
+This will soon be a collection of examples for using meowclient. If you cannot find what you want, you can go through the [source code](https://github.com/webdev03/meowclient) or you can ask for help in the [official meowclient forum topic](https://scratch.mit.edu/discuss/topic/574321).

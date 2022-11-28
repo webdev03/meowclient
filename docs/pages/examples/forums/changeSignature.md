@@ -1,5 +1,7 @@
 # Change Signature
+
 This example shows how to change your forums signature with meowclient.
+
 ```ts
 import { ScratchSession } from "meowclient";
 const session = new ScratchSession();

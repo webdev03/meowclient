@@ -1,4 +1,5 @@
 # Topics and Posts
+
 This example shows how to get topics in a subforum. To get the subforum ID, go to the page of the subforum (for example, [https://scratch.mit.edu/discuss/31](https://scratch.mit.edu/discuss/31) for the Advanced Topics subforum) and get the numbers at the end of the URL (for the Advanced Topics it is 31).
 
 ```ts
@@ -9,7 +10,7 @@ await session.init("user", "pass");
 const subforumID = 31;
 const forum = session.getForum(subforumID);
 const topics = await forum.getTopics();
-for(const topic of topics) {
-  console.log(``) // Has multiple properties
+for (const topic of topics) {
+  console.log(``); // Has multiple properties
 }
 ```

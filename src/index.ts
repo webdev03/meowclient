@@ -1,7 +1,6 @@
-import ScratchSession from "./ScratchSession";
-import Profile from "./classes/Profile";
-import Studio from "./classes/Studio";
-import Project from "./classes/Project";
-import CloudConnection from "./classes/CloudConnection";
-import Forum from "./classes/forums/Forum";
-export { ScratchSession, Profile, Studio, Project, CloudConnection, Forum };
+export { default as ScratchSession } from "./ScratchSession";
+export { default as Profile } from "./classes/Profile";
+export { default as Studio } from "./classes/Studio";
+export { default as Project } from "./classes/Project";
+export { default as CloudConnection } from "./classes/CloudConnection";
+export { default as Forum } from "./classes/forums/Forum";

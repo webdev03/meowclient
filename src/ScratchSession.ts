@@ -1,8 +1,3 @@
-// manages authentication, and is the main handler of every other function
-import Profile from "./classes/Profile";
-import Project from "./classes/Project";
-import Studio from "./classes/Studio";
-import Forum from "./classes/forums/Forum";
 import { SessionJSON, UserAgent } from "./Consts";
 import fetch from "cross-fetch";
 import { createHash } from "node:crypto";
@@ -72,42 +67,6 @@ class ScratchSession {
       }
     });
     this.sessionJSON = await sessionFetch.json();
-  }
-
-  /**
-   * Gets a profile
-   * @param username The username of the profile you want to get
-   * @returns {Profile} The profile of the user
-   */
-  getProfile(username: string): Profile {
-    return new Profile({ username: username, session: this });
-  }
-
-  /**
-   * Gets a project
-   * @param id The project ID
-   * @returns {Project} The project
-   */
-  getProject(id: number): Project {
-    return new Project({ id: id, session: this });
-  }
-
-  /**
-   * Gets a studio
-   * @param id The studio ID
-   * @returns {Studio} The studio
-   */
-  getStudio(id: number): Studio {
-    return new Studio({ id: id, session: this });
-  }
-
-  /**
-   * Gets a forum
-   * @param id (optional) The ID of the forum you want to get (for example, 31 for the "Advanced Topics" forum)
-   * @returns {Forum} The forum
-   */
-  getForum(id?: number): Forum {
-    return new Forum({ id: id, session: this });
   }
 
   /**

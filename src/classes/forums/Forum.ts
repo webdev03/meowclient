@@ -2,11 +2,15 @@ import fetch from "cross-fetch";
 import Topic from "./Topic";
 import { parse } from "node-html-parser";
 import { Session, UserAgent } from "../../Consts";
-
+/**
+  * Class for profiles
+  * @param session The ScratchSession that will be used
+  * @param [id] The username of the profile you want to get
+*/
 class Forum {
   id?: number;
   session: Session;
-  constructor({ id, session }: { id?: number; session: Session }) {
+  constructor(session: Session, id?: number) {
     this.id = id;
     this.session = session;
   }

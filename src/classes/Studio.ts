@@ -39,11 +39,15 @@ interface StudioAPIResponse {
     projects: number;
   };
 }
-
+/**
+  * Class for studios
+  * @param session The ScratchSession that will be used
+  * @param id The id of the studio you want to get
+*/
 class Studio {
   id: number;
   session: Session;
-  constructor({ id, session }: { id: number; session: Session }) {
+  constructor(session: Session, id: number) {
     this.id = id;
     this.session = session;
   }

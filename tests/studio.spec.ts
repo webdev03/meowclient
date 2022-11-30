@@ -1,10 +1,10 @@
 import tap from "tap";
-import { ScratchSession } from "../src";
+import { ScratchSession, Studio } from "../src";
 
 const session = new ScratchSession();
 
 // get studio
-const studio = session.getStudio(30136012);
+const studio = new Studio(session, 30136012);
 const apiData = await studio.getAPIData();
 // main tests
 tap.test("make sure api data has correct types", (t) => {

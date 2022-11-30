@@ -38,11 +38,15 @@ interface ProfileComment {
   apiID: string;
   replies: ProfileCommentReply[];
 }
-
+/**
+  * Class for profiles
+  * @param session The ScratchSession that will be used
+  * @param username The username of the profile you want to get
+*/
 class Profile {
   user: string;
   session: Session;
-  constructor({ username, session }: { username: string; session: Session }) {
+  constructor(session: Session, username: string) {
     this.user = username;
     this.session = session;
   }

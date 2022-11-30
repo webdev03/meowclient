@@ -3,9 +3,13 @@
 import { WebSocket } from "ws";
 import { Session } from "../Consts";
 import events from "events";
-
+/**
+  * Class for cloud connections
+  * @param session The ScratchSession that will be used
+  * @param id The id of the project to connect to
+  * @returns {Profile} The profile of the user
+*/
 class CloudConnection extends events.EventEmitter {
-  creator: string;
   id: number;
   session: Session;
   server: string;
@@ -22,26 +26,17 @@ class CloudConnection extends events.EventEmitter {
     [name: string]: string;
   } = {};
   disconnected: boolean = false;
-  constructor({
-    id,
-    session,
-    server = "wss://clouddata.scratch.mit.edu"
-  }: {
-    id: number;
-    session: Session;
-    server?: string;
-  }) {
+  constructor(session: Session, id: number) {
     super();
     this.id = id;
     this.session = session;
-    this.server = server;
 
     this.connect();
   }
 
   private connect() {
     this.open = false;
-    this.connection = new WebSocket(this.server, {
+    this.connection = new WebSocket("wss://clouddata.scratch.mit.edu", {
       headers: {
         Cookie: this.session.cookieSet,
         Origin: "https://scratch.mit.edu"

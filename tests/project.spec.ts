@@ -1,11 +1,11 @@
 import tap from "tap";
-import { ScratchSession } from "../src";
+import { ScratchSession, Project } from "../src";
 
 const session = new ScratchSession();
 
 // basic variables
 const projectID = 601968190;
-const project = session.getProject(projectID);
+const project = new Project(session, projectID);
 const apiData = await project.getAPIData();
 const comments = await project.getComments();
 

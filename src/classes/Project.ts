@@ -88,11 +88,15 @@ interface ProjectCommentReply {
   };
   reply_count: number;
 }
-
+/**
+  * Class for projects
+  * @param session The ScratchSession that will be used
+  * @param id The id of the project you want to get
+*/
 class Project {
   id: number;
   session: Session;
-  constructor({ id, session }: { id: number; session: Session }) {
+  constructor(session: Session, id: number) {
     this.id = id;
     this.session = session;
   }
@@ -312,7 +316,7 @@ class Project {
    * TurboWarp support may be added in the future
    */
   createCloudConnection(): CloudConnection {
-    return new CloudConnection({ id: this.id, session: this.session });
+    return new CloudConnection(this.session, this.id);
   }
 }
 

@@ -5,11 +5,11 @@ import { Session } from "../Consts";
 import events from "events";
 
 /**
-  * Class for cloud connections.
-  * @param session The ScratchSession that will be used.
-  * @param id The id of the project to connect to.
-  * @returns {Profile} The profile of the user.
-*/
+ * Class for cloud connections.
+ * @param session The ScratchSession that will be used.
+ * @param id The id of the project to connect to.
+ * @returns {Profile} The profile of the user.
+ */
 class CloudConnection extends events.EventEmitter {
   id: number;
   session: Session;

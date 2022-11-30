@@ -89,10 +89,10 @@ interface ProjectCommentReply {
   reply_count: number;
 }
 /**
-  * Class for projects.
-  * @param session The ScratchSession that will be used.
-  * @param id The id of the project you want to get.
-*/
+ * Class for projects.
+ * @param session The ScratchSession that will be used.
+ * @param id The id of the project you want to get.
+ */
 class Project {
   id: number;
   session: Session;

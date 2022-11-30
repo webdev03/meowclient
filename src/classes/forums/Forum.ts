@@ -3,10 +3,10 @@ import Topic from "./Topic";
 import { parse } from "node-html-parser";
 import { Session, UserAgent } from "../../Consts";
 /**
-  * Class for profiles.
-  * @param session The ScratchSession that will be used.
-  * @param [id] The ID of the forum you want to get.
-*/
+ * Class for profiles.
+ * @param session The ScratchSession that will be used.
+ * @param [id] The ID of the forum you want to get.
+ */
 class Forum {
   id?: number;
   session: Session;

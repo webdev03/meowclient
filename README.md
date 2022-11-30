@@ -17,10 +17,10 @@ If you run this install command you will get the latest version of meowclient in
 ## Example (async)
 
 ```javascript
-import { ScratchSession } from "meowclient";
+import { ScratchSession, Profile } from "meowclient";
 const session = new ScratchSession();
 await session.init("user", "pass");
-const me = session.getProfile(session.username);
+const me = new Profile(session, session.username);
 console.log("My status is " + (await me.getStatus()));
 ```
 
@@ -32,7 +32,7 @@ Some features are available without logging in if you don't run the `session.ini
 const { ScratchSession } = require("meowclient");
 const session = new ScratchSession();
 await session.init("user", "pass");
-const me = session.getProfile(session.username);
+const me = new Profile(session, session.username);
 // User.getStatus gets the status of the user, either "New Scratcher", "Scratcher" or "Scratch Team"
 console.log("My status is " + (await me.getStatus()));
 ```

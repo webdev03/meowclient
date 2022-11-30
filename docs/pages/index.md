@@ -23,10 +23,10 @@ const { ScratchSession } = require("meowclient");
 A basic starter program:
 
 ```js
-import { ScratchSession } from "meowclient";
+import { ScratchSession, Profile } from "meowclient";
 const session = new ScratchSession();
 await session.init("user", "pass"); // change these to your scratch login credentials
-const me = session.getProfile(session.username);
+const me = new Profile(session, session.username);
 console.log("My status is " + (await me.getStatus()));
 ```
 

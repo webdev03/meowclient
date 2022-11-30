@@ -39,9 +39,9 @@ interface ProfileComment {
   replies: ProfileCommentReply[];
 }
 /**
-  * Class for profiles
-  * @param session The ScratchSession that will be used
-  * @param username The username of the profile you want to get
+  * Class for profiles.
+  * @param session The ScratchSession that will be used.
+  * @param username The username of the profile you want to get.
 */
 class Profile {
   user: string;
@@ -52,7 +52,7 @@ class Profile {
   }
 
   /**
-   * Gets the status of the user
+   * Gets the status of the user.
    * Can either be Scratcher, New Scratcher, or Scratch Team.
    * @returns {string} The status of the user.
    */
@@ -65,8 +65,8 @@ class Profile {
   }
 
   /**
-   * Deletes a comment
-   * @param id The comment ID, for example 12345, *not* comment-12345
+   * Deletes a comment.
+   * @param id The comment ID, for example 12345, *not* comment-12345.
    */
   async deleteComment(id: string | number) {
     const delFetch = await fetch(
@@ -104,8 +104,8 @@ class Profile {
   }
 
   /**
-   * Gets the API response of the user in the Profile
-   * @returns The API response of the user
+   * Gets the API response of the user in the Profile.
+   * @returns The API response of the user.
    */
   async getUserAPI() {
     const scratchUserFetch = await fetch(
@@ -118,10 +118,10 @@ class Profile {
   }
 
   /**
-   * Gets comments on the user's profile
+   * Gets comments on the user's profile.
    * @param page The page to look at.
    * @returns An array of comments.
-   * apiID is used to input into deleteComment
+   * apiID is used to input into deleteComment.
    */
   async getComments(page: number = 1) {
     const commentFetch = await fetch(

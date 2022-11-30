@@ -40,9 +40,9 @@ interface StudioAPIResponse {
   };
 }
 /**
-  * Class for studios
-  * @param session The ScratchSession that will be used
-  * @param id The id of the studio you want to get
+  * Class for studios.
+  * @param session The ScratchSession that will be used.
+  * @param id The id of the studio you want to get.
 */
 class Studio {
   id: number;
@@ -66,7 +66,7 @@ class Studio {
 
   /**
    * Sets the title of the studio.
-   * @param value The value to set the title to
+   * @param value The value to set the title to.
    */
   async setTitle(value: string) {
     const setFetch = await fetch(
@@ -90,7 +90,7 @@ class Studio {
 
   /**
    * Sets the description of the studio.
-   * @param value The value to set the description to
+   * @param value The value to set the description to.
    */
   async setDescription(value: string) {
     const setFetch = await fetch(
@@ -114,7 +114,7 @@ class Studio {
 
   /**
    * Invites a curator to the studio.
-   * @param username The username of the user to add
+   * @param username The username of the user to add.
    */
   async inviteCurator(username: string) {
     const inviteFetch = await fetch(
@@ -135,7 +135,7 @@ class Studio {
 
   /**
    * Removes a curator from the studio.
-   * @param username The username of the user to remove
+   * @param username The username of the user to remove.
    */
   async removeCurator(username: string) {
     const removeFetch = await fetch(
@@ -156,7 +156,7 @@ class Studio {
 
   /**
    * Adds a project to the studio.
-   * @param project The project ID to add to the studio
+   * @param project The project ID to add to the studio.
    */
   async addProject(project: number) {
     const addFetch = await fetch(
@@ -176,7 +176,7 @@ class Studio {
 
   /**
    * Removes a project from the studio.
-   * @param project The project ID to remove from the studio
+   * @param project The project ID to remove from the studio.
    */
   async removeProject(project: number) {
     const removeFetch = await fetch(
@@ -196,9 +196,9 @@ class Studio {
 
   /**
    * Gets the curators in a studio.
-   * @param limit The limit of curators to return
-   * @param offset The offset of the curators to return
-   * @returns An array of curators
+   * @param limit The limit of curators to return.
+   * @param offset The offset of the curators to return.
+   * @returns An array of curators.
    */
   async getCurators(limit: number = 24, offset: number = 0) {
     const getFetch = await fetch(
@@ -217,9 +217,9 @@ class Studio {
 
   /**
    * Gets the managers in a studio.
-   * @param limit The limit of managers to return
-   * @param offset The offset of the managers to return
-   * @returns An array of managers
+   * @param limit The limit of managers to return.
+   * @param offset The offset of the managers to return.
+   * @returns An array of managers.
    */
   async getManagers(limit: number = 24, offset: number = 0) {
     const getFetch = await fetch(
@@ -238,9 +238,9 @@ class Studio {
 
   /**
    * Gets the projects in a studio.
-   * @param limit The limit of projects to return
-   * @param offset The offset of the projects to return
-   * @returns An array of users
+   * @param limit The limit of projects to return.
+   * @param offset The offset of the projects to return.
+   * @returns An array of users.
    */
   async getProjects(limit: number = 24, offset: number = 0) {
     const getFetch = await fetch(

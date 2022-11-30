@@ -3,11 +3,12 @@
 import { WebSocket } from "ws";
 import { Session } from "../Consts";
 import events from "events";
+
 /**
-  * Class for cloud connections
-  * @param session The ScratchSession that will be used
-  * @param id The id of the project to connect to
-  * @returns {Profile} The profile of the user
+  * Class for cloud connections.
+  * @param session The ScratchSession that will be used.
+  * @param id The id of the project to connect to.
+  * @returns {Profile} The profile of the user.
 */
 class CloudConnection extends events.EventEmitter {
   id: number;
@@ -78,7 +79,7 @@ class CloudConnection extends events.EventEmitter {
   }
 
   /**
-   * Sends a packet through cloud
+   * Sends a packet through cloud.
    */
   private send(data) {
     this.emit("internal-send", data);
@@ -86,9 +87,9 @@ class CloudConnection extends events.EventEmitter {
   }
 
   /**
-   * Sets a cloud variable
-   * @param variable The variable name to set
-   * @param value The value to set the variable to
+   * Sets a cloud variable.
+   * @param variable The variable name to set.
+   * @param value The value to set the variable to.
    */
   setVariable(variable: string, value: number | string) {
     const varname = variable.startsWith("☁ ")
@@ -115,8 +116,8 @@ class CloudConnection extends events.EventEmitter {
   }
 
   /**
-   * Gets a cloud variable
-   * @param variable The variable name to get
+   * Gets a cloud variable.
+   * @param variable The variable name to get.
    * @returns {string} The value of the variable in string format.
    */
   getVariable(variable: string): string {
@@ -127,7 +128,7 @@ class CloudConnection extends events.EventEmitter {
   }
 
   /**
-   * Closes the cloud connection
+   * Closes the cloud connection.
    */
   close() {
     this.emit("close", null);

@@ -89,9 +89,9 @@ interface ProjectCommentReply {
   reply_count: number;
 }
 /**
-  * Class for projects
-  * @param session The ScratchSession that will be used
-  * @param id The id of the project you want to get
+  * Class for projects.
+  * @param session The ScratchSession that will be used.
+  * @param id The id of the project you want to get.
 */
 class Project {
   id: number;
@@ -102,7 +102,7 @@ class Project {
   }
 
   /**
-   * Gets the api.scratch.mit.edu response of the project
+   * Gets the api.scratch.mit.edu response of the project.
    */
   async getAPIData() {
     const apiFetch = await fetch(
@@ -120,10 +120,10 @@ class Project {
   }
 
   /**
-   * Gets comments in the project
-   * @param offset The offset of comments
-   * @param limit The limit of comments to return
-   * @returns The API response
+   * Gets comments in the project.
+   * @param offset The offset of comments.
+   * @param limit The limit of comments to return.
+   * @returns The comments.
    */
   async getComments(offset = 0, limit = 20) {
     const apiData = await this.getAPIData();
@@ -144,11 +144,11 @@ class Project {
   }
 
   /**
-   * Gets the replies to a comment
-   * @param offset The offset of comments
-   * @param limit The limit of comments to return
-   * @param id The id of the comment to get
-   * @returns The comment replies
+   * Gets the replies to a comment.
+   * @param offset The offset of comments.
+   * @param limit The limit of comments to return.
+   * @param id The id of the comment to get.
+   * @returns The comment replies.
    */
   async getCommentReplies(id: number | string, offset = 0, limit = 20) {
     const apiData = await this.getAPIData();
@@ -169,8 +169,8 @@ class Project {
   }
 
   /**
-   * Sets the title of the project (requires ownership of the project)
-   * @param value The value you want to set the title to
+   * Sets the title of the project (requires ownership of the project).
+   * @param value The value you want to set the title to.
    */
   async setTitle(value: string) {
     const setFetch = await fetch(
@@ -196,8 +196,8 @@ class Project {
     }
   }
   /**
-   * Sets the instructions of the project (requires ownership of the project)
-   * @param value The value you want to set the instructions to
+   * Sets the instructions of the project (requires ownership of the project).
+   * @param value The value you want to set the instructions to.
    */
   async setInstructions(value: string) {
     const setFetch = await fetch(
@@ -224,8 +224,8 @@ class Project {
   }
 
   /**
-   * Sets the Notes and Credits of the project (requires ownership of the project)
-   * @param value The value you want to set the Notes and Credits to
+   * Sets the Notes and Credits of the project (requires ownership of the project).
+   * @param value The value you want to set the Notes and Credits to.
    */
   async setNotesAndCredits(value: string) {
     const setFetch = await fetch(
@@ -252,7 +252,7 @@ class Project {
   }
 
   /**
-   * Unshares the project (requires ownership of the project)
+   * Unshares the project (requires ownership of the project).
    */
   async unshare() {
     const setFetch = await fetch(
@@ -280,7 +280,7 @@ class Project {
   }
 
   /**
-   * Shares the project (requires ownership of the project)
+   * Shares the project (requires ownership of the project).
    */
   async share() {
     const setFetch = await fetch(
@@ -308,15 +308,6 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in sharing. ${setFetch.status}`);
     }
-  }
-
-  /**
-   * Creates a cloud connection with the project
-   * @returns {CloudConnection} The cloud connection for the project
-   * TurboWarp support may be added in the future
-   */
-  createCloudConnection(): CloudConnection {
-    return new CloudConnection(this.session, this.id);
   }
 }
 

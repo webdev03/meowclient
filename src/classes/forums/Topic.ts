@@ -30,8 +30,8 @@ class Topic {
   }
 
   /**
-   * Gets the posts in the topic
-   * @returns An array of posts in the topic
+   * Gets the posts in the topic.
+   * @returns An array of posts in the topic.
    */
   async getPosts() {
     let posts = [];
@@ -77,7 +77,7 @@ class Topic {
   }
 
   /**
-   * Follows the topic
+   * Follows the topic.
    */
   async follow() {
     const followFetch = await fetch(
@@ -106,7 +106,7 @@ class Topic {
   }
 
   /**
-   * Unfollows the topic
+   * Unfollows the topic.
    */
   async unfollow() {
     const unfollowFetch = await fetch(

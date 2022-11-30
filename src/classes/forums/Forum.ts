@@ -3,9 +3,9 @@ import Topic from "./Topic";
 import { parse } from "node-html-parser";
 import { Session, UserAgent } from "../../Consts";
 /**
-  * Class for profiles
-  * @param session The ScratchSession that will be used
-  * @param [id] The username of the profile you want to get
+  * Class for profiles.
+  * @param session The ScratchSession that will be used.
+  * @param [id] The ID of the forum you want to get.
 */
 class Forum {
   id?: number;
@@ -16,8 +16,8 @@ class Forum {
   }
 
   /**
-   * Gets a list of topics
-   * @returns An array of topics
+   * Gets a list of topics.
+   * @returns An array of topics.
    */
   async getTopics() {
     let topics: Topic[] = [];
@@ -57,20 +57,6 @@ class Forum {
     });
 
     return topics;
-  }
-
-  /**
-   * Gets a topic
-   *
-   * Note: Topic.sticky, Topic.title, and Topic.replyCount give undefined when using this!
-   * @param id The ID of the topic
-   * @returns {Topic} The topic
-   */
-  getTopic(id: number): Topic {
-    return new Topic({
-      id: id,
-      session: this.session
-    });
   }
 
   /**

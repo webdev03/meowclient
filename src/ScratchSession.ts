@@ -2,7 +2,7 @@ import { SessionJSON, UserAgent } from "./Consts";
 import fetch from "cross-fetch";
 import { createHash } from "node:crypto";
 /**
- * Logs into Scratch
+ * Manages a Scratch session.
  */
 class ScratchSession {
   username: string;
@@ -12,9 +12,9 @@ class ScratchSession {
   sessionJSON: SessionJSON;
 
   /**
-   * Sets up the ScratchSession to use authenticated functions
-   * @param user The username of the user you want to log in to
-   * @param pass The password of the user you want to log in to
+   * Sets up the ScratchSession to use authenticated functions.
+   * @param user The username of the user you want to log in to.
+   * @param pass The password of the user you want to log in to.
    */
   async init(user: string, pass: string) {
     this.username = user;
@@ -72,9 +72,9 @@ class ScratchSession {
   /**
    * Uploads a file to assets.scratch.mit.edu.
    * This can be used for adding images to be used in a forum post or signature.
-   * @param buffer The buffer of the file you want to upload
-   * @param fileExtension The extension of the file you have uploaded, for example "png"
-   * @returns The URL to access the file you have uploaded
+   * @param buffer The buffer of the file you want to upload.
+   * @param fileExtension The extension of the file you want to upload, for example "png".
+   * @returns The URL to access the file you have uploaded.
    * @example
    * await session.uploadToAssets(fs.readFileSync("photo.png"), "png"); // returns URL to image
    */
@@ -104,7 +104,7 @@ class ScratchSession {
   }
 
   /**
-   * Logs out of Scratch
+   * Logs out of Scratch.
    */
   async logout() {
     if (!this.csrfToken || !this.token) return;

@@ -19,7 +19,7 @@ interface ProjectAPIResponse {
       joined: string;
     };
     profile: {
-      id: null | number; // unsure about this one
+      id: number;
       images: {
         "90x90": string;
         "60x60": string;

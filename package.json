@@ -44,5 +44,6 @@
   "engines": {
     "node": ">13"
   },
-  "engineStrict": true
+  "engineStrict": true,
+  "sideEffects": false
 }

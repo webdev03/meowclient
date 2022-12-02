@@ -38,24 +38,25 @@ interface ProfileComment {
   apiID: string;
   replies: ProfileCommentReply[];
 }
-
+/**
+ * Class for profiles.
+ * @param session The ScratchSession that will be used.
+ * @param username The username of the profile you want to get.
+ */
 class Profile {
   user: string;
-  status: string;
-  private scratchUserHTML: string;
   session: Session;
-  scratchUserAPI: UserAPIResponse;
-  constructor({ username, session }: { username: string; session: Session }) {
+  constructor(session: Session, username: string) {
     this.user = username;
     this.session = session;
   }
 
   /**
-   * Gets the status of the user
+   * Gets the status of the user.
    * Can either be Scratcher, New Scratcher, or Scratch Team.
    * @returns {string} The status of the user.
    */
-  async getStatus(): Promise<"Scratcher" | "New Scratcher" | "Scratch Team"> {
+  async getStatus() {
     const dom = parse(await this.getUserHTML());
     return dom.querySelector(".group").innerHTML.trim() as
       | "Scratcher"
@@ -64,8 +65,8 @@ class Profile {
   }
 
   /**
-   * Deletes a comment
-   * @param id The comment ID, for example 12345, *not* comment-12345
+   * Deletes a comment.
+   * @param id The comment ID, for example 12345, *not* comment-12345.
    */
   async deleteComment(id: string | number) {
     const delFetch = await fetch(
@@ -90,46 +91,39 @@ class Profile {
       console.log(delFetch.status, await delFetch.text());
       throw new Error("Error deleting comment.");
     }
-    return delFetch;
   }
 
   private async getUserHTML() {
-    if (!(typeof this.scratchUserHTML === "string")) {
-      const scratchUserFetch = await fetch(
-        `https://scratch.mit.edu/users/${this.user}`
-      );
-      if (!scratchUserFetch.ok) {
-        throw new Error("Cannot find user.");
-      }
-      this.scratchUserHTML = await scratchUserFetch.text();
+    const scratchUserFetch = await fetch(
+      `https://scratch.mit.edu/users/${this.user}`
+    );
+    if (!scratchUserFetch.ok) {
+      throw new Error("Cannot find user.");
     }
-    return this.scratchUserHTML;
+    return await scratchUserFetch.text();
   }
 
   /**
-   * Gets the API response of the user in the Profile
-   * @returns The API response of the user
+   * Gets the API response of the user in the Profile.
+   * @returns The API response of the user.
    */
   async getUserAPI() {
-    if (typeof this.scratchUserAPI === "undefined") {
-      const scratchUserFetch = await fetch(
-        `https://api.scratch.mit.edu/users/${this.user}`
-      );
-      if (!scratchUserFetch.ok) {
-        throw new Error("Cannot find user.");
-      }
-      this.scratchUserAPI = await scratchUserFetch.json();
+    const scratchUserFetch = await fetch(
+      `https://api.scratch.mit.edu/users/${this.user}`
+    );
+    if (!scratchUserFetch.ok) {
+      throw new Error("Cannot find user.");
     }
-    return this.scratchUserAPI;
+    return await scratchUserFetch.json();
   }
 
   /**
-   * Gets comments on the user's profile
+   * Gets comments on the user's profile.
    * @param page The page to look at.
-   * @returns {Array} An array of comments.
-   * apiID is used to input into deleteComment
+   * @returns An array of comments.
+   * apiID is used to input into deleteComment.
    */
-  async getComments(page: number = 1): Promise<ProfileComment[]> {
+  async getComments(page: number = 1) {
     const commentFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/?page=${page}`
     );

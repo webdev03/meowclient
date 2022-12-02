@@ -30,8 +30,8 @@ class Topic {
   }
 
   /**
-   * Gets the posts in the topic
-   * @returns An array of posts in the topic
+   * Gets the posts in the topic.
+   * @returns An array of posts in the topic.
    */
   async getPosts() {
     let posts = [];
@@ -77,8 +77,7 @@ class Topic {
   }
 
   /**
-   * Follows the topic
-   * @returns The request
+   * Follows the topic.
    */
   async follow() {
     const followFetch = await fetch(
@@ -104,12 +103,10 @@ class Topic {
         `Error following topic ${this.id} - ${followFetch.statusText}`
       );
     }
-    return followFetch;
   }
 
   /**
-   * Unfollows the topic
-   * @returns The request
+   * Unfollows the topic.
    */
   async unfollow() {
     const unfollowFetch = await fetch(
@@ -135,7 +132,6 @@ class Topic {
         `Error unfollowing topic ${this.id} - ${unfollowFetch.statusText}`
       );
     }
-    return unfollowFetch;
   }
 }
 export default Topic;

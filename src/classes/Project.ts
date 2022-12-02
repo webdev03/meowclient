@@ -19,7 +19,7 @@ interface ProjectAPIResponse {
       joined: string;
     };
     profile: {
-      id: null | number; // unsure about this one
+      id: number;
       images: {
         "90x90": string;
         "60x60": string;
@@ -53,6 +53,7 @@ interface ProjectAPIResponse {
     parent: null | number;
     root: null | number;
   };
+  project_token: string;
 }
 
 interface ProjectComment {
@@ -87,44 +88,44 @@ interface ProjectCommentReply {
   };
   reply_count: number;
 }
-
+/**
+ * Class for projects.
+ * @param session The ScratchSession that will be used.
+ * @param id The id of the project you want to get.
+ */
 class Project {
   id: number;
   session: Session;
-  scratchProjectAPI: ProjectAPIResponse;
-  constructor({ id, session }: { id: number; session: Session }) {
+  constructor(session: Session, id: number) {
     this.id = id;
     this.session = session;
   }
 
   /**
-   * Gets the api.scratch.mit.edu response of the project
+   * Gets the api.scratch.mit.edu response of the project.
    */
-  async getAPIData(): Promise<ProjectAPIResponse> {
-    if (typeof this.scratchProjectAPI === "undefined") {
-      const apiFetch = await fetch(
-        `https://api.scratch.mit.edu/projects/${this.id}`,
-        {
-          headers: {
-            "User-Agent": UserAgent
-          }
+  async getAPIData() {
+    const apiFetch = await fetch(
+      `https://api.scratch.mit.edu/projects/${this.id}`,
+      {
+        headers: {
+          "User-Agent": UserAgent
         }
-      );
-      if (!apiFetch.ok) {
-        throw new Error("Cannot find project.");
       }
-      this.scratchProjectAPI = await apiFetch.json();
+    );
+    if (!apiFetch.ok) {
+      throw new Error("Cannot find project.");
     }
-    return this.scratchProjectAPI;
+    return (await apiFetch.json()) as ProjectAPIResponse;
   }
 
   /**
-   * Gets comments in the project
-   * @param offset The offset of comments
-   * @param limit The limit of comments to return
-   * @returns The API response
+   * Gets comments in the project.
+   * @param offset The offset of comments.
+   * @param limit The limit of comments to return.
+   * @returns The comments.
    */
-  async getComments(offset = 0, limit = 20): Promise<ProjectComment[]> {
+  async getComments(offset = 0, limit = 20) {
     const apiData = await this.getAPIData();
     const commentFetch = await fetch(
       `https://api.scratch.mit.edu/users/${apiData.author.username}/projects/${this.id}/comments?offset=${offset}&limit=${limit}`,
@@ -139,21 +140,17 @@ class Project {
         `Comments returned status ${commentFetch.status} - ${commentFetch.statusText}`
       );
     }
-    return await commentFetch.json();
+    return (await commentFetch.json()) as ProjectComment[];
   }
 
   /**
-   * Gets the comment replies to a comment
-   * @param offset The offset of comments
-   * @param limit The limit of comments to return
-   * @param id The id of the comment to get
-   * @returns The comment replies
+   * Gets the replies to a comment.
+   * @param offset The offset of comments.
+   * @param limit The limit of comments to return.
+   * @param id The id of the comment to get.
+   * @returns The comment replies.
    */
-  async getCommentReplies(
-    offset = 0,
-    limit = 20,
-    id: number | string
-  ): Promise<ProjectCommentReply[]> {
+  async getCommentReplies(id: number | string, offset = 0, limit = 20) {
     const apiData = await this.getAPIData();
     const commentFetch = await fetch(
       `https://api.scratch.mit.edu/users/${apiData.author.username}/projects/${this.id}/comments/${id}/replies?offset=${offset}&limit=${limit}`,
@@ -168,12 +165,12 @@ class Project {
         `Comments returned status ${commentFetch.status} - ${commentFetch.statusText}`
       );
     }
-    return await commentFetch.json();
+    return (await commentFetch.json()) as ProjectCommentReply[];
   }
 
   /**
-   * Sets the title of the project (requires ownership of the project)
-   * @param value The value you want to set the title to
+   * Sets the title of the project (requires ownership of the project).
+   * @param value The value you want to set the title to.
    */
   async setTitle(value: string) {
     const setFetch = await fetch(
@@ -197,11 +194,10 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in setting title. ${setFetch.status}`);
     }
-    this.scratchProjectAPI = undefined; // this is to reset it
   }
   /**
-   * Sets the instructions of the project (requires ownership of the project)
-   * @param value The value you want to set the instructions to
+   * Sets the instructions of the project (requires ownership of the project).
+   * @param value The value you want to set the instructions to.
    */
   async setInstructions(value: string) {
     const setFetch = await fetch(
@@ -225,12 +221,11 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in setting instructions. ${setFetch.status}`);
     }
-    this.scratchProjectAPI = undefined; // this is to reset it
   }
 
   /**
-   * Sets the Notes and Credits of the project (requires ownership of the project)
-   * @param value The value you want to set the Notes and Credits to
+   * Sets the Notes and Credits of the project (requires ownership of the project).
+   * @param value The value you want to set the Notes and Credits to.
    */
   async setNotesAndCredits(value: string) {
     const setFetch = await fetch(
@@ -254,11 +249,10 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in setting Notes and Credits. ${setFetch.status}`);
     }
-    this.scratchProjectAPI = undefined; // this is to reset it
   }
 
   /**
-   * Unshares the project (requires ownership of the project)
+   * Unshares the project (requires ownership of the project).
    */
   async unshare() {
     const setFetch = await fetch(
@@ -286,7 +280,7 @@ class Project {
   }
 
   /**
-   * Shares the project (requires ownership of the project)
+   * Shares the project (requires ownership of the project).
    */
   async share() {
     const setFetch = await fetch(
@@ -314,15 +308,6 @@ class Project {
     if (!setFetch.ok) {
       throw new Error(`Error in sharing. ${setFetch.status}`);
     }
-  }
-
-  /**
-   * Creates a cloud connection with the project
-   * @returns {CloudConnection} The cloud connection for the project
-   * TurboWarp support may be added in the future
-   */
-  createCloudConnection(): CloudConnection {
-    return new CloudConnection({ id: this.id, session: this.session });
   }
 }
 

@@ -2,18 +2,22 @@ import fetch from "cross-fetch";
 import Topic from "./Topic";
 import { parse } from "node-html-parser";
 import { Session, UserAgent } from "../../Consts";
-
+/**
+ * Class for profiles.
+ * @param session The ScratchSession that will be used.
+ * @param [id] The ID of the forum you want to get.
+ */
 class Forum {
   id?: number;
   session: Session;
-  constructor({ id, session }: { id?: number; session: Session }) {
+  constructor(session: Session, id?: number) {
     this.id = id;
     this.session = session;
   }
 
   /**
-   * Gets a list of topics
-   * @returns An array of topics
+   * Gets a list of topics.
+   * @returns An array of topics.
    */
   async getTopics() {
     let topics: Topic[] = [];
@@ -56,23 +60,8 @@ class Forum {
   }
 
   /**
-   * Gets a topic
-   *
-   * Note: Topic.sticky, Topic.title, and Topic.replyCount give undefined when using this!
-   * @param id The ID of the topic
-   * @returns {Topic} The topic
-   */
-  getTopic(id: number): Topic {
-    return new Topic({
-      id: id,
-      session: this.session
-    });
-  }
-
-  /**
    * Sets the currently logged in user's signature
    * @param content The content to set the signature to
-   * @returns {Request} The request to set the signature
    */
   async setSignature(content: string) {
     const editFetch = await fetch(
@@ -93,15 +82,12 @@ class Forum {
         method: "POST",
         body: `csrfmiddlewaretoken=${
           this.session.csrfToken
-        }&signature=${encodeURIComponent(content)
-          .replace("%20", "+")
-          .replace("\n", "\r\n")}&update=`
+        }&signature=${encodeURIComponent(content)}&update=`
       }
     );
     if (!editFetch.ok) {
       throw new Error(`Error editing signature - ${editFetch.statusText}`);
     }
-    return editFetch;
   }
 }
 

@@ -35,7 +35,6 @@ class Post {
   /**
    * Edits the post (requires ownership of the post)
    * @param content The new content of the post
-   * @returns The API response
    */
   async edit(content: string) {
     const editFetch = await fetch(
@@ -56,9 +55,7 @@ class Post {
         method: "POST",
         body: `csrfmiddlewaretoken=${
           this.session.csrfToken
-        }&body=${encodeURIComponent(content)
-          .replace("%20", "+")
-          .replace("\n", "\r\n")}`
+        }&body=${encodeURIComponent(content)}`
       }
     );
     if (!editFetch.ok) {
@@ -66,7 +63,6 @@ class Post {
         `Error editing post ${this.id} - ${editFetch.statusText}`
       );
     }
-    return editFetch;
   }
 }
 

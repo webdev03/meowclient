@@ -50,21 +50,17 @@
     </ul>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">Examples</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="ScratchSession/">ScratchSession</a>
+                  <li class="toctree-l1"><a class="reference internal" href="examples/getSessionJSON/">Get Session JSON</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Forums</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="examples/forums/changeSignature/">Change Signature</a>
                 </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Classes</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="classes/CloudConnection/">CloudConnection</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="classes/Forums/">Forums</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="classes/Profile/">Profile</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="classes/Project/">Project</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="classes/Studio/">Studio</a>
+                <li class="toctree-l2"><a class="reference internal" href="examples/forums/topicsAndPosts/">Topics and Posts</a>
+                </li>
+    </ul>
                   </li>
               </ul>
       </div>
@@ -104,20 +100,19 @@
 <pre><code class="language-js">const { ScratchSession } = require(&quot;meowclient&quot;);
 </code></pre>
 <p>A basic starter program:</p>
-<pre><code class="language-js">import { ScratchSession } from &quot;meowclient&quot;;
-(async () =&gt; {
-  const session = new ScratchSession();
-  await session.init(&quot;user&quot;, &quot;pass&quot;); // change these to your scratch login credentials
-  const me = session.getProfile(session.username);
-  console.log(&quot;My status is &quot; + (await me.getStatus()));
-})();
+<pre><code class="language-js">import { ScratchSession, Profile } from &quot;meowclient&quot;;
+const session = new ScratchSession();
+await session.init(&quot;user&quot;, &quot;pass&quot;); // change these to your scratch login credentials
+const me = new Profile(session, session.username);
+console.log(&quot;My status is &quot; + (await me.getStatus()));
 </code></pre>
-<p>Documentation is <strong>work in progress</strong> and not all things have been added yet.</p>
+<p>If you use VS Code, you should be able to use the JSDoc documentation. If you use TypeScript you can also take full advantage of the types.</p>
+<p>This will soon be a collection of examples for using meowclient. If you cannot find what you want, you can go through the <a href="https://github.com/webdev03/meowclient">source code</a> or you can ask for help in the <a href="https://scratch.mit.edu/discuss/topic/574321">official meowclient forum topic</a>.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="ScratchSession/" class="btn btn-neutral float-right" title="ScratchSession">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="examples/getSessionJSON/" class="btn btn-neutral float-right" title="Get Session JSON">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -145,7 +140,7 @@
     
     
     
-      <span><a href="ScratchSession/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="examples/getSessionJSON/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
@@ -164,5 +159,5 @@
 
 <!--
 MkDocs version : 1.3.0
-Build Date UTC : 2022-05-16 01:19:39.869189+00:00
+Build Date UTC : 2022-12-02 09:02:17.017431+00:00
 -->

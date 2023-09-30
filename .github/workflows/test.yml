@@ -13,7 +13,7 @@ jobs:
     name: Test code
     strategy:
       matrix:
-        version: [19.x, 18.x, 16.x, 14.x]
+        version: [20.x, 18.x, 16.x]
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +26,7 @@ jobs:
       # setup pnpm
       - uses: pnpm/action-setup@v2.0.1
         with:
-          version: "7.13.x"
+          version: "8.7.x"
           run_install: true
       # this gives an exit code
       - name: Test

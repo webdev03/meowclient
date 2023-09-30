@@ -280,6 +280,50 @@ class Project {
   }
 
   /**
+   * Check if the user is loving the project
+   */
+  async isLoving() {
+    const request = await fetch(
+      `https://api.scratch.mit.edu/projects/${this.id}/loves/user/${this.session.sessionJSON.user.username}`,
+      {
+        headers: {
+          "User-Agent": UserAgent,
+          Accept: "*/*",
+          "Accept-Language": "en, en;q=0.8",
+          "X-Token": this.session.sessionJSON.user.token,
+          Pragma: "no-cache",
+          "Cache-Control": "no-cache"
+        },
+        referrer: "https://scratch.mit.edu/"
+      }
+    );
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    return (await request.json()).userLove as boolean;
+  }
+
+  /**
+   * Check if the user is favoriting the project
+   */
+  async isFavoriting() {
+    const request = await fetch(
+      `https://api.scratch.mit.edu/projects/${this.id}/favorites/user/${this.session.sessionJSON.user.username}`,
+      {
+        headers: {
+          "User-Agent": UserAgent,
+          Accept: "*/*",
+          "Accept-Language": "en, en;q=0.8",
+          "X-Token": this.session.sessionJSON.user.token,
+          Pragma: "no-cache",
+          "Cache-Control": "no-cache"
+        },
+        referrer: "https://scratch.mit.edu/"
+      }
+    );
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    return (await request.json()).userFavorite as boolean;
+  }
+
+  /**
    * Shares the project (requires ownership of the project).
    */
   async share() {

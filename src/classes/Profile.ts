@@ -114,7 +114,7 @@ class Profile {
     if (!scratchUserFetch.ok) {
       throw new Error("Cannot find user.");
     }
-    return await scratchUserFetch.json() as UserAPIResponse;
+    return (await scratchUserFetch.json()) as UserAPIResponse;
   }
 
   /**

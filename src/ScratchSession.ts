@@ -106,15 +106,22 @@ class ScratchSession {
   /**
    * Search projects
    * @param query The query to search for
-   * @param limit The limit of 
+   * @param limit The limit of
    * @param offset The number of projects to offset
    * @param mode Search using Popular or Trending mode
    */
-  async searchProjects(query: string, limit: number = 16, offset: number = 0, mode: "popular" | "trending" = "popular") {
-    const request = await fetch(`https://api.scratch.mit.edu/search/projects?limit=${limit}&offset=${offset}&language=en&mode=${mode}&q=${query}`);
-    if(!request.ok) {
-      throw new Error("Request failed")
-    };
+  async searchProjects(
+    query: string,
+    limit: number = 16,
+    offset: number = 0,
+    mode: "popular" | "trending" = "popular"
+  ) {
+    const request = await fetch(
+      `https://api.scratch.mit.edu/search/projects?limit=${limit}&offset=${offset}&language=en&mode=${mode}&q=${query}`
+    );
+    if (!request.ok) {
+      throw new Error("Request failed");
+    }
     return (await request.json()) as {
       id: number;
       title: string;
@@ -130,7 +137,7 @@ class ScratchSession {
         scratchteam: boolean;
         history: {
           joined: string;
-        }
+        };
         profile: {
           id: unknown;
           images: {
@@ -140,8 +147,8 @@ class ScratchSession {
             "50x50": string;
             "32x32": string;
           };
-        }
-      }
+        };
+      };
     }[];
   }
 

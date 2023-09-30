@@ -297,7 +297,8 @@ class Project {
         referrer: "https://scratch.mit.edu/"
       }
     );
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
     return (await request.json()).userLove as boolean;
   }
 
@@ -319,7 +320,8 @@ class Project {
         referrer: "https://scratch.mit.edu/"
       }
     );
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
     return (await request.json()).userFavorite as boolean;
   }
 

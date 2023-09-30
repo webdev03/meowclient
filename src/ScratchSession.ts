@@ -104,6 +104,48 @@ class ScratchSession {
   }
 
   /**
+   * Search projects
+   * @param query The query to search for
+   * @param limit The limit of 
+   * @param offset The number of projects to offset
+   * @param mode Search using Popular or Trending mode
+   */
+  async searchProjects(query: string, limit: number = 16, offset: number = 0, mode: "popular" | "trending" = "popular") {
+    const request = await fetch(`https://api.scratch.mit.edu/search/projects?limit=${limit}&offset=${offset}&language=en&mode=${mode}&q=${query}`);
+    if(!request.ok) {
+      throw new Error("Request failed")
+    };
+    return (await request.json()) as {
+      id: number;
+      title: string;
+      description: string;
+      instructions: string;
+      visibility: string;
+      public: boolean;
+      comments_allowed: boolean;
+      is_published: boolean;
+      author: {
+        id: number;
+        username: string;
+        scratchteam: boolean;
+        history: {
+          joined: string;
+        }
+        profile: {
+          id: unknown;
+          images: {
+            "90x90": string;
+            "60x60": string;
+            "55x55": string;
+            "50x50": string;
+            "32x32": string;
+          };
+        }
+      }
+    }[];
+  }
+
+  /**
    * Logs out of Scratch.
    */
   async logout() {

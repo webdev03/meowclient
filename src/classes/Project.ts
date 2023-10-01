@@ -324,6 +324,11 @@ class Project {
     return (await request.json()).userFavorite as boolean;
   }
 
+  /**
+   * Set the state for loving the project
+   * Note that if you want to set up a toggle you want to also use the Project.isLoving() function
+   * @param loving Either true or false
+   */
   async setLoving(loving: boolean) {
     const request = await fetch(`https://api.scratch.mit.edu/proxy/projects/${this.id}/loves/user/${this.session.sessionJSON.user.username}`, {
       method: loving ? "POST" : "DELETE",
@@ -347,6 +352,11 @@ class Project {
     return;
   }
 
+  /**
+   * Set the state for favoriting the project
+   * Note that if you want to set up a toggle you want to also use the Project.isFavoriting() function
+   * @param favoriting Either true or false
+   */
   async setFavoriting(favoriting: boolean) {
     const request = await fetch(`https://api.scratch.mit.edu/proxy/projects/${this.id}/favorites/user/${this.session.sessionJSON.user.username}`, {
       method: favoriting ? "POST" : "DELETE",

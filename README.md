@@ -1,12 +1,8 @@
 # Meowclient [![Test](https://github.com/webdev03/meowclient/actions/workflows/test.yml/badge.svg)](https://github.com/webdev03/meowclient/actions/workflows/test.yml)
 
-<h3>A feature-rich library to connect to <a href="https://scratch.mit.edu/">Scratch.</a></h3>
+**A library to connect to [Scratch](https://scratch.mit.edu/).**
 
-## Getting Started
-
-Follow the steps below:
-
-### ⏳ Installation
+### Installation
 
 If you run this install command you will get the latest version of meowclient in your `package.json`.
 
@@ -39,7 +35,7 @@ console.log("My status is " + (await me.getStatus()));
 
 ## Note
 
-Automating social actions such as loving, favouriting, commenting, or following users is not allowed in the Scratch Terms of Use if you run it automatically! Only use these features if you are doing it manually! I am not responsible if your Scratch account gets restricted because of you being reckless with this!
+Automating social actions such as loving, favouriting, commenting, or following users is not allowed if you run it automatically! Only use these features if you are doing it manually! I am not responsible if your Scratch account gets restricted because of you being reckless with this!
 
 ## Thanks
 

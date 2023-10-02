@@ -124,7 +124,9 @@ class Studio {
         headers: {
           "User-Agent": UserAgent,
           "X-CSRFToken": this.session.csrfToken,
-          Cookie: this.session.cookieSet
+          Cookie: this.session.cookieSet,
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/studios/${this.id}/curators`
         }
       }
     );
@@ -145,7 +147,9 @@ class Studio {
         headers: {
           "User-Agent": UserAgent,
           "X-CSRFToken": this.session.csrfToken,
-          Cookie: this.session.cookieSet
+          Cookie: this.session.cookieSet,
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/studios/${this.id}/curators`
         }
       }
     );

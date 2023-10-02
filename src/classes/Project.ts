@@ -251,17 +251,20 @@ class Project {
   }
 
   async setThumbnail(buffer: Buffer) {
-    const request = await fetch(`https://scratch.mit.edu/internalapi/project/thumbnail/${this.id}/set/`, {
-      method: "POST",
-      body: buffer,
-      headers: {
-        "X-CSRFToken": this.session.csrfToken,
-        "X-Token": this.session.sessionJSON.user.token,
-        "Cookie": this.session.cookieSet,
-        "User-Agent": UserAgent
+    const request = await fetch(
+      `https://scratch.mit.edu/internalapi/project/thumbnail/${this.id}/set/`,
+      {
+        method: "POST",
+        body: buffer,
+        headers: {
+          "X-CSRFToken": this.session.csrfToken,
+          "X-Token": this.session.sessionJSON.user.token,
+          Cookie: this.session.cookieSet,
+          "User-Agent": UserAgent
+        }
       }
-    });
-    if(!request.ok) throw Error("Request not ok");
+    );
+    if (!request.ok) throw Error("Request not ok");
     return;
   }
 
@@ -345,25 +348,29 @@ class Project {
    * @param loving Either true or false
    */
   async setLoving(loving: boolean) {
-    const request = await fetch(`https://api.scratch.mit.edu/proxy/projects/${this.id}/loves/user/${this.session.sessionJSON.user.username}`, {
-      method: loving ? "POST" : "DELETE",
-      headers: {
-        "X-CSRFToken": this.session.csrfToken,
-        "X-Token": this.session.sessionJSON.user.token,
-        "x-requested-with": "XMLHttpRequest",
-        Cookie: this.session.cookieSet,
-        Referer: `https://scratch.mit.edu/projects/${this.id}/`,
-        "User-Agent": UserAgent,
-        Accept: "*/*",
-        "Content-Length": "0",
-        Origin: "https://scratch.mit.edu",
-        Host: "api.scratch.mit.edu",
-        "Cache-Control": "max-age=0, no-cache",
-        Pragma: "no-cache",
-        "Accept-Encoding": "gzip, deflate, br"
+    const request = await fetch(
+      `https://api.scratch.mit.edu/proxy/projects/${this.id}/loves/user/${this.session.sessionJSON.user.username}`,
+      {
+        method: loving ? "POST" : "DELETE",
+        headers: {
+          "X-CSRFToken": this.session.csrfToken,
+          "X-Token": this.session.sessionJSON.user.token,
+          "x-requested-with": "XMLHttpRequest",
+          Cookie: this.session.cookieSet,
+          Referer: `https://scratch.mit.edu/projects/${this.id}/`,
+          "User-Agent": UserAgent,
+          Accept: "*/*",
+          "Content-Length": "0",
+          Origin: "https://scratch.mit.edu",
+          Host: "api.scratch.mit.edu",
+          "Cache-Control": "max-age=0, no-cache",
+          Pragma: "no-cache",
+          "Accept-Encoding": "gzip, deflate, br"
+        }
       }
-    });
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
     return;
   }
 
@@ -373,25 +380,29 @@ class Project {
    * @param favoriting Either true or false
    */
   async setFavoriting(favoriting: boolean) {
-    const request = await fetch(`https://api.scratch.mit.edu/proxy/projects/${this.id}/favorites/user/${this.session.sessionJSON.user.username}`, {
-      method: favoriting ? "POST" : "DELETE",
-      headers: {
-        "X-CSRFToken": this.session.csrfToken,
-        "X-Token": this.session.sessionJSON.user.token,
-        "x-requested-with": "XMLHttpRequest",
-        Cookie: this.session.cookieSet,
-        Referer: `https://scratch.mit.edu/projects/${this.id}/`,
-        "User-Agent": UserAgent,
-        Accept: "*/*",
-        "Content-Length": "0",
-        Origin: "https://scratch.mit.edu",
-        Host: "api.scratch.mit.edu",
-        "Cache-Control": "max-age=0, no-cache",
-        Pragma: "no-cache",
-        "Accept-Encoding": "gzip, deflate, br"
+    const request = await fetch(
+      `https://api.scratch.mit.edu/proxy/projects/${this.id}/favorites/user/${this.session.sessionJSON.user.username}`,
+      {
+        method: favoriting ? "POST" : "DELETE",
+        headers: {
+          "X-CSRFToken": this.session.csrfToken,
+          "X-Token": this.session.sessionJSON.user.token,
+          "x-requested-with": "XMLHttpRequest",
+          Cookie: this.session.cookieSet,
+          Referer: `https://scratch.mit.edu/projects/${this.id}/`,
+          "User-Agent": UserAgent,
+          Accept: "*/*",
+          "Content-Length": "0",
+          Origin: "https://scratch.mit.edu",
+          Host: "api.scratch.mit.edu",
+          "Cache-Control": "max-age=0, no-cache",
+          Pragma: "no-cache",
+          "Accept-Encoding": "gzip, deflate, br"
+        }
       }
-    });
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
     return;
   }
 

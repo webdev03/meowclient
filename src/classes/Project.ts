@@ -250,6 +250,21 @@ class Project {
     }
   }
 
+  async setThumbnail(buffer: Buffer) {
+    const request = await fetch(`https://scratch.mit.edu/internalapi/project/thumbnail/${this.id}/set/`, {
+      method: "POST",
+      body: buffer,
+      headers: {
+        "X-CSRFToken": this.session.csrfToken,
+        "X-Token": this.session.sessionJSON.user.token,
+        "Cookie": this.session.cookieSet,
+        "User-Agent": UserAgent
+      }
+    });
+    if(!request.ok) throw Error("Request not ok");
+    return;
+  }
+
   /**
    * Unshares the project (requires ownership of the project).
    */

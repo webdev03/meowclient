@@ -39,7 +39,7 @@ console.log("My status is " + (await me.getStatus()));
 
 ## Note
 
-Automating social actions such as loving, favouriting, commenting, or following users is not allowed in the Scratch Terms of Use so I won't add those features to meowclient unless you have a good reason, although if you know how to use the Scratch API you can definitely make your own fetch requests with the session.
+Automating social actions such as loving, favouriting, commenting, or following users is not allowed in the Scratch Terms of Use if you run it automatically! Only use these features if you are doing it manually! I am not responsible if your Scratch account gets restricted because of you being reckless with this!
 
 ## Thanks
 

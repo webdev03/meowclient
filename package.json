@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --minify --dts",
     "build:watch": "tsup src/index.ts --format cjs,esm --minify --dts --watch",
-    "prepublish": "tsup src/index.ts --format cjs,esm --minify --dts",
+    "prepare": "tsup src/index.ts --format cjs,esm --minify --dts",
     "test": "tap --no-coverage --node-arg=--loader=ts-node/esm --node-arg=--experimental-specifier-resolution=node",
     "lint": "prettier --check .",
     "format": "prettier --write ."

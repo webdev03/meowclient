@@ -2,6 +2,7 @@ interface SessionJSON {
   user: {
     id: number;
     banned: boolean;
+    should_vpn: boolean;
     username: string;
     token: string;
     thumbnailUrl: string;
@@ -12,6 +13,7 @@ interface SessionJSON {
     admin: boolean;
     scratcher: boolean;
     new_scratcher: boolean;
+    invited_scratcher: boolean;
     social: boolean;
     educator: boolean;
     educator_invitee: boolean;
@@ -24,7 +26,7 @@ interface SessionJSON {
       showWarning: boolean;
       muteExpiresAt: number;
       currentMessageType: string | null;
-    };
+    } | {};
   };
   flags: {
     must_reset_password: boolean;
@@ -36,6 +38,7 @@ interface SessionJSON {
     project_comments_enabled: boolean;
     gallery_comments_enabled: boolean;
     userprofile_comments_enabled: boolean;
+    everything_is_totally_normal: boolean;
   };
 }
 

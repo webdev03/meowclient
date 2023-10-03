@@ -64,6 +64,48 @@ class Studio {
     return (await response.json()) as StudioAPIResponse;
   }
 
+  async follow() {
+    const request = await fetch(
+      `https://scratch.mit.edu/site-api/users/bookmarkers/${this.id}/add/?usernames=${this.session.sessionJSON.user.username}`,
+      {
+        method: "PUT",
+        headers: {
+          "x-csrftoken": this.session.csrfToken,
+          "X-Token": this.session.token,
+          "x-requested-with": "XMLHttpRequest",
+          Cookie: this.session.cookieSet,
+          referer: `https://scratch.mit.edu/studios/${this.id}/`,
+          "User-Agent": UserAgent,
+          accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
+  }
+
+  async unfollow() {
+    const request = await fetch(
+      `https://scratch.mit.edu/site-api/users/bookmarkers/${this.id}/remove/?usernames=${this.session.sessionJSON.user.username}`,
+      {
+        method: "PUT",
+        headers: {
+          "x-csrftoken": this.session.csrfToken,
+          "X-Token": this.session.token,
+          "x-requested-with": "XMLHttpRequest",
+          Cookie: this.session.cookieSet,
+          referer: `https://scratch.mit.edu/studios/${this.id}/`,
+          "User-Agent": UserAgent,
+          accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
+  }
+
   /**
    * Sets the title of the studio.
    * @param value The value to set the title to.

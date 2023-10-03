@@ -64,6 +64,48 @@ class Profile {
       | "Scratch Team";
   }
 
+  async follow() {
+    const request = await fetch(
+      `https://scratch.mit.edu/site-api/users/followers/${this.user}/add/?usernames=${this.session.sessionJSON.user.username}`,
+      {
+        method: "PUT",
+        headers: {
+          "x-csrftoken": this.session.csrfToken,
+          "X-Token": this.session.token,
+          "x-requested-with": "XMLHttpRequest",
+          Cookie: this.session.cookieSet,
+          referer: `https://scratch.mit.edu/users/${this.user}/`,
+          "User-Agent": UserAgent,
+          accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
+  }
+
+  async unfollow() {
+    const request = await fetch(
+      `https://scratch.mit.edu/site-api/users/followers/${this.user}/remove/?usernames=${this.session.sessionJSON.user.username}`,
+      {
+        method: "PUT",
+        headers: {
+          "x-csrftoken": this.session.csrfToken,
+          "X-Token": this.session.token,
+          "x-requested-with": "XMLHttpRequest",
+          Cookie: this.session.cookieSet,
+          referer: `https://scratch.mit.edu/users/${this.user}/`,
+          "User-Agent": UserAgent,
+          accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
+  }
+
   /**
    * Deletes a comment.
    * @param id The comment ID, for example 12345, *not* comment-12345.

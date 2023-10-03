@@ -167,6 +167,39 @@ class Project {
     return (await commentFetch.json()) as ProjectCommentReply[];
   }
 
+  async comment(content: string, parent_id?: number, commentee_id?: number) {
+    const request = await fetch(
+      `https://api.scratch.mit.edu/proxy/comments/project/${this.id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          content: content,
+          commentee_id: commentee_id || "",
+          parent_id: parent_id || ""
+        }),
+        headers: {
+          "X-CSRFToken": this.session.csrfToken,
+          "X-Token": this.session.sessionJSON.user.token,
+          Cookie: this.session.cookieSet,
+          Referer: `https://scratch.mit.edu/`,
+          "Content-Type": "application/json",
+          TE: "trailers",
+          "User-Agent": UserAgent,
+          Accept: "application/json",
+          "Accept-Language": "en, en;q=0.8",
+          Origin: "https://scratch.mit.edu",
+          Host: "api.scratch.mit.edu",
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          Connection: "keep-alive",
+          "Accept-Encoding": "gzip, deflate, br"
+        }
+      }
+    );
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    return Number((await request.json()).id);
+  }
+
   /**
    * Sets the title of the project (requires ownership of the project).
    * @param value The value you want to set the title to.

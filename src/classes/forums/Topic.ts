@@ -4,6 +4,8 @@ import { Readable } from "stream";
 import { FormData } from "formdata-node";
 import { FormDataEncoder } from "form-data-encoder";
 import Post from "./Post";
+import { streamToString } from "../../utils";
+
 class Topic {
   id: number;
   session: Session;
@@ -166,15 +168,6 @@ class Topic {
       );
     }
   }
-}
-
-function streamToString(stream: Readable): Promise<string> {
-  const chunks = [];
-  return new Promise((resolve, reject) => {
-    stream.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
-    stream.on("error", (err) => reject(err));
-    stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
-  });
 }
 
 export default Topic;

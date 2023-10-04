@@ -1,6 +1,11 @@
 import Topic from "./Topic";
 import { parse } from "node-html-parser";
 import { Session, UserAgent } from "../../Consts";
+import { Readable } from "stream";
+import { FormData } from "formdata-node";
+import { FormDataEncoder } from "form-data-encoder";
+import { streamToString } from "../../utils";
+
 /**
  * Class for profiles.
  * @param session The ScratchSession that will be used.
@@ -56,6 +61,40 @@ class Forum {
     });
 
     return topics;
+  }
+
+  async createTopic(title: string, body: string) {
+    if(!this.id) throw Error("You need to add a forum id");
+    const form = new FormData();
+    form.append("csrfmiddlewaretoken", this.session.csrfToken);
+    form.append("name", title);
+    form.append("body", body);
+    form.append("subscribe", "on");
+    form.append("AddPostForm", "");
+    const encoder = new FormDataEncoder(form);
+    const request = await fetch(
+      `https://scratch.mit.edu/discuss/${this.id}/topic/add`,
+      {
+        method: "POST",
+        body: await streamToString(Readable.from(encoder.encode())),
+        headers: {
+          Cookie: this.session.cookieSet,
+          "User-Agent": UserAgent,
+          Accept: "*/*",
+          "X-CSRFToken": this.session.csrfToken,
+          "X-Token": this.session.sessionJSON.user.token,
+          "x-requested-with": "XMLHttpRequest",
+          "Accept-Encoding": "gzip, deflate, br",
+          "Cache-Control": "no-cache",
+          "Content-Type": encoder.contentType,
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/discuss/${this.id}/topic/add`,
+        }
+      }
+    );
+
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
   }
 
   /**

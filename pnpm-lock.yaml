@@ -882,10 +882,6 @@ packages:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
     dev: true
 
-  /@types/node@17.0.45:
-    resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
-    dev: true
-
   /@types/node@20.8.2:
     resolution: {integrity: sha512-Vvycsc9FQdwhxE3y3DzeIxuEJbWGDsnrxvMADzTDF/lcdR9/K+AQIeAghTQsHtotg/q0j3WEOYS/jQgSdWue3w==}
     dev: true
@@ -893,13 +889,13 @@ packages:
   /@types/tap@15.0.9:
     resolution: {integrity: sha512-ewkqbmoYTsKC333VmdpUvxRl8/tDK2RRzR/BBCAuuFPgEvNp1vxqL2Dh812acDpmaBsgWkYORxy8e/RODrzMPw==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 20.8.2
     dev: true
 
   /@types/ws@8.5.6:
     resolution: {integrity: sha512-8B5EO9jLVCy+B58PLHvLDuOD8DRVMgQzq8d55SjLCOn9kqGyqOvy27exVaTio1q1nX5zLu8/6N0n2ThSxOM6tg==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 20.8.2
     dev: true
 
   /abbrev@1.1.1:

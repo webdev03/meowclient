@@ -268,8 +268,9 @@ class Studio {
         }
       }
     );
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
-    return Number((await request.json())['id']);
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
+    return Number((await request.json())["id"]);
   }
 
   /**

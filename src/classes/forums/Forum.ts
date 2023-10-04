@@ -64,7 +64,7 @@ class Forum {
   }
 
   async createTopic(title: string, body: string) {
-    if(!this.id) throw Error("You need to add a forum id");
+    if (!this.id) throw Error("You need to add a forum id");
     const form = new FormData();
     form.append("csrfmiddlewaretoken", this.session.csrfToken);
     form.append("name", title);
@@ -88,7 +88,7 @@ class Forum {
           "Cache-Control": "no-cache",
           "Content-Type": encoder.contentType,
           Origin: "https://scratch.mit.edu",
-          Referer: `https://scratch.mit.edu/discuss/${this.id}/topic/add`,
+          Referer: `https://scratch.mit.edu/discuss/${this.id}/topic/add`
         }
       }
     );

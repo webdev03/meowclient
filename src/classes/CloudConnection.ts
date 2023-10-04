@@ -47,7 +47,7 @@ class CloudConnection extends events.EventEmitter {
         const obj = JSON.parse(message || '{"method": "err"}');
         if (obj.method == "set") {
           this.emit("set", { name: obj.name, value: obj.value });
-          this.variables.set(obj.name, obj.value)
+          this.variables.set(obj.name, obj.value);
         }
       }
     });
@@ -93,7 +93,7 @@ class CloudConnection extends events.EventEmitter {
     const varname = variable.startsWith("☁ ")
       ? variable.substring(2)
       : variable;
-    this.variables.set(`☁ ${varname}`, value.toString())
+    this.variables.set(`☁ ${varname}`, value.toString());
     if (!this.open) {
       this.queue.push({
         user: this.session.sessionJSON.user.username,

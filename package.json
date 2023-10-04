@@ -12,28 +12,27 @@
     "build": "tsup src/index.ts --format esm --minify --dts",
     "build:watch": "tsup src/index.ts --format esm --minify --dts --watch",
     "prepare": "tsup src/index.ts --format esm --minify --dts",
-    "test": "tap --no-coverage --node-arg=--loader=ts-node/esm --node-arg=--experimental-specifier-resolution=node",
+    "test": "tap --node-arg=--experimental-specifier-resolution=node",
     "lint": "prettier --check .",
     "format": "prettier --write ."
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^17.0.45",
-    "@types/tap": "^15.0.8",
-    "@types/ws": "^8.5.4",
-    "prettier": "^2.8.8",
-    "tap": "^16.3.4",
-    "ts-node": "^10.9.1",
-    "tsup": "^6.7.0",
-    "typescript": "^5.0.4"
+    "@types/node": "^20.8.2",
+    "@types/tap": "^15.0.9",
+    "@types/ws": "^8.5.6",
+    "prettier": "^3.0.3",
+    "tap": "^18.4.2",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "form-data-encoder": "^3.0.0",
     "formdata-node": "^5.0.1",
     "node-fetch": "^3.3.2",
-    "node-html-parser": "^5.4.2",
-    "ws": "^8.13.0"
+    "node-html-parser": "^6.1.10",
+    "ws": "^8.14.2"
   },
   "exports": {
     ".": {
@@ -44,7 +43,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">13"
+    "node": ">=18"
   },
   "engineStrict": true,
   "sideEffects": false

@@ -16,16 +16,14 @@ class CloudConnection extends events.EventEmitter {
   server: string;
   connection: WebSocket;
   open: boolean = false;
-  private queue: Array<{
+  queue: Array<{
     user: string;
     method: string;
     name: string;
     value: string;
     project_id: number;
   }> = [];
-  variables: {
-    [name: string]: string;
-  } = {};
+  variables: Map<string, string> = new Map();
   disconnected: boolean = false;
   constructor(session: Session, id: number) {
     super();
@@ -49,7 +47,7 @@ class CloudConnection extends events.EventEmitter {
         const obj = JSON.parse(message || '{"method": "err"}');
         if (obj.method == "set") {
           this.emit("set", { name: obj.name, value: obj.value });
-          this.variables[obj.name] = obj.value;
+          this.variables.set(obj.name, obj.value)
         }
       }
     });
@@ -81,7 +79,7 @@ class CloudConnection extends events.EventEmitter {
   /**
    * Sends a packet through cloud.
    */
-  private send(data) {
+  private send(data: any) {
     this.emit("internal-send", data);
     this.connection.send(`${JSON.stringify(data)}\n`);
   }
@@ -95,7 +93,7 @@ class CloudConnection extends events.EventEmitter {
     const varname = variable.startsWith("☁ ")
       ? variable.substring(2)
       : variable;
-    this.variables[`☁ ${varname}`] = value.toString();
+    this.variables.set(`☁ ${varname}`, value.toString())
     if (!this.open) {
       this.queue.push({
         user: this.session.sessionJSON.user.username,
@@ -124,7 +122,7 @@ class CloudConnection extends events.EventEmitter {
     const varname = variable.startsWith("☁ ")
       ? variable.substring(2)
       : variable;
-    return this.variables[`☁ ${varname}`];
+    return this.variables.get(`☁ ${varname}`);
   }
 
   /**

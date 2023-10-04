@@ -4,7 +4,6 @@ import { Readable } from "stream";
 import { FormData } from "formdata-node";
 import { FormDataEncoder } from "form-data-encoder";
 import Post from "./Post";
-import fetch from "node-fetch";
 class Topic {
   id: number;
   session: Session;

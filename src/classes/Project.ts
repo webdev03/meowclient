@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import { Session, UserAgent } from "../Consts";
 
 interface ProjectAPIResponse {

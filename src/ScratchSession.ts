@@ -1,5 +1,4 @@
-import { Session, SessionJSON, UserAgent } from "./Consts";
-import fetch from "node-fetch";
+import { SessionJSON, UserAgent } from "./Consts";
 import { createHash } from "node:crypto";
 /**
  * Manages a Scratch session.

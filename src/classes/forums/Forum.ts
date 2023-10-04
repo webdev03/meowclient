@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import Topic from "./Topic";
 import { parse } from "node-html-parser";
 import { Session, UserAgent } from "../../Consts";

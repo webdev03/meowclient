@@ -39,12 +39,10 @@ class ScratchSession {
       throw new Error("Login failed.");
     }
 
-    // Awesome regexes by ScratchClient - https://github.com/CubeyTheCube/scratchclient/blob/main/scratchclient/ScratchSession.py
     this.csrfToken = /scratchcsrftoken=(.*?);/gm.exec(
       loginReq.headers.get("set-cookie")
     )[1];
     this.token = /"(.*)"/gm.exec(loginReq.headers.get("set-cookie"))[1];
-    // taken from scratchclient
     this.cookieSet =
       "scratchcsrftoken=" +
       this.csrfToken +

@@ -79,6 +79,10 @@ class Topic {
     return posts;
   }
 
+  /**
+   * Reply to the topic
+   * @param body The body of the post
+   */
   async reply(body: string) {
     const form = new FormData();
     form.append("csrfmiddlewaretoken", this.session.csrfToken);

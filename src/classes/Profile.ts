@@ -37,6 +37,7 @@ interface ProfileComment {
   apiID: string;
   replies: ProfileCommentReply[];
 }
+
 /**
  * Class for profiles.
  * @param session The ScratchSession that will be used.
@@ -63,6 +64,9 @@ class Profile {
       | "Scratch Team";
   }
 
+  /**
+   * Follow the user
+   */
   async follow() {
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/followers/${this.user}/add/?usernames=${this.session.sessionJSON.user.username}`,
@@ -84,6 +88,9 @@ class Profile {
       throw Error(`Request failed with status ${request.status}`);
   }
 
+  /**
+   * Unfollow the user
+   */
   async unfollow() {
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/followers/${this.user}/remove/?usernames=${this.session.sessionJSON.user.username}`,

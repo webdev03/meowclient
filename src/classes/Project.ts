@@ -166,6 +166,12 @@ class Project {
     return (await commentFetch.json()) as ProjectCommentReply[];
   }
 
+  /**
+   * Comment on a studio
+   * @param content The content of the 
+   * @param parent_id The comment ID of the parent
+   * @param commentee_id The ID of the user to ping in the starting
+   */
   async comment(content: string, parent_id?: number, commentee_id?: number) {
     const request = await fetch(
       `https://api.scratch.mit.edu/proxy/comments/project/${this.id}`,

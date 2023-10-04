@@ -62,7 +62,12 @@ class Forum {
 
     return topics;
   }
-
+  
+  /**
+   * Create a topic
+   * @param title The title of the topic
+   * @param body The body of the topic
+   */
   async createTopic(title: string, body: string) {
     if (!this.id) throw Error("You need to add a forum id");
     const form = new FormData();

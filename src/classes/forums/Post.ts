@@ -1,6 +1,6 @@
 import { Session, UserAgent } from "../../Consts";
 import { HTMLElement } from "node-html-parser";
-import fetch from "cross-fetch";
+import fetch from "node-fetch";
 
 class Post {
   id: number;

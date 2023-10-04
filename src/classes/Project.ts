@@ -1,4 +1,4 @@
-import fetch from "cross-fetch";
+import fetch from "node-fetch";
 import { Session, UserAgent } from "../Consts";
 
 interface ProjectAPIResponse {
@@ -197,7 +197,7 @@ class Project {
       }
     );
     if(!request.ok) throw Error(`Request failed with status ${request.status}`);
-    return Number((await request.json()).id);
+    return Number((await request.json())['id']);
   }
 
   /**
@@ -349,7 +349,7 @@ class Project {
     );
     if (!request.ok)
       throw Error(`Request failed with status ${request.status}`);
-    return (await request.json()).userLove as boolean;
+    return (await request.json())['userLove'] as boolean;
   }
 
   /**
@@ -372,7 +372,7 @@ class Project {
     );
     if (!request.ok)
       throw Error(`Request failed with status ${request.status}`);
-    return (await request.json()).userFavorite as boolean;
+    return (await request.json())['userFavorite'] as boolean;
   }
 
   /**

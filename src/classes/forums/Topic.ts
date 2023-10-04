@@ -1,8 +1,10 @@
 import { Session, UserAgent } from "../../Consts";
 import { parse } from "node-html-parser";
+import { Readable } from "stream";
+import { FormData } from "formdata-node";
+import { FormDataEncoder } from "form-data-encoder";
 import Post from "./Post";
-import fetch from "cross-fetch";
-
+import fetch from "node-fetch";
 class Topic {
   id: number;
   session: Session;
@@ -76,6 +78,38 @@ class Topic {
     return posts;
   }
 
+  async reply(body: string) {
+    const form = new FormData();
+    form.append("csrfmiddlewaretoken", this.session.csrfToken);
+    form.append("body", body);
+    form.append("AddPostForm", "");
+    const encoder = new FormDataEncoder(form);
+    const request = await fetch(
+      `https://scratch.mit.edu/discuss/topic/${this.id}/`,
+      {
+        method: "POST",
+        body: await streamToString(Readable.from(encoder.encode())),
+        headers: {
+          Cookie: this.session.cookieSet,
+          "User-Agent": UserAgent,
+          Accept: "*/*",
+          "X-CSRFToken": this.session.csrfToken,
+          "X-Token": this.session.sessionJSON.user.token,
+          "x-requested-with": "XMLHttpRequest",
+          "Accept-Encoding": "gzip, deflate, br",
+          "Cache-Control": "no-cache",
+          "Content-Type": encoder.contentType,
+          Host: "scratch.mit.edu",
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/discuss/topic/${this.id}/`
+        }
+      }
+    );
+
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
+  }
+
   /**
    * Follows the topic.
    */
@@ -134,4 +168,14 @@ class Topic {
     }
   }
 }
+
+function streamToString(stream: Readable): Promise<string> {
+  const chunks = [];
+  return new Promise((resolve, reject) => {
+    stream.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+    stream.on("error", (err) => reject(err));
+    stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+  });
+}
+
 export default Topic;

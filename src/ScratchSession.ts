@@ -1,5 +1,5 @@
-import { SessionJSON, UserAgent } from "./Consts";
-import fetch from "cross-fetch";
+import { Session, SessionJSON, UserAgent } from "./Consts";
+import fetch from "node-fetch";
 import { createHash } from "node:crypto";
 /**
  * Manages a Scratch session.
@@ -66,7 +66,7 @@ class ScratchSession {
         "Accept-Encoding": "gzip, deflate, br"
       }
     });
-    this.sessionJSON = await sessionFetch.json();
+    this.sessionJSON = (await sessionFetch.json()) as SessionJSON;
   }
 
   /**

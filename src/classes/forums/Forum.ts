@@ -23,10 +23,10 @@ class Forum {
    * Gets a list of topics.
    * @returns An array of topics.
    */
-  async getTopics() {
+  async getTopics(page: number = 1) {
     let topics: Topic[] = [];
 
-    const res = await fetch(`https://scratch.mit.edu/discuss/m/${this.id}`, {
+    const res = await fetch(`https://scratch.mit.edu/discuss/m/${this.id}/?page=${page}`, {
       headers: {
         "User-Agent": UserAgent
       }

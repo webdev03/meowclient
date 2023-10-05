@@ -33,14 +33,14 @@ class Topic {
   }
 
   /**
-   * Gets the posts in the topic.
+   * Gets some the posts in the topic.
    * @returns An array of posts in the topic.
    */
-  async getPosts() {
+  async getPosts(page: number = 1) {
     let posts = [];
 
     const res = await fetch(
-      `https://scratch.mit.edu/discuss/m/topic/${this.id}`,
+      `https://scratch.mit.edu/discuss/m/topic/${this.id}/?page=${page}`,
       {
         headers: {
           "User-Agent": UserAgent

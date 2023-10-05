@@ -32,6 +32,16 @@ class Post {
   }
 
   /**
+   * Get the BBCode source of the post
+   * @returns The source of the post
+   */
+  async getSource() {
+    const request = await fetch(`https://scratch.mit.edu/discuss/post/${this.id}/source/`);
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    return await request.text();
+  }
+
+  /**
    * Edits the post (requires ownership of the post)
    * @param content The new content of the post
    */

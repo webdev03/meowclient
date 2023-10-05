@@ -2,7 +2,7 @@
 
 A library to connect to [Scratch](https://scratch.mit.edu/).
 
-### Installation
+## Installation
 
 Run this command in a terminal.
 

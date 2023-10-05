@@ -59,11 +59,13 @@ type Message = PartialMessage & ({
  * Manages a Scratch session.
  */
 class ScratchSession {
-  username: string;
-  csrfToken: string;
-  token: string;
-  cookieSet: string;
-  sessionJSON: SessionJSON;
+  auth?: {
+    username: string;
+    csrfToken: string;
+    token: string;
+    cookieSet: string;
+    sessionJSON: SessionJSON;
+  }
 
   /**
    * Sets up the ScratchSession to use authenticated functions.
@@ -71,7 +73,6 @@ class ScratchSession {
    * @param pass The password of the user you want to log in to.
    */
   async init(user: string, pass: string) {
-    this.username = user;
     // a lot of this code is taken from
     // https://github.com/CubeyTheCube/scratchclient/blob/main/scratchclient/ScratchSession.py
     // thanks!
@@ -94,20 +95,22 @@ class ScratchSession {
       throw new Error("Login failed.");
     }
 
-    this.csrfToken = /scratchcsrftoken=(.*?);/gm.exec(
-      loginReq.headers.get("set-cookie")
-    )[1];
-    this.token = /"(.*)"/gm.exec(loginReq.headers.get("set-cookie"))[1];
-    this.cookieSet =
+    const setCookie = loginReq.headers.get("set-cookie");
+    if(!setCookie) throw Error("Something went wrong");
+    const csrfToken = /scratchcsrftoken=(.*?);/gm.exec(
+      setCookie
+    )![1];
+    const token = /"(.*)"/gm.exec(setCookie)![1];
+    const cookieSet =
       "scratchcsrftoken=" +
-      this.csrfToken +
+      csrfToken +
       ";scratchlanguage=en;scratchsessionsid=" +
-      this.token +
+      token +
       ";";
     const sessionFetch = await fetch("https://scratch.mit.edu/session", {
       method: "GET",
       headers: {
-        Cookie: this.cookieSet,
+        Cookie: cookieSet,
         "User-Agent": UserAgent,
         Referer: "https://scratch.mit.edu/",
         Host: "scratch.mit.edu",
@@ -118,7 +121,14 @@ class ScratchSession {
         "Accept-Encoding": "gzip, deflate, br"
       }
     });
-    this.sessionJSON = (await sessionFetch.json()) as SessionJSON;
+    const sessionJSON = (await sessionFetch.json()) as SessionJSON;
+    this.auth = {
+      username: user,
+      csrfToken,
+      token,
+      cookieSet,
+      sessionJSON
+    }
   }
 
   /**
@@ -131,6 +141,7 @@ class ScratchSession {
    * await session.uploadToAssets(fs.readFileSync("photo.png"), "png"); // returns URL to image
    */
   async uploadToAssets(buffer: Buffer, fileExtension: string) {
+    if(!this.auth) throw Error("You must be logged in to use this");
     const md5hash = createHash("md5").update(buffer).digest("hex");
     const upload = await fetch(
       `https://assets.scratch.mit.edu/${md5hash}.${fileExtension}`,
@@ -138,7 +149,7 @@ class ScratchSession {
         method: "POST",
         body: buffer,
         headers: {
-          Cookie: this.cookieSet,
+          Cookie: this.auth.cookieSet,
           "User-Agent": UserAgent,
           Referer: "https://scratch.mit.edu/",
           Host: "assets.scratch.mit.edu",
@@ -210,11 +221,12 @@ class ScratchSession {
    * @param offset The offset of messages
    */
   async getMessages(limit: number = 40, offset: number = 0) {
-    const request = await fetch(`https://api.scratch.mit.edu/users/${this.username}/messages?limit=${limit}&offset=${offset}`, {
+    if(!this.auth) throw Error("You must be logged in to use this");
+    const request = await fetch(`https://api.scratch.mit.edu/users/${this.auth.username}/messages?limit=${limit}&offset=${offset}`, {
       headers: {
         Origin: "https://scratch.mit.edu",
         Referer: "https://scratch.mit.edu/",
-        "X-Token": this.sessionJSON.user.token
+        "X-Token": this.auth.sessionJSON.user.token
       }
     });
     if(!request.ok) throw Error(`Request failed with status ${request.status}`);
@@ -225,14 +237,14 @@ class ScratchSession {
    * Logs out of Scratch.
    */
   async logout() {
-    if (!this.csrfToken || !this.token) return;
+    if(!this.auth) throw Error("You must be logged in to use this");
     const logoutFetch = await fetch(
       "https://scratch.mit.edu/accounts/logout/",
       {
         method: "POST",
-        body: `csrfmiddlewaretoken=${this.csrfToken}`,
+        body: `csrfmiddlewaretoken=${this.auth.csrfToken}`,
         headers: {
-          Cookie: this.cookieSet,
+          Cookie: this.auth.cookieSet,
           "User-Agent": UserAgent,
           accept: "application/json",
           Referer: "https://scratch.mit.edu/",
@@ -246,7 +258,8 @@ class ScratchSession {
     );
     if (!logoutFetch.ok) {
       throw new Error(`Error in logging out. ${logoutFetch.status}`);
-    }
+    };
+    this.auth = undefined;
   }
 }
 

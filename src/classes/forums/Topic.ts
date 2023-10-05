@@ -37,7 +37,7 @@ class Topic {
    * @returns An array of posts in the topic.
    */
   async getPosts(page: number = 1) {
-    let posts = [];
+    let posts: Post[] = [];
 
     const res = await fetch(
       `https://scratch.mit.edu/discuss/m/topic/${this.id}/?page=${page}`,
@@ -54,14 +54,14 @@ class Topic {
     }
     const dom = parse(await res.text());
     const children = dom
-      .querySelector(".content")
+      .querySelector(".content")!
       .getElementsByTagName("article");
     children.forEach((child) => {
-      const id = child.getAttribute("id").split("-")[1];
-      const content = child.querySelector(".post-content").innerHTML;
-      const parsableContent = child.querySelector(".post-content");
+      const id = child.getAttribute("id")!.split("-")[1];
+      const content = child.querySelector(".post-content")!.innerHTML;
+      const parsableContent = child.querySelector(".post-content")!;
       const time = new Date(
-        child.querySelector("time").getAttribute("datetime")
+        child.querySelector("time")!.getAttribute("datetime")!
       );
       const post = new Post({
         id: Number(id),
@@ -84,6 +84,7 @@ class Topic {
    * @param body The body of the post
    */
   async reply(body: string) {
+    if(!this.session) throw Error("You need to be logged in")
     const form = new FormData();
     form.append("csrfmiddlewaretoken", this.session.csrfToken);
     form.append("body", body);
@@ -119,6 +120,7 @@ class Topic {
    * Follows the topic.
    */
   async follow() {
+    if(!this.session) throw Error("You need to be logged in")
     const followFetch = await fetch(
       `https://scratch.mit.edu/discuss/subscription/topic/${this.id}/add/`,
       {
@@ -148,6 +150,7 @@ class Topic {
    * Unfollows the topic.
    */
   async unfollow() {
+    if(!this.session) throw Error("You need to be logged in")
     const unfollowFetch = await fetch(
       `https://scratch.mit.edu/discuss/subscription/topic/${this.id}/delete/`,
       {

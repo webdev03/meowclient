@@ -13,8 +13,7 @@ import events from "node:events";
 class CloudConnection extends events.EventEmitter {
   id: number;
   session: Session;
-  server: string;
-  connection: WebSocket;
+  connection!: WebSocket;
   open: boolean = false;
   queue: Array<{
     user: string;
@@ -29,11 +28,11 @@ class CloudConnection extends events.EventEmitter {
     super();
     this.id = id;
     this.session = session;
-
     this.connect();
   }
 
   private connect() {
+    if(!this.session) throw Error("You need to be logged in")
     this.open = false;
     this.connection = new WebSocket("wss://clouddata.scratch.mit.edu", {
       headers: {
@@ -52,6 +51,7 @@ class CloudConnection extends events.EventEmitter {
       }
     });
     this.connection.on("open", () => {
+      if(!this.session) throw Error("You need to be logged in")
       this.open = true;
       this.send({
         method: "handshake",
@@ -90,6 +90,7 @@ class CloudConnection extends events.EventEmitter {
    * @param value The value to set the variable to.
    */
   setVariable(variable: string, value: number | string) {
+    if(!this.session) throw Error("You need to be logged in")
     const varname = variable.startsWith("☁ ")
       ? variable.substring(2)
       : variable;
@@ -116,9 +117,9 @@ class CloudConnection extends events.EventEmitter {
   /**
    * Gets a cloud variable.
    * @param variable The variable name to get.
-   * @returns {string} The value of the variable in string format.
+   * @returns The value of the variable in string format if it exists.
    */
-  getVariable(variable: string): string {
+  getVariable(variable: string) {
     const varname = variable.startsWith("☁ ")
       ? variable.substring(2)
       : variable;

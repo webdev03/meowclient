@@ -44,12 +44,12 @@ interface SessionJSON {
   };
 }
 
-interface Session {
+type Session = {
   csrfToken: string;
   token: string;
   cookieSet: string;
   sessionJSON: SessionJSON;
-}
+} | undefined;
 
 const UserAgent = "Mozilla/5.0";
 

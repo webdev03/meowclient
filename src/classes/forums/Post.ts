@@ -46,6 +46,7 @@ class Post {
    * @param content The new content of the post
    */
   async edit(content: string) {
+    if(!this.session) throw Error("You need to be logged in")
     const editFetch = await fetch(
       `https://scratch.mit.edu/discuss/post/${this.id}/edit/`,
       {

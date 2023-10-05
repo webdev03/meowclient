@@ -37,17 +37,17 @@ class Forum {
       );
     }
     const dom = parse(await res.text());
-    const listDOMElement = dom.querySelector(".topic.list");
+    const listDOMElement = dom.querySelector(".topic.list")!;
     const children = listDOMElement.getElementsByTagName("li");
     children.forEach((child) => {
       const id = child
         .getElementsByTagName("a")[0]
-        .getAttribute("href")
+        .getAttribute("href")!
         .split("/")
         .splice(1)[3];
-      const title = child.querySelector("strong").innerText;
+      const title = child.querySelector("strong")!.innerText;
       const replyCount = Number(
-        child.querySelector(".item span").innerText.split(" ")[0]
+        child.querySelector(".item span")!.innerText.split(" ")[0]
       );
       const isSticky = child.classList.contains("sticky");
       const topic = new Topic({
@@ -69,6 +69,7 @@ class Forum {
    * @param body The body of the topic
    */
   async createTopic(title: string, body: string) {
+    if(!this.session) throw Error("You need to be logged in");
     if (!this.id) throw Error("You need to add a forum id");
     const form = new FormData();
     form.append("csrfmiddlewaretoken", this.session.csrfToken);
@@ -107,6 +108,7 @@ class Forum {
    * @param content The content to set the signature to
    */
   async setSignature(content: string) {
+    if(!this.session) throw Error("You need to be logged in")
     const editFetch = await fetch(
       `https://scratch.mit.edu/discuss/settings/${this.session.sessionJSON.user.username}/`,
       {

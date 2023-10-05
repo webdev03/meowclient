@@ -1,5 +1,6 @@
 import { Session, UserAgent } from "../Consts";
 import { parse } from "node-html-parser";
+import ScratchSession from "../ScratchSession";
 
 interface UserAPIResponse {
   id: number;
@@ -46,9 +47,9 @@ interface ProfileComment {
 class Profile {
   user: string;
   session: Session;
-  constructor(session: Session, username: string) {
+  constructor(session: ScratchSession, username: string) {
     this.user = username;
-    this.session = session;
+    this.session = session.auth;
   }
 
   /**
@@ -58,7 +59,7 @@ class Profile {
    */
   async getStatus() {
     const dom = parse(await this.getUserHTML());
-    return dom.querySelector(".group").innerHTML.trim() as
+    return dom.querySelector(".group")!.innerHTML.trim() as
       | "Scratcher"
       | "New Scratcher"
       | "Scratch Team";
@@ -68,6 +69,7 @@ class Profile {
    * Follow the user
    */
   async follow() {
+    if(!this.session) throw Error("You need to be logged in")
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/followers/${this.user}/add/?usernames=${this.session.sessionJSON.user.username}`,
       {
@@ -92,6 +94,7 @@ class Profile {
    * Unfollow the user
    */
   async unfollow() {
+    if(!this.session) throw Error("You need to be logged in")
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/followers/${this.user}/remove/?usernames=${this.session.sessionJSON.user.username}`,
       {
@@ -117,6 +120,7 @@ class Profile {
    * @param id The comment ID, for example 12345, *not* comment-12345.
    */
   async deleteComment(id: string | number) {
+    if(!this.session) throw Error("You need to be logged in")
     const delFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/del/`,
       {
@@ -199,38 +203,38 @@ class Profile {
     for (let elID in items) {
       const element = items[elID];
       if (typeof element == "function") break;
-      const commentID = element.querySelector(".comment").id;
+      const commentID = element.querySelector(".comment")!.id;
       const commentPoster = element
-        .querySelector(".comment")
+        .querySelector(".comment")!
         .getElementsByTagName("a")[0]
-        .getAttribute("data-comment-user");
+        .getAttribute("data-comment-user")!;
       const commentContent = element
-        .querySelector(".comment")
-        .querySelector(".info")
-        .querySelector(".content")
+        .querySelector(".comment")!
+        .querySelector(".info")!
+        .querySelector(".content")!
         .innerHTML.trim();
 
       // get replies
       let replies: ProfileCommentReply[] = [];
       let replyList = element
-        .querySelector(".replies")
+        .querySelector(".replies")!
         .querySelectorAll(".reply");
       for (let replyID in replyList) {
         const reply = replyList[replyID];
         if (reply.tagName === "A") continue;
         if (typeof reply === "function") continue;
         if (typeof reply === "number") continue;
-        const commentID = reply.querySelector(".comment").id;
+        const commentID = reply.querySelector(".comment")!.id;
         const commentPoster = reply
-          .querySelector(".comment")
+          .querySelector(".comment")!
           .getElementsByTagName("a")[0]
-          .getAttribute("data-comment-user");
+          .getAttribute("data-comment-user")!;
 
         // regex here developed at https://scratch.mit.edu/discuss/post/5983094/
         const commentContent = reply
-          .querySelector(".comment")
-          .querySelector(".info")
-          .querySelector(".content")
+          .querySelector(".comment")!
+          .querySelector(".info")!
+          .querySelector(".content")!
           .textContent.trim()
           .replace(/\n+/gm, "")
           .replace(/\s+/gm, " ");
@@ -260,6 +264,7 @@ class Profile {
    * Toggle the comments section on the profile
    */
   async toggleComments() {
+    if(!this.session) throw Error("You need to be logged in")
     const request = await fetch(`https://scratch.mit.edu/site-api/comments/user/${this.user}/toggle-comments/`, {
       method: "POST",
       headers: {

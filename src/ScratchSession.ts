@@ -1,5 +1,60 @@
 import { SessionJSON, UserAgent } from "./Consts";
 import { createHash } from "node:crypto";
+
+type PartialMessage = {
+  id: number;
+  datetime_created: string;
+  actor_username: string;
+  actor_id: number;
+}
+
+type Message = PartialMessage & ({
+  type: "studioactivity";
+  gallery_id: number;
+  title: string;
+} | {
+  type: "forumpost";
+  topic_id: number;
+  topic_title: string;
+} | {
+  type: "addcomment";
+  comment_type: number;
+  comment_obj_id: number;
+  comment_id: number;
+  comment_fragment: string;
+  comment_obj_title: string;
+  commentee_username: string;
+} | {
+  type: "followuser";
+  followed_user_id: number;
+  followed_username: string;
+} | {
+  type: "loveproject";
+  project_id: number;
+  title: string;
+} | {
+  type: "favoriteproject";
+  project_id: number;
+  project_title: string;
+} | {
+  type: "remixproject";
+  title: string;
+  parent_id: number;
+  parent_title: string;
+} | {
+  type: "becomehoststudio";
+  former_host_username: string;
+  recipient_id: number;
+  recipient_username: string;
+  gallery_id: number;
+  gallery_title: string;
+  admin_actor: boolean;
+} | {
+  type: "curatorinvite";
+  title: string;
+  gallery_id: number;
+});
+
 /**
  * Manages a Scratch session.
  */
@@ -147,6 +202,18 @@ class ScratchSession {
         };
       };
     }[];
+  }
+
+  async getMessages(limit: number = 40, offset: number = 0) {
+    const request = await fetch(`https://api.scratch.mit.edu/users/${this.username}/messages?limit=${limit}&offset=${offset}`, {
+      headers: {
+        Origin: "https://scratch.mit.edu",
+        Referer: "https://scratch.mit.edu/",
+        "X-Token": this.sessionJSON.user.token
+      }
+    });
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    return (await request.json()) as Message[];
   }
 
   /**

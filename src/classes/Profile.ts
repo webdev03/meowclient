@@ -164,6 +164,16 @@ class Profile {
     }
     return (await scratchUserFetch.json()) as UserAPIResponse;
   }
+  
+  /**
+   * Get the message count
+   * @returns The number of messages
+   */
+  async getMessageCount() {
+    const request = await fetch(`https://api.scratch.mit.edu/users/${this.user}/messages/count`);
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    return Number((await request.json()).count);
+  }
 
   /**
    * Gets comments on the user's profile.

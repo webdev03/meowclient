@@ -289,6 +289,10 @@ class Project {
     }
   }
 
+  /**
+   * Set the thumbnail of the project
+   * @param buffer The buffer of the thumbnail image file
+   */
   async setThumbnail(buffer: Buffer) {
     const request = await fetch(
       `https://scratch.mit.edu/internalapi/project/thumbnail/${this.id}/set/`,

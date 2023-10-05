@@ -51,6 +51,9 @@ class Studio {
     this.session = session;
   }
 
+  /**
+   * Get the API data of the studio
+   */
   async getAPIData() {
     const response = await fetch(
       `https://api.scratch.mit.edu/studios/${this.id}/`,
@@ -63,6 +66,9 @@ class Studio {
     return (await response.json()) as StudioAPIResponse;
   }
 
+  /**
+   * Follow the studio
+   */
   async follow() {
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/bookmarkers/${this.id}/add/?usernames=${this.session.sessionJSON.user.username}`,
@@ -84,6 +90,9 @@ class Studio {
       throw Error(`Request failed with status ${request.status}`);
   }
 
+  /**
+   * Unfollow the studio
+   */
   async unfollow() {
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/bookmarkers/${this.id}/remove/?usernames=${this.session.sessionJSON.user.username}`,

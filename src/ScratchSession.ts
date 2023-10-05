@@ -204,6 +204,11 @@ class ScratchSession {
     }[];
   }
 
+  /**
+   * Get messages
+   * @param limit The limit of messages to get
+   * @param offset The offset of messages
+   */
   async getMessages(limit: number = 40, offset: number = 0) {
     const request = await fetch(`https://api.scratch.mit.edu/users/${this.username}/messages?limit=${limit}&offset=${offset}`, {
       headers: {
@@ -215,7 +220,11 @@ class ScratchSession {
     if(!request.ok) throw Error(`Request failed with status ${request.status}`);
     return (await request.json()) as Message[];
   }
-
+  
+  /**
+   * Get the message count
+   * @returns The number of messages
+   */
   async getMessageCount() {
     const request = await fetch(`https://api.scratch.mit.edu/users/${this.username}/messages/count`);
     if(!request.ok) throw Error(`Request failed with status ${request.status}`);

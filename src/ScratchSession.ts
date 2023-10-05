@@ -216,6 +216,12 @@ class ScratchSession {
     return (await request.json()) as Message[];
   }
 
+  async getMessageCount() {
+    const request = await fetch(`https://api.scratch.mit.edu/users/${this.username}/messages/count`);
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    return Number((await request.json()).count);
+  }
+
   /**
    * Logs out of Scratch.
    */

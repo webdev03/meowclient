@@ -206,6 +206,22 @@ class Project {
     return Number((await request.json())["id"]);
   }
 
+  async setCommentsAllowed(state: boolean) {
+    const request = await fetch(`https://api.scratch.mit.edu/projects/${this.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        comments_allowed: state
+      }),
+      headers: {
+        "X-Token": this.session.sessionJSON.user.token,
+        "Content-Type": "application/json",
+        Origin: "https://scratch.mit.edu",
+        Referer: "https://scratch.mit.edu/"
+      }
+    });
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`)
+  }
+
   /**
    * Sets the title of the project (requires ownership of the project).
    * @param value The value you want to set the title to.

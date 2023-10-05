@@ -245,6 +245,19 @@ class Profile {
     }
     return comments;
   }
+
+  async toggleComments() {
+    const request = await fetch(`https://scratch.mit.edu/site-api/comments/user/${this.user}/toggle-comments/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": this.session.csrfToken,
+        Cookie: this.session.cookieSet,
+        Origin: "https://scratch.mit.edu",
+        Referer: `https://scratch.mit.edu/users/${this.user}/`
+      }
+    });
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+  }
 }
 
 export { Profile as default, UserAPIResponse };

@@ -289,6 +289,23 @@ class Studio {
   }
 
   /**
+   * Toggle comments on or off
+   */
+  async toggleComments() {
+    const request = await fetch(`https://scratch.mit.edu/site-api/comments/gallery/${this.id}/toggle-comments/`, {
+      method: "POST",
+      headers: {
+        "User-Agent": UserAgent,
+        "X-CSRFToken": this.session.csrfToken,
+        Cookie: this.session.cookieSet,
+        Origin: "https://scratch.mit.edu",
+        Referer: `https://scratch.mit.edu/studios/${this.id}/comments`
+      }
+    });
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+  }
+
+  /**
    * Gets the curators in a studio.
    * @param limit The limit of curators to return.
    * @param offset The offset of the curators to return.

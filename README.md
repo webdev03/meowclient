@@ -1,4 +1,4 @@
-# Meowclient [![Test](https://github.com/webdev03/meowclient/actions/workflows/test.yml/badge.svg)](https://github.com/webdev03/meowclient/actions/workflows/test.yml)
+# Meowclient
 
 **A library to connect to [Scratch](https://scratch.mit.edu/).**
 

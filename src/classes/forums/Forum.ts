@@ -1,7 +1,7 @@
 import Topic from "./Topic";
 import { parse } from "node-html-parser";
 import { Session, UserAgent } from "../../Consts";
-import { Readable } from "stream";
+import { Readable } from "node:stream";
 import { FormData } from "formdata-node";
 import { FormDataEncoder } from "form-data-encoder";
 import { streamToString } from "../../utils";

@@ -2,7 +2,7 @@
 
 import { WebSocket } from "ws";
 import { Session } from "../Consts";
-import events from "events";
+import events from "node:events";
 
 /**
  * Class for cloud connections.

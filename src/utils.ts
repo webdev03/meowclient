@@ -1,4 +1,4 @@
-import { Readable } from "stream";
+import { Readable } from "node:stream";
 // https://stackoverflow.com/a/49428486/17333186
 export function streamToString(stream: Readable): Promise<string> {
   let chunks = [];

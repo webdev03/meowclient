@@ -246,6 +246,9 @@ class Profile {
     return comments;
   }
 
+  /**
+   * Toggle the comments section on the profile
+   */
   async toggleComments() {
     const request = await fetch(`https://scratch.mit.edu/site-api/comments/user/${this.user}/toggle-comments/`, {
       method: "POST",

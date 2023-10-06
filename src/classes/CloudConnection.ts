@@ -32,7 +32,7 @@ class CloudConnection extends events.EventEmitter {
   }
 
   private connect() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     this.open = false;
     this.connection = new WebSocket("wss://clouddata.scratch.mit.edu", {
       headers: {
@@ -51,7 +51,7 @@ class CloudConnection extends events.EventEmitter {
       }
     });
     this.connection.on("open", () => {
-      if(!this.session) throw Error("You need to be logged in")
+      if (!this.session) throw Error("You need to be logged in");
       this.open = true;
       this.send({
         method: "handshake",
@@ -90,7 +90,7 @@ class CloudConnection extends events.EventEmitter {
    * @param value The value to set the variable to.
    */
   setVariable(variable: string, value: number | string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const varname = variable.startsWith("☁ ")
       ? variable.substring(2)
       : variable;

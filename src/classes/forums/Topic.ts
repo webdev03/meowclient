@@ -84,7 +84,7 @@ class Topic {
    * @param body The body of the post
    */
   async reply(body: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const form = new FormData();
     form.append("csrfmiddlewaretoken", this.session.csrfToken);
     form.append("body", body);
@@ -120,7 +120,7 @@ class Topic {
    * Follows the topic.
    */
   async follow() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const followFetch = await fetch(
       `https://scratch.mit.edu/discuss/subscription/topic/${this.id}/add/`,
       {
@@ -150,7 +150,7 @@ class Topic {
    * Unfollows the topic.
    */
   async unfollow() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const unfollowFetch = await fetch(
       `https://scratch.mit.edu/discuss/subscription/topic/${this.id}/delete/`,
       {

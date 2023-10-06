@@ -70,7 +70,7 @@ class Studio {
    * Follow the studio
    */
   async follow() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/bookmarkers/${this.id}/add/?usernames=${this.session.sessionJSON.user.username}`,
       {
@@ -95,7 +95,7 @@ class Studio {
    * Unfollow the studio
    */
   async unfollow() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/bookmarkers/${this.id}/remove/?usernames=${this.session.sessionJSON.user.username}`,
       {
@@ -121,7 +121,7 @@ class Studio {
    * @param value The value to set the title to.
    */
   async setTitle(value: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://scratch.mit.edu/site-api/galleries/all/${this.id}/`,
       {
@@ -146,7 +146,7 @@ class Studio {
    * @param value The value to set the description to.
    */
   async setDescription(value: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://scratch.mit.edu/site-api/galleries/all/${this.id}/`,
       {
@@ -171,7 +171,7 @@ class Studio {
    * @param username The username of the user to add.
    */
   async inviteCurator(username: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const inviteFetch = await fetch(
       `https://scratch.mit.edu/site-api/users/curators-in/${this.id}/invite_curator/?usernames=${username}`,
       {
@@ -195,7 +195,7 @@ class Studio {
    * @param username The username of the user to remove.
    */
   async removeCurator(username: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const removeFetch = await fetch(
       `https://scratch.mit.edu/site-api/users/curators-in/${this.id}/remove/?usernames=${username}`,
       {
@@ -219,7 +219,7 @@ class Studio {
    * @param project The project ID to add to the studio.
    */
   async addProject(project: number) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const addFetch = await fetch(
       `https://api.scratch.mit.edu/studios/${this.id}/project/${project}`,
       {
@@ -240,7 +240,7 @@ class Studio {
    * @param project The project ID to remove from the studio.
    */
   async removeProject(project: number) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const removeFetch = await fetch(
       `https://api.scratch.mit.edu/studios/${this.id}/project/${project}`,
       {
@@ -258,12 +258,12 @@ class Studio {
 
   /**
    * Comment on a studio
-   * @param content The content of the 
+   * @param content The content of the
    * @param parent_id The comment ID of the parent
    * @param commentee_id The ID of the user to ping in the starting
    */
   async comment(content: string, parent_id?: number, commentee_id?: number) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://api.scratch.mit.edu/proxy/comments/studio/${this.id}`,
       {
@@ -301,18 +301,22 @@ class Studio {
    * Toggle comments on or off
    */
   async toggleComments() {
-    if(!this.session) throw Error("You need to be logged in")
-    const request = await fetch(`https://scratch.mit.edu/site-api/comments/gallery/${this.id}/toggle-comments/`, {
-      method: "POST",
-      headers: {
-        "User-Agent": UserAgent,
-        "X-CSRFToken": this.session.csrfToken,
-        Cookie: this.session.cookieSet,
-        Origin: "https://scratch.mit.edu",
-        Referer: `https://scratch.mit.edu/studios/${this.id}/comments`
+    if (!this.session) throw Error("You need to be logged in");
+    const request = await fetch(
+      `https://scratch.mit.edu/site-api/comments/gallery/${this.id}/toggle-comments/`,
+      {
+        method: "POST",
+        headers: {
+          "User-Agent": UserAgent,
+          "X-CSRFToken": this.session.csrfToken,
+          Cookie: this.session.cookieSet,
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/studios/${this.id}/comments`
+        }
       }
-    });
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
   }
 
   /**

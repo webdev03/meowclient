@@ -36,8 +36,11 @@ class Post {
    * @returns The source of the post
    */
   async getSource() {
-    const request = await fetch(`https://scratch.mit.edu/discuss/post/${this.id}/source/`);
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    const request = await fetch(
+      `https://scratch.mit.edu/discuss/post/${this.id}/source/`
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
     return await request.text();
   }
 
@@ -46,7 +49,7 @@ class Post {
    * @param content The new content of the post
    */
   async edit(content: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const editFetch = await fetch(
       `https://scratch.mit.edu/discuss/post/${this.id}/edit/`,
       {

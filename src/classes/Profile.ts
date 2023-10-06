@@ -69,7 +69,7 @@ class Profile {
    * Follow the user
    */
   async follow() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/followers/${this.user}/add/?usernames=${this.session.sessionJSON.user.username}`,
       {
@@ -94,7 +94,7 @@ class Profile {
    * Unfollow the user
    */
   async unfollow() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://scratch.mit.edu/site-api/users/followers/${this.user}/remove/?usernames=${this.session.sessionJSON.user.username}`,
       {
@@ -120,7 +120,7 @@ class Profile {
    * @param id The comment ID, for example 12345, *not* comment-12345.
    */
   async deleteComment(id: string | number) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const delFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/del/`,
       {
@@ -165,14 +165,17 @@ class Profile {
     }
     return (await scratchUserFetch.json()) as UserAPIResponse;
   }
-  
+
   /**
    * Get the message count
    * @returns The number of messages
    */
   async getMessageCount() {
-    const request = await fetch(`https://api.scratch.mit.edu/users/${this.user}/messages/count`);
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    const request = await fetch(
+      `https://api.scratch.mit.edu/users/${this.user}/messages/count`
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
     return Number((await request.json()).count);
   }
 
@@ -261,17 +264,21 @@ class Profile {
    * Toggle the comments section on the profile
    */
   async toggleComments() {
-    if(!this.session) throw Error("You need to be logged in")
-    const request = await fetch(`https://scratch.mit.edu/site-api/comments/user/${this.user}/toggle-comments/`, {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": this.session.csrfToken,
-        Cookie: this.session.cookieSet,
-        Origin: "https://scratch.mit.edu",
-        Referer: `https://scratch.mit.edu/users/${this.user}/`
+    if (!this.session) throw Error("You need to be logged in");
+    const request = await fetch(
+      `https://scratch.mit.edu/site-api/comments/user/${this.user}/toggle-comments/`,
+      {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": this.session.csrfToken,
+          Cookie: this.session.cookieSet,
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/users/${this.user}/`
+        }
       }
-    });
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
   }
 }
 

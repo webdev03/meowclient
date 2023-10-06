@@ -26,11 +26,14 @@ class Forum {
   async getTopics(page: number = 1) {
     let topics: Topic[] = [];
 
-    const res = await fetch(`https://scratch.mit.edu/discuss/m/${this.id}/?page=${page}`, {
-      headers: {
-        "User-Agent": UserAgent
+    const res = await fetch(
+      `https://scratch.mit.edu/discuss/m/${this.id}/?page=${page}`,
+      {
+        headers: {
+          "User-Agent": UserAgent
+        }
       }
-    });
+    );
     if (!res.ok) {
       throw new Error(
         `Error fetching topics for forum ${this.id} - ${res.statusText}`
@@ -62,14 +65,14 @@ class Forum {
 
     return topics;
   }
-  
+
   /**
    * Create a topic
    * @param title The title of the topic
    * @param body The body of the topic
    */
   async createTopic(title: string, body: string) {
-    if(!this.session) throw Error("You need to be logged in");
+    if (!this.session) throw Error("You need to be logged in");
     if (!this.id) throw Error("You need to add a forum id");
     const form = new FormData();
     form.append("csrfmiddlewaretoken", this.session.csrfToken);
@@ -108,7 +111,7 @@ class Forum {
    * @param content The content to set the signature to
    */
   async setSignature(content: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const editFetch = await fetch(
       `https://scratch.mit.edu/discuss/settings/${this.session.sessionJSON.user.username}/`,
       {

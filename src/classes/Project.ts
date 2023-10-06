@@ -168,12 +168,12 @@ class Project {
 
   /**
    * Comment on a studio
-   * @param content The content of the 
+   * @param content The content of the
    * @param parent_id The comment ID of the parent
    * @param commentee_id The ID of the user to ping in the starting
    */
   async comment(content: string, parent_id?: number, commentee_id?: number) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://api.scratch.mit.edu/proxy/comments/project/${this.id}`,
       {
@@ -208,20 +208,24 @@ class Project {
   }
 
   async setCommentsAllowed(state: boolean) {
-    if(!this.session) throw Error("You need to be logged in")
-    const request = await fetch(`https://api.scratch.mit.edu/projects/${this.id}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        comments_allowed: state
-      }),
-      headers: {
-        "X-Token": this.session.sessionJSON.user.token,
-        "Content-Type": "application/json",
-        Origin: "https://scratch.mit.edu",
-        Referer: "https://scratch.mit.edu/"
+    if (!this.session) throw Error("You need to be logged in");
+    const request = await fetch(
+      `https://api.scratch.mit.edu/projects/${this.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          comments_allowed: state
+        }),
+        headers: {
+          "X-Token": this.session.sessionJSON.user.token,
+          "Content-Type": "application/json",
+          Origin: "https://scratch.mit.edu",
+          Referer: "https://scratch.mit.edu/"
+        }
       }
-    });
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`)
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
   }
 
   /**
@@ -229,7 +233,7 @@ class Project {
    * @param value The value you want to set the title to.
    */
   async setTitle(value: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}`,
       {
@@ -257,7 +261,7 @@ class Project {
    * @param value The value you want to set the instructions to.
    */
   async setInstructions(value: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}`,
       {
@@ -286,7 +290,7 @@ class Project {
    * @param value The value you want to set the Notes and Credits to.
    */
   async setNotesAndCredits(value: string) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}`,
       {
@@ -315,7 +319,7 @@ class Project {
    * @param buffer The buffer of the thumbnail image file
    */
   async setThumbnail(buffer: Buffer) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://scratch.mit.edu/internalapi/project/thumbnail/${this.id}/set/`,
       {
@@ -337,7 +341,7 @@ class Project {
    * Unshares the project (requires ownership of the project).
    */
   async unshare() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://scratch.mit.edu/site-api/projects/all/${this.id}/`,
       {
@@ -366,7 +370,7 @@ class Project {
    * Check if the user is loving the project
    */
   async isLoving() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}/loves/user/${this.session.sessionJSON.user.username}`,
       {
@@ -390,7 +394,7 @@ class Project {
    * Check if the user is favoriting the project
    */
   async isFavoriting() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}/favorites/user/${this.session.sessionJSON.user.username}`,
       {
@@ -416,7 +420,7 @@ class Project {
    * @param loving Either true or false
    */
   async setLoving(loving: boolean) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://api.scratch.mit.edu/proxy/projects/${this.id}/loves/user/${this.session.sessionJSON.user.username}`,
       {
@@ -449,7 +453,7 @@ class Project {
    * @param favoriting Either true or false
    */
   async setFavoriting(favoriting: boolean) {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const request = await fetch(
       `https://api.scratch.mit.edu/proxy/projects/${this.id}/favorites/user/${this.session.sessionJSON.user.username}`,
       {
@@ -480,7 +484,7 @@ class Project {
    * Shares the project (requires ownership of the project).
    */
   async share() {
-    if(!this.session) throw Error("You need to be logged in")
+    if (!this.session) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://api.scratch.mit.edu/proxy/projects/${this.id}/share/`,
       {

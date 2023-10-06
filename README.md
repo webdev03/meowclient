@@ -20,9 +20,11 @@ const me = new Profile(session, session.username);
 console.log("My status is " + (await me.getStatus()));
 await session.logout();
 ```
+
 This uses exclusively ESM (ECMAScript Modules) instead of CJS due to some dependencies meowclient uses.
 
 ## Getting Help
+
 You can get help using Meowclient from the [official Meowclient forum topic](https://scratch.mit.edu/discuss/topic/574321/)
 
 ## Thanks

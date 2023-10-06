@@ -6,54 +6,65 @@ type PartialMessage = {
   datetime_created: string;
   actor_username: string;
   actor_id: number;
-}
+};
 
-type Message = PartialMessage & ({
-  type: "studioactivity";
-  gallery_id: number;
-  title: string;
-} | {
-  type: "forumpost";
-  topic_id: number;
-  topic_title: string;
-} | {
-  type: "addcomment";
-  comment_type: number;
-  comment_obj_id: number;
-  comment_id: number;
-  comment_fragment: string;
-  comment_obj_title: string;
-  commentee_username: string;
-} | {
-  type: "followuser";
-  followed_user_id: number;
-  followed_username: string;
-} | {
-  type: "loveproject";
-  project_id: number;
-  title: string;
-} | {
-  type: "favoriteproject";
-  project_id: number;
-  project_title: string;
-} | {
-  type: "remixproject";
-  title: string;
-  parent_id: number;
-  parent_title: string;
-} | {
-  type: "becomehoststudio";
-  former_host_username: string;
-  recipient_id: number;
-  recipient_username: string;
-  gallery_id: number;
-  gallery_title: string;
-  admin_actor: boolean;
-} | {
-  type: "curatorinvite";
-  title: string;
-  gallery_id: number;
-});
+type Message = PartialMessage &
+  (
+    | {
+        type: "studioactivity";
+        gallery_id: number;
+        title: string;
+      }
+    | {
+        type: "forumpost";
+        topic_id: number;
+        topic_title: string;
+      }
+    | {
+        type: "addcomment";
+        comment_type: number;
+        comment_obj_id: number;
+        comment_id: number;
+        comment_fragment: string;
+        comment_obj_title: string;
+        commentee_username: string;
+      }
+    | {
+        type: "followuser";
+        followed_user_id: number;
+        followed_username: string;
+      }
+    | {
+        type: "loveproject";
+        project_id: number;
+        title: string;
+      }
+    | {
+        type: "favoriteproject";
+        project_id: number;
+        project_title: string;
+      }
+    | {
+        type: "remixproject";
+        title: string;
+        parent_id: number;
+        parent_title: string;
+      }
+    | {
+        type: "becomehoststudio";
+        former_host_username: string;
+        recipient_id: number;
+        recipient_username: string;
+        gallery_id: number;
+        gallery_title: string;
+        admin_actor: boolean;
+      }
+    | {
+        type: "curatorinvite";
+        title: string;
+        gallery_id: number;
+      }
+  );
 
 /**
  * Manages a Scratch session.
@@ -65,7 +76,7 @@ class ScratchSession {
     token: string;
     cookieSet: string;
     sessionJSON: SessionJSON;
-  }
+  };
 
   /**
    * Sets up the ScratchSession to use authenticated functions.
@@ -96,10 +107,8 @@ class ScratchSession {
     }
 
     const setCookie = loginReq.headers.get("set-cookie");
-    if(!setCookie) throw Error("Something went wrong");
-    const csrfToken = /scratchcsrftoken=(.*?);/gm.exec(
-      setCookie
-    )![1];
+    if (!setCookie) throw Error("Something went wrong");
+    const csrfToken = /scratchcsrftoken=(.*?);/gm.exec(setCookie)![1];
     const token = /"(.*)"/gm.exec(setCookie)![1];
     const cookieSet =
       "scratchcsrftoken=" +
@@ -128,7 +137,7 @@ class ScratchSession {
       token,
       cookieSet,
       sessionJSON
-    }
+    };
   }
 
   /**
@@ -141,7 +150,7 @@ class ScratchSession {
    * await session.uploadToAssets(fs.readFileSync("photo.png"), "png"); // returns URL to image
    */
   async uploadToAssets(buffer: Buffer, fileExtension: string) {
-    if(!this.auth) throw Error("You must be logged in to use this");
+    if (!this.auth) throw Error("You must be logged in to use this");
     const md5hash = createHash("md5").update(buffer).digest("hex");
     const upload = await fetch(
       `https://assets.scratch.mit.edu/${md5hash}.${fileExtension}`,
@@ -221,15 +230,19 @@ class ScratchSession {
    * @param offset The offset of messages
    */
   async getMessages(limit: number = 40, offset: number = 0) {
-    if(!this.auth) throw Error("You must be logged in to use this");
-    const request = await fetch(`https://api.scratch.mit.edu/users/${this.auth.username}/messages?limit=${limit}&offset=${offset}`, {
-      headers: {
-        Origin: "https://scratch.mit.edu",
-        Referer: "https://scratch.mit.edu/",
-        "X-Token": this.auth.sessionJSON.user.token
+    if (!this.auth) throw Error("You must be logged in to use this");
+    const request = await fetch(
+      `https://api.scratch.mit.edu/users/${this.auth.username}/messages?limit=${limit}&offset=${offset}`,
+      {
+        headers: {
+          Origin: "https://scratch.mit.edu",
+          Referer: "https://scratch.mit.edu/",
+          "X-Token": this.auth.sessionJSON.user.token
+        }
       }
-    });
-    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
     return (await request.json()) as Message[];
   }
 
@@ -237,7 +250,7 @@ class ScratchSession {
    * Logs out of Scratch.
    */
   async logout() {
-    if(!this.auth) throw Error("You must be logged in to use this");
+    if (!this.auth) throw Error("You must be logged in to use this");
     const logoutFetch = await fetch(
       "https://scratch.mit.edu/accounts/logout/",
       {
@@ -258,7 +271,7 @@ class ScratchSession {
     );
     if (!logoutFetch.ok) {
       throw new Error(`Error in logging out. ${logoutFetch.status}`);
-    };
+    }
     this.auth = undefined;
   }
 }

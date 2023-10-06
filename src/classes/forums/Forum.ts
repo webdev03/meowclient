@@ -45,7 +45,7 @@ class Forum {
         .getAttribute("href")!
         .split("/")
         .splice(1)[3];
-      const title = child.querySelector("strong")!.innerText;
+      const title = child.querySelector("strong")!.text;
       const replyCount = Number(
         child.querySelector(".item span")!.innerText.split(" ")[0]
       );

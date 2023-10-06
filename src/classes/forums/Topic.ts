@@ -71,7 +71,7 @@ class Topic {
         parsableContent: parsableContent,
         author: child
           .getElementsByTagName("header")[0]
-          .getElementsByTagName("h1")[0].innerText
+          .getElementsByTagName("h1")[0].text
       });
       posts.push(post);
     });

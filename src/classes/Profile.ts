@@ -139,10 +139,7 @@ class Profile {
         }
       }
     );
-    if (!delFetch.ok) {
-      console.log(delFetch.status, await delFetch.text());
-      throw new Error("Error deleting comment.");
-    }
+    if (!delFetch.ok) throw new Error("Error deleting comment.");
   }
 
   private async getUserHTML() {

@@ -1,23 +1,17 @@
 import { Session, UserAgent } from "../../Consts";
-import { HTMLElement } from "node-html-parser";
+import { parse, HTMLElement } from "node-html-parser";
 
 class Post {
   id: number;
   session: Session;
-  content: string;
-  parsableContent: HTMLElement;
-  author: string;
-  time: Date;
-  constructor({
-    id,
-    session,
-    content,
-    parsableContent,
-    author,
-    time
-  }: {
-    id: number;
-    session: Session;
+  data?: {
+    content: string;
+    parsableContent: HTMLElement;
+    author: string;
+    time: Date;
+  };
+
+  constructor(session: Session, id: number, data?: {
     content: string;
     parsableContent: HTMLElement;
     author: string;
@@ -25,10 +19,24 @@ class Post {
   }) {
     this.id = id;
     this.session = session;
-    this.content = content;
-    this.author = author;
-    this.parsableContent = parsableContent;
-    this.time = time;
+    if (data) this.data = data;
+  }
+
+  async setData() {
+    const request = await fetch(`https://scratch.mit.edu/discuss/m/post/${this.id}`);
+    if(!request.ok) throw Error(`Request failed with status ${request.status}`);
+    const dom = parse(await request.text());
+    const postEl = dom.getElementById(`post-${this.id}`);
+    this.data = {
+      parsableContent: postEl.querySelector(".post-content")!,
+      content: postEl.querySelector(".post-content")!.text,
+      author: postEl
+      .getElementsByTagName("header")[0]
+      .getElementsByTagName("h1")[0].text,
+      time: new Date(
+        postEl.querySelector("time")!.getAttribute("datetime")!
+      ),
+    }
   }
 
   /**

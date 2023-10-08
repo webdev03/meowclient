@@ -63,9 +63,7 @@ class Topic {
       const time = new Date(
         child.querySelector("time")!.getAttribute("datetime")!
       );
-      const post = new Post({
-        id: Number(id),
-        session: this.session,
+      const post = new Post(this.session, Number(id), {
         content: content,
         time: time,
         parsableContent: parsableContent,

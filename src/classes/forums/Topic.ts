@@ -9,27 +9,59 @@ import { streamToString } from "../../utils";
 class Topic {
   id: number;
   session: Session;
-  sticky?: boolean;
-  title?: string;
-  replyCount?: number;
-  constructor({
-    id,
-    session,
-    sticky,
-    title,
-    replyCount
-  }: {
-    id: number;
-    session: Session;
+  data?: {
     sticky?: boolean;
-    title?: string;
-    replyCount?: number;
-  }) {
+    title: string;
+    replyCount: number;
+  };
+  constructor(
+    session: Session,
+    id: number,
+    data?: {
+      sticky: boolean;
+      title: string;
+      replyCount: number;
+    }
+  ) {
     this.id = id;
     this.session = session;
-    this.sticky = sticky;
-    this.title = title;
-    this.replyCount = replyCount;
+    if (data) this.data = data;
+  }
+
+  async setData() {
+    const request = await fetch(
+      `https://scratch.mit.edu/discuss/m/topic/${this.id}`
+    );
+    if (!request.ok)
+      throw Error(`Request failed with status ${request.status}`);
+    const dom = parse(await request.text());
+    const pageCount =
+      Number(dom.querySelector(".pagination > li:last-child span")?.text) || 1;
+    let replyCount = 0;
+    if (pageCount === 1)
+      replyCount = dom.querySelectorAll("article").length - 1;
+    else {
+      const lastPageReq = await fetch(
+        `https://scratch.mit.edu/discuss/m/topic/${this.id}/?page=${pageCount}`
+      );
+      if (!lastPageReq.ok)
+        throw Error(`Request failed with status ${request.status}`);
+      const lastPageDom = parse(await lastPageReq.text());
+      replyCount =
+        (pageCount - 1) * 20 +
+        lastPageDom.querySelectorAll("article").length -
+        1;
+    }
+
+    this.data = {
+      title: dom
+        .querySelector("nav > h1")!
+        .childNodes.filter((node) => node.nodeType === 3)
+        .map((node) => node.text)
+        .join("")
+        .trim(),
+      replyCount
+    };
   }
 
   /**

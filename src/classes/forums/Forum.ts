@@ -53,12 +53,10 @@ class Forum {
         child.querySelector(".item span")!.innerText.split(" ")[0]
       );
       const isSticky = child.classList.contains("sticky");
-      const topic = new Topic({
-        id: Number(id),
+      const topic = new Topic(this.session, Number(id), {
         title: title,
         replyCount: replyCount,
-        sticky: isSticky,
-        session: this.session
+        sticky: isSticky
       });
       topics.push(topic);
     });

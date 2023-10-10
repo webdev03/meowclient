@@ -80,7 +80,7 @@ class Forum {
     form.append("AddPostForm", "");
     const encoder = new FormDataEncoder(form);
     const request = await fetch(
-      `https://scratch.mit.edu/discuss/${this.id}/topic/add`,
+      `https://scratch.mit.edu/discuss/${this.id}/topic/add/`,
       {
         method: "POST",
         body: await streamToString(Readable.from(encoder.encode())),

@@ -11,9 +11,12 @@ class PacketCloud extends events.EventEmitter {
     super();
     this.connection = connection;
     this.connection.on("set", (data) => {
-      if (String(data.name).includes("FROM_USER_")) {
-        const [name, value] = [...decode(data.value)];
-        for(const fn of this.onRequestListeners) fn(name, value);
+      if (String(data.name).includes("FROM_USER")) {
+        const decoder = decode(data.value);
+        const name = decoder.next().value;
+        const value = decoder.next().value;
+        if(!name || !value) return;
+        for(const fn of this.onRequestListeners) try { fn(name, value) } catch(e) { console.error(e) };
         this.emit(name, value);
       }
     });

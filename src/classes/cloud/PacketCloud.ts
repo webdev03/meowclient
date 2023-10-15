@@ -2,11 +2,9 @@ import type CloudConnection from "./CloudConnection";
 import events from "events";
 import { encode, decode } from "./utils";
 
-type OnRequestFn = (name: string, value: string) => void;
-
 class PacketCloud extends events.EventEmitter {
   connection: CloudConnection;
-  onRequestListeners: OnRequestFn[] = [];
+  onRequest = Symbol("onRequest");
   constructor(connection: CloudConnection) {
     super();
     this.connection = connection;
@@ -16,15 +14,10 @@ class PacketCloud extends events.EventEmitter {
         const name = decoder.next().value;
         const value = decoder.next().value;
         if(!name || !value) return;
-        for(const fn of this.onRequestListeners) try { fn(name, value) } catch(e) { console.error(e) };
+        this.emit(this.onRequest, name, value);
         this.emit(name, value);
       }
     });
-  }
-
-  onRequest(fn: OnRequestFn) {
-    this.onRequestListeners.push(fn);
-    return this;
   }
 
   send(name: string, value: string) {

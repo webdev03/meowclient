@@ -22,7 +22,6 @@ class PacketCloud extends events.EventEmitter {
 
   send(name: string, value: string) {
     const val = encode(name) + encode(value);
-    if (val.length > 250) console.warn("Packet length is greater than 250!");
     this.connection.setVariable(`FROM_SERVER_SEND`, val);
   }
 }

@@ -215,6 +215,30 @@ class Studio {
   }
 
   /**
+   * Accepts an invite to a studio
+   * You can check if you have an invite with the getUserData function
+   */
+  async acceptInvite() {
+    if (!this.session) throw Error("You need to be logged in");
+    const req = await fetch(
+      `https://scratch.mit.edu/site-api/users/curators-in/${this.id}/add/?usernames=${this.session.sessionJSON.user.username}`,
+      {
+        method: "PUT",
+        headers: {
+          "User-Agent": UserAgent,
+          "X-CSRFToken": this.session.csrfToken,
+          Cookie: this.session.cookieSet,
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/studios/${this.id}/curators`
+        }
+      }
+    );
+    if(!req.ok) {
+      throw Error(`Could not join studio -- did you get an invite? ${req.statusText}`);
+    };
+  }
+
+  /**
    * Check if you are a manager, a curator, invited, or following the studio
    */
   async getUserData() {
@@ -230,13 +254,13 @@ class Studio {
     );
     if (!req.ok) {
       throw new Error(`Could not get data - ${req.statusText}`);
-    };
-    return await req.json() as {
+    }
+    return (await req.json()) as {
       manager: boolean;
       curator: boolean;
       invited: boolean;
       following: boolean;
-    }
+    };
   }
 
   /**

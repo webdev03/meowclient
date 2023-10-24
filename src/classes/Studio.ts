@@ -215,6 +215,31 @@ class Studio {
   }
 
   /**
+   * Check if you are a manager, a curator, invited, or following the studio
+   */
+  async getUserData() {
+    if (!this.session) throw Error("You need to be logged in");
+    const req = await fetch(
+      `https://api.scratch.mit.edu/studios/${this.id}/users/${this.session.sessionJSON.user.username}`,
+      {
+        headers: {
+          "User-Agent": UserAgent,
+          "X-Token": this.session.sessionJSON.user.token
+        }
+      }
+    );
+    if (!req.ok) {
+      throw new Error(`Could not get data - ${req.statusText}`);
+    };
+    return await req.json() as {
+      manager: boolean;
+      curator: boolean;
+      invited: boolean;
+      following: boolean;
+    }
+  }
+
+  /**
    * Adds a project to the studio.
    * @param project The project ID to add to the studio.
    */

@@ -233,9 +233,11 @@ class Studio {
         }
       }
     );
-    if(!req.ok) {
-      throw Error(`Could not join studio -- did you get an invite? ${req.statusText}`);
-    };
+    if (!req.ok) {
+      throw Error(
+        `Could not join studio -- did you get an invite? ${req.statusText}`
+      );
+    }
   }
 
   /**

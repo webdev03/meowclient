@@ -13,7 +13,7 @@ class PacketCloud extends events.EventEmitter {
         const decoder = decode(data.value);
         const name = decoder.next().value;
         const value = decoder.next().value;
-        if(!name || !value) return;
+        if (!name || !value) return;
         this.emit(this.onRequest, name, value);
         this.emit(name, value);
       }

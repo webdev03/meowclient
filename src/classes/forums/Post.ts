@@ -26,6 +26,9 @@ class Post {
     if (data) this.data = data;
   }
 
+  /**
+   * Gets data from the Scratch website and sets the Post.data
+   */
   async setData() {
     const request = await fetch(
       `https://scratch.mit.edu/discuss/m/post/${this.id}`

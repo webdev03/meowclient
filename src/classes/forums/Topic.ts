@@ -28,6 +28,9 @@ class Topic {
     if (data) this.data = data;
   }
 
+  /**
+   * Gets data from the Scratch website and sets the Topic.data
+   */
   async setData() {
     const request = await fetch(
       `https://scratch.mit.edu/discuss/m/topic/${this.id}`

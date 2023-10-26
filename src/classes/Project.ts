@@ -207,6 +207,9 @@ class Project {
     return Number((await request.json())["id"]);
   }
 
+  /**
+   * Set if comments should be allowed or not
+   */
   async setCommentsAllowed(state: boolean) {
     if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(

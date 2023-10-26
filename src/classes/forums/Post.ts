@@ -62,12 +62,12 @@ class Post {
    * @param content The new content of the post
    */
   async edit(content: string) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const editFetch = await fetch(
       `https://scratch.mit.edu/discuss/post/${this.id}/edit/`,
       {
         headers: {
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           "User-Agent": UserAgent,
           Accept:
             "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -80,7 +80,7 @@ class Post {
         },
         method: "POST",
         body: `csrfmiddlewaretoken=${
-          this.session.csrfToken
+          this.session.auth.csrfToken
         }&body=${encodeURIComponent(content)}`
       }
     );

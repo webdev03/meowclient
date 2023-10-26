@@ -70,10 +70,10 @@ class Forum {
    * @param body The body of the topic
    */
   async createTopic(title: string, body: string) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     if (!this.id) throw Error("You need to add a forum id");
     const form = new FormData();
-    form.append("csrfmiddlewaretoken", this.session.csrfToken);
+    form.append("csrfmiddlewaretoken", this.session.auth.csrfToken);
     form.append("name", title);
     form.append("body", body);
     form.append("subscribe", "on");
@@ -85,11 +85,11 @@ class Forum {
         method: "POST",
         body: await streamToString(Readable.from(encoder.encode())),
         headers: {
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           "User-Agent": UserAgent,
           Accept: "*/*",
-          "X-CSRFToken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
+          "X-CSRFToken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           "x-requested-with": "XMLHttpRequest",
           "Accept-Encoding": "gzip, deflate, br",
           "Cache-Control": "no-cache",
@@ -109,12 +109,12 @@ class Forum {
    * @param content The content to set the signature to
    */
   async setSignature(content: string) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const editFetch = await fetch(
-      `https://scratch.mit.edu/discuss/settings/${this.session.sessionJSON.user.username}/`,
+      `https://scratch.mit.edu/discuss/settings/${this.session.auth.sessionJSON.user.username}/`,
       {
         headers: {
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           "User-Agent": UserAgent,
           Accept:
             "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -123,11 +123,11 @@ class Forum {
           "Content-Type": "application/x-www-form-urlencoded",
           Host: "scratch.mit.edu",
           Origin: "https://scratch.mit.edu",
-          Referer: `https://scratch.mit.edu/discuss/settings/${this.session.sessionJSON.user.username}/`
+          Referer: `https://scratch.mit.edu/discuss/settings/${this.session.auth.sessionJSON.user.username}/`
         },
         method: "POST",
         body: `csrfmiddlewaretoken=${
-          this.session.csrfToken
+          this.session.auth.csrfToken
         }&signature=${encodeURIComponent(content)}&update=`
       }
     );

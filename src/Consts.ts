@@ -1,3 +1,5 @@
+import ScratchSession from "./ScratchSession";
+
 interface SessionJSON {
   user: {
     id: number;
@@ -44,14 +46,7 @@ interface SessionJSON {
   };
 }
 
-type Session =
-  | {
-      csrfToken: string;
-      token: string;
-      cookieSet: string;
-      sessionJSON: SessionJSON;
-    }
-  | undefined;
+type Session = ScratchSession | undefined;
 
 const UserAgent = "Mozilla/5.0";
 

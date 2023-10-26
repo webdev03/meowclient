@@ -173,7 +173,7 @@ class Project {
    * @param commentee_id The ID of the user to ping in the starting
    */
   async comment(content: string, parent_id?: number, commentee_id?: number) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
       `https://api.scratch.mit.edu/proxy/comments/project/${this.id}`,
       {
@@ -184,9 +184,9 @@ class Project {
           parent_id: parent_id || ""
         }),
         headers: {
-          "X-CSRFToken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
-          Cookie: this.session.cookieSet,
+          "X-CSRFToken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
+          Cookie: this.session.auth.cookieSet,
           Referer: `https://scratch.mit.edu/`,
           "Content-Type": "application/json",
           TE: "trailers",
@@ -208,7 +208,7 @@ class Project {
   }
 
   async setCommentsAllowed(state: boolean) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}`,
       {
@@ -217,7 +217,7 @@ class Project {
           comments_allowed: state
         }),
         headers: {
-          "X-Token": this.session.sessionJSON.user.token,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           "Content-Type": "application/json",
           Origin: "https://scratch.mit.edu",
           Referer: "https://scratch.mit.edu/"
@@ -233,7 +233,7 @@ class Project {
    * @param value The value you want to set the title to.
    */
   async setTitle(value: string) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}`,
       {
@@ -242,8 +242,8 @@ class Project {
           title: value
         }),
         headers: {
-          "x-csrftoken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
+          "x-csrftoken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           "x-requested-with": "XMLHttpRequest",
           referer: `https://scratch.mit.edu/projects/${this.id}/`,
           "User-Agent": UserAgent,
@@ -261,7 +261,7 @@ class Project {
    * @param value The value you want to set the instructions to.
    */
   async setInstructions(value: string) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}`,
       {
@@ -270,8 +270,8 @@ class Project {
           instructions: value
         }),
         headers: {
-          "x-csrftoken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
+          "x-csrftoken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           "x-requested-with": "XMLHttpRequest",
           referer: `https://scratch.mit.edu/projects/${this.id}/`,
           "User-Agent": UserAgent,
@@ -290,7 +290,7 @@ class Project {
    * @param value The value you want to set the Notes and Credits to.
    */
   async setNotesAndCredits(value: string) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://api.scratch.mit.edu/projects/${this.id}`,
       {
@@ -299,8 +299,8 @@ class Project {
           description: value
         }),
         headers: {
-          "x-csrftoken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
+          "x-csrftoken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           "x-requested-with": "XMLHttpRequest",
           referer: `https://scratch.mit.edu/projects/${this.id}/`,
           "User-Agent": UserAgent,
@@ -319,16 +319,16 @@ class Project {
    * @param buffer The buffer of the thumbnail image file
    */
   async setThumbnail(buffer: Buffer) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
       `https://scratch.mit.edu/internalapi/project/thumbnail/${this.id}/set/`,
       {
         method: "POST",
         body: buffer,
         headers: {
-          "X-CSRFToken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
-          Cookie: this.session.cookieSet,
+          "X-CSRFToken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
+          Cookie: this.session.auth.cookieSet,
           "User-Agent": UserAgent
         }
       }
@@ -341,7 +341,7 @@ class Project {
    * Unshares the project (requires ownership of the project).
    */
   async unshare() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://scratch.mit.edu/site-api/projects/all/${this.id}/`,
       {
@@ -350,10 +350,10 @@ class Project {
           isPublished: false
         }),
         headers: {
-          "x-csrftoken": this.session.csrfToken,
-          "X-Token": this.session.token,
+          "x-csrftoken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.token,
           "x-requested-with": "XMLHttpRequest",
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           referer: `https://scratch.mit.edu/projects/${this.id}/`,
           "User-Agent": UserAgent,
           accept: "application/json",
@@ -370,15 +370,15 @@ class Project {
    * Check if the user is loving the project
    */
   async isLoving() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
-      `https://api.scratch.mit.edu/projects/${this.id}/loves/user/${this.session.sessionJSON.user.username}`,
+      `https://api.scratch.mit.edu/projects/${this.id}/loves/user/${this.session.auth.sessionJSON.user.username}`,
       {
         headers: {
           "User-Agent": UserAgent,
           Accept: "*/*",
           "Accept-Language": "en, en;q=0.8",
-          "X-Token": this.session.sessionJSON.user.token,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           Pragma: "no-cache",
           "Cache-Control": "no-cache"
         },
@@ -394,15 +394,15 @@ class Project {
    * Check if the user is favoriting the project
    */
   async isFavoriting() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
-      `https://api.scratch.mit.edu/projects/${this.id}/favorites/user/${this.session.sessionJSON.user.username}`,
+      `https://api.scratch.mit.edu/projects/${this.id}/favorites/user/${this.session.auth.sessionJSON.user.username}`,
       {
         headers: {
           "User-Agent": UserAgent,
           Accept: "*/*",
           "Accept-Language": "en, en;q=0.8",
-          "X-Token": this.session.sessionJSON.user.token,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           Pragma: "no-cache",
           "Cache-Control": "no-cache"
         },
@@ -420,16 +420,16 @@ class Project {
    * @param loving Either true or false
    */
   async setLoving(loving: boolean) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
-      `https://api.scratch.mit.edu/proxy/projects/${this.id}/loves/user/${this.session.sessionJSON.user.username}`,
+      `https://api.scratch.mit.edu/proxy/projects/${this.id}/loves/user/${this.session.auth.sessionJSON.user.username}`,
       {
         method: loving ? "POST" : "DELETE",
         headers: {
-          "X-CSRFToken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
+          "X-CSRFToken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           "x-requested-with": "XMLHttpRequest",
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           Referer: `https://scratch.mit.edu/projects/${this.id}/`,
           "User-Agent": UserAgent,
           Accept: "*/*",
@@ -453,16 +453,16 @@ class Project {
    * @param favoriting Either true or false
    */
   async setFavoriting(favoriting: boolean) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
-      `https://api.scratch.mit.edu/proxy/projects/${this.id}/favorites/user/${this.session.sessionJSON.user.username}`,
+      `https://api.scratch.mit.edu/proxy/projects/${this.id}/favorites/user/${this.session.auth.sessionJSON.user.username}`,
       {
         method: favoriting ? "POST" : "DELETE",
         headers: {
-          "X-CSRFToken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
+          "X-CSRFToken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           "x-requested-with": "XMLHttpRequest",
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           Referer: `https://scratch.mit.edu/projects/${this.id}/`,
           "User-Agent": UserAgent,
           Accept: "*/*",
@@ -484,16 +484,16 @@ class Project {
    * Shares the project (requires ownership of the project).
    */
   async share() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const setFetch = await fetch(
       `https://api.scratch.mit.edu/proxy/projects/${this.id}/share/`,
       {
         method: "PUT",
         headers: {
-          "X-CSRFToken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
+          "X-CSRFToken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           "x-requested-with": "XMLHttpRequest",
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           Referer: `https://scratch.mit.edu/projects/${this.id}/`,
           "User-Agent": UserAgent,
           Accept: "application/json",

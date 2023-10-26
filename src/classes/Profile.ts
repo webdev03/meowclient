@@ -47,9 +47,9 @@ interface ProfileComment {
 class Profile {
   user: string;
   session: Session;
-  constructor(session: ScratchSession, username: string) {
+  constructor(session: Session, username: string) {
     this.user = username;
-    this.session = session.auth;
+    this.session = session;
   }
 
   /**
@@ -69,16 +69,16 @@ class Profile {
    * Follow the user
    */
   async follow() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
-      `https://scratch.mit.edu/site-api/users/followers/${this.user}/add/?usernames=${this.session.sessionJSON.user.username}`,
+      `https://scratch.mit.edu/site-api/users/followers/${this.user}/add/?usernames=${this.session.auth.sessionJSON.user.username}`,
       {
         method: "PUT",
         headers: {
-          "x-csrftoken": this.session.csrfToken,
-          "X-Token": this.session.token,
+          "x-csrftoken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.token,
           "x-requested-with": "XMLHttpRequest",
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           referer: `https://scratch.mit.edu/users/${this.user}/`,
           "User-Agent": UserAgent,
           accept: "application/json",
@@ -94,16 +94,16 @@ class Profile {
    * Unfollow the user
    */
   async unfollow() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
-      `https://scratch.mit.edu/site-api/users/followers/${this.user}/remove/?usernames=${this.session.sessionJSON.user.username}`,
+      `https://scratch.mit.edu/site-api/users/followers/${this.user}/remove/?usernames=${this.session.auth.sessionJSON.user.username}`,
       {
         method: "PUT",
         headers: {
-          "x-csrftoken": this.session.csrfToken,
-          "X-Token": this.session.token,
+          "x-csrftoken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.token,
           "x-requested-with": "XMLHttpRequest",
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           referer: `https://scratch.mit.edu/users/${this.user}/`,
           "User-Agent": UserAgent,
           accept: "application/json",
@@ -120,7 +120,7 @@ class Profile {
    * @param id The comment ID, for example 12345, *not* comment-12345.
    */
   async deleteComment(id: string | number) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const delFetch = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/del/`,
       {
@@ -129,10 +129,10 @@ class Profile {
           id: id.toString()
         }),
         headers: {
-          "x-csrftoken": this.session.csrfToken,
-          "X-Token": this.session.token,
+          "x-csrftoken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.token,
           "x-requested-with": "XMLHttpRequest",
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
 
           referer: `https://scratch.mit.edu/users/${this.user}`,
           "User-Agent": UserAgent
@@ -264,14 +264,14 @@ class Profile {
    * Toggle the comments section on the profile
    */
   async toggleComments() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const request = await fetch(
       `https://scratch.mit.edu/site-api/comments/user/${this.user}/toggle-comments/`,
       {
         method: "POST",
         headers: {
-          "X-CSRFToken": this.session.csrfToken,
-          Cookie: this.session.cookieSet,
+          "X-CSRFToken": this.session.auth.csrfToken,
+          Cookie: this.session.auth.cookieSet,
           Origin: "https://scratch.mit.edu",
           Referer: `https://scratch.mit.edu/users/${this.user}/`
         }

@@ -32,11 +32,11 @@ class CloudConnection extends events.EventEmitter {
   }
 
   private connect() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     this.open = false;
     this.connection = new WebSocket("wss://clouddata.scratch.mit.edu", {
       headers: {
-        Cookie: this.session.cookieSet,
+        Cookie: this.session.auth.cookieSet,
         Origin: "https://scratch.mit.edu"
       }
     });
@@ -51,11 +51,11 @@ class CloudConnection extends events.EventEmitter {
       }
     });
     this.connection.on("open", () => {
-      if (!this.session) throw Error("You need to be logged in");
+      if (!this.session?.auth) throw Error("You need to be logged in");
       this.open = true;
       this.send({
         method: "handshake",
-        user: this.session.sessionJSON.user.username,
+        user: this.session.auth.sessionJSON.user.username,
         project_id: this.id.toString()
       });
       this.emit("connect", null);
@@ -90,14 +90,14 @@ class CloudConnection extends events.EventEmitter {
    * @param value The value to set the variable to.
    */
   setVariable(variable: string, value: number | string) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const varname = variable.startsWith("☁ ")
       ? variable.substring(2)
       : variable;
     this.variables.set(`☁ ${varname}`, value.toString());
     if (!this.open) {
       this.queue.push({
-        user: this.session.sessionJSON.user.username,
+        user: this.session.auth.sessionJSON.user.username,
         method: "set",
         name: `☁ ${varname}`,
         value: value.toString(),
@@ -106,7 +106,7 @@ class CloudConnection extends events.EventEmitter {
       return;
     }
     this.send({
-      user: this.session.sessionJSON.user.username,
+      user: this.session.auth.sessionJSON.user.username,
       method: "set",
       name: `☁ ${varname}`,
       value: value.toString(),

@@ -114,9 +114,9 @@ class Topic {
    * @param body The body of the post
    */
   async reply(body: string) {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const form = new FormData();
-    form.append("csrfmiddlewaretoken", this.session.csrfToken);
+    form.append("csrfmiddlewaretoken", this.session.auth.csrfToken);
     form.append("body", body);
     form.append("AddPostForm", "");
     const encoder = new FormDataEncoder(form);
@@ -126,11 +126,11 @@ class Topic {
         method: "POST",
         body: await streamToString(Readable.from(encoder.encode())),
         headers: {
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           "User-Agent": UserAgent,
           Accept: "*/*",
-          "X-CSRFToken": this.session.csrfToken,
-          "X-Token": this.session.sessionJSON.user.token,
+          "X-CSRFToken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.sessionJSON.user.token,
           "x-requested-with": "XMLHttpRequest",
           "Accept-Encoding": "gzip, deflate, br",
           "Cache-Control": "no-cache",
@@ -150,16 +150,16 @@ class Topic {
    * Follows the topic.
    */
   async follow() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const followFetch = await fetch(
       `https://scratch.mit.edu/discuss/subscription/topic/${this.id}/add/`,
       {
         method: "POST",
         headers: {
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           "User-Agent": UserAgent,
           Accept: "*/*",
-          "X-CSRFToken": this.session.csrfToken,
+          "X-CSRFToken": this.session.auth.csrfToken,
           "Accept-Encoding": "gzip, deflate, br",
           "Cache-Control": "no-cache",
           "Content-Type": "application/x-www-form-urlencoded",
@@ -180,16 +180,16 @@ class Topic {
    * Unfollows the topic.
    */
   async unfollow() {
-    if (!this.session) throw Error("You need to be logged in");
+    if (!this.session?.auth) throw Error("You need to be logged in");
     const unfollowFetch = await fetch(
       `https://scratch.mit.edu/discuss/subscription/topic/${this.id}/delete/`,
       {
         method: "POST",
         headers: {
-          Cookie: this.session.cookieSet,
+          Cookie: this.session.auth.cookieSet,
           "User-Agent": UserAgent,
           Accept: "*/*",
-          "X-CSRFToken": this.session.csrfToken,
+          "X-CSRFToken": this.session.auth.csrfToken,
           "Accept-Encoding": "gzip, deflate, br",
           "Cache-Control": "no-cache",
           "Content-Type": "application/x-www-form-urlencoded",

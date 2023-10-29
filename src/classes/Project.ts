@@ -167,7 +167,7 @@ class Project {
   }
 
   /**
-   * Comment on a studio
+   * Comment on a project
    * @param content The content of the
    * @param parent_id The comment ID of the parent
    * @param commentee_id The ID of the user to ping in the starting

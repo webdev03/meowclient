@@ -116,6 +116,34 @@ class Profile {
   }
 
   /**
+   * Comment on a profile
+   */
+  async comment(content: string, parent_id?: number, commentee_id?: number) {
+    if (!this.session?.auth) throw Error("You need to be logged in");
+    const req = await fetch(
+      `https://scratch.mit.edu/site-api/comments/user/${this.user}/add/`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          content,
+          parent_id: parent_id || "",
+          commentee_id: commentee_id || ""
+        }),
+        headers: {
+          "X-CSRFToken": this.session.auth.csrfToken,
+          "X-Token": this.session.auth.token,
+          "x-requested-with": "XMLHttpRequest",
+          Cookie: this.session.auth.cookieSet,
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/users/${this.user}`,
+          "User-Agent": UserAgent
+        }
+      }
+    );
+    if (!req.ok) throw new Error("Error adding comment.");
+  }
+
+  /**
    * Deletes a comment.
    * @param id The comment ID, for example 12345, *not* comment-12345.
    */
@@ -133,7 +161,6 @@ class Profile {
           "X-Token": this.session.auth.token,
           "x-requested-with": "XMLHttpRequest",
           Cookie: this.session.auth.cookieSet,
-
           referer: `https://scratch.mit.edu/users/${this.user}`,
           "User-Agent": UserAgent
         }

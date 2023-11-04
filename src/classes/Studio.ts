@@ -335,7 +335,6 @@ class Studio {
           Accept: "application/json",
           "Accept-Language": "en, en;q=0.8",
           Origin: "https://scratch.mit.edu",
-          Host: "api.scratch.mit.edu",
           "Cache-Control": "no-cache",
           Pragma: "no-cache",
           Connection: "keep-alive",

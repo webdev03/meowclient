@@ -122,7 +122,6 @@ class ScratchSession {
         Cookie: cookieSet,
         "User-Agent": UserAgent,
         Referer: "https://scratch.mit.edu/",
-        Host: "scratch.mit.edu",
         "Cache-Control": "max-age=0, no-cache",
         "X-Requested-With": "XMLHttpRequest",
         Pragma: "no-cache",
@@ -161,7 +160,6 @@ class ScratchSession {
           Cookie: this.auth.cookieSet,
           "User-Agent": UserAgent,
           Referer: "https://scratch.mit.edu/",
-          Host: "assets.scratch.mit.edu",
           "Cache-Control": "no-cache",
           Pragma: "no-cache",
           Accept: "*/*",
@@ -262,7 +260,6 @@ class ScratchSession {
           accept: "application/json",
           Referer: "https://scratch.mit.edu/",
           Origin: "https://scratch.mit.edu",
-          Host: "scratch.mit.edu",
           "Content-Type": "application/x-www-form-urlencoded",
           Accept: "*/*",
           "Accept-Encoding": "gzip, deflate, br"

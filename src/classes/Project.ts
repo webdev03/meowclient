@@ -194,7 +194,6 @@ class Project {
           Accept: "application/json",
           "Accept-Language": "en, en;q=0.8",
           Origin: "https://scratch.mit.edu",
-          Host: "api.scratch.mit.edu",
           "Cache-Control": "no-cache",
           Pragma: "no-cache",
           Connection: "keep-alive",
@@ -438,7 +437,6 @@ class Project {
           Accept: "*/*",
           "Content-Length": "0",
           Origin: "https://scratch.mit.edu",
-          Host: "api.scratch.mit.edu",
           "Cache-Control": "max-age=0, no-cache",
           Pragma: "no-cache",
           "Accept-Encoding": "gzip, deflate, br"
@@ -471,7 +469,6 @@ class Project {
           Accept: "*/*",
           "Content-Length": "0",
           Origin: "https://scratch.mit.edu",
-          Host: "api.scratch.mit.edu",
           "Cache-Control": "max-age=0, no-cache",
           Pragma: "no-cache",
           "Accept-Encoding": "gzip, deflate, br"
@@ -503,7 +500,6 @@ class Project {
           "Content-Type": "application/json",
           "Content-Length": "0",
           Origin: "https://scratch.mit.edu",
-          Host: "api.scratch.mit.edu",
           "Cache-Control": "max-age=0, no-cache",
           Pragma: "no-cache",
           "Accept-Encoding": "gzip, deflate, br"

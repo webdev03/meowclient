@@ -121,7 +121,6 @@ class Forum {
           "Accept-Encoding": "gzip, deflate, br",
           "Cache-Control": "no-cache",
           "Content-Type": "application/x-www-form-urlencoded",
-          Host: "scratch.mit.edu",
           Origin: "https://scratch.mit.edu",
           Referer: `https://scratch.mit.edu/discuss/settings/${this.session.auth.sessionJSON.user.username}/`
         },

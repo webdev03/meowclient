@@ -4,6 +4,7 @@ export { default as Studio } from "./classes/Studio";
 export { default as Project } from "./classes/Project";
 export { default as CloudConnection } from "./classes/cloud/CloudConnection";
 export { default as PacketCloud } from "./classes/cloud/PacketCloud";
+export { default as CloudSerialiser } from "./classes/cloud/CloudSerialiser";
 export { default as Forum } from "./classes/forums/Forum";
 export { default as Topic } from "./classes/forums/Topic";
 export { default as Post } from "./classes/forums/Post";

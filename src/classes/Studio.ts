@@ -129,7 +129,9 @@ class Studio {
         headers: {
           "User-Agent": UserAgent,
           "X-CSRFToken": this.session.auth.csrfToken,
-          Cookie: this.session.auth.cookieSet
+          Cookie: this.session.auth.cookieSet,
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/studios/${this.id}`
         },
         body: JSON.stringify({
           title: value
@@ -154,7 +156,9 @@ class Studio {
         headers: {
           "User-Agent": UserAgent,
           "X-CSRFToken": this.session.auth.csrfToken,
-          Cookie: this.session.auth.cookieSet
+          Cookie: this.session.auth.cookieSet,
+          Origin: "https://scratch.mit.edu",
+          Referer: `https://scratch.mit.edu/studios/${this.id}`
         },
         body: JSON.stringify({
           description: value

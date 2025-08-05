@@ -1,5 +1,7 @@
 # Meowclient
 
+**NOTE: THIS PROJECT IS NO LONGER BEING MAINTAINED**
+
 A library to connect to [Scratch](https://scratch.mit.edu/).
 
 ## Installation
